@@ -1,330 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GB Tech — Build Your Own PC</title>
-<style>
-:root{--bg:#080a0e;--panel:#11151b;--panel2:#151a21;--line:rgba(255,255,255,.08);--blue:#3d7bff;--gold:#d6b35c;--text:#f4f6fa;--muted:#8d96a5;--danger:#ff647c;--ok:#55d68b}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% 0%,rgba(61,123,255,.10),transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.container{width:min(1400px,94%);margin:auto}.top{padding:42px 0 28px;border-bottom:1px solid var(--line)}.brand{font-size:13px;letter-spacing:.2em;color:var(--gold);font-weight:700}.title{font-size:clamp(30px,4vw,54px);margin:10px 0 7px;letter-spacing:-.04em}.subtitle{color:var(--muted);max-width:720px}
-.layout{display:grid;grid-template-columns:1fr 380px;gap:24px;padding:26px 0 60px}.builder,.summary,.catalog{background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:20px}.builder{padding:20px}.summary{padding:22px;height:max-content;position:sticky;top:20px}.step{padding:20px 4px;border-bottom:1px solid var(--line)}.step:last-child{border:0}.stephead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.stepname{font-weight:750;font-size:17px}.selected{font-size:12px;color:var(--blue)}.product{display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);padding:10px;border-radius:14px}.product img{width:70px;height:70px;object-fit:contain;background:#0b0e13;border-radius:10px}.pname{font-weight:650;font-size:14px;line-height:1.35}.meta{font-size:12px;color:var(--muted);margin-top:5px}.price{font-weight:800;margin-top:7px}.btn{border:1px solid rgba(61,123,255,.45);background:rgba(61,123,255,.12);color:#dce7ff;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}.btn:hover{background:rgba(61,123,255,.2)}.summary h2{margin:0 0 18px}.total{font-size:30px;font-weight:850;margin:6px 0 22px}.compat{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}.dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex:none}.ok .dot{background:var(--ok)}.bad .dot{background:var(--danger)}.warn .dot{background:var(--gold)}.status{padding:14px;border-radius:13px;margin-top:18px;font-weight:750}.status.ok{background:rgba(85,214,139,.08);color:var(--ok)}.status.bad{background:rgba(255,100,124,.08);color:var(--danger)}.status.warn{background:rgba(214,179,92,.08);color:var(--gold)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;z-index:10;padding:5vh 4%}.modal.open{display:block}.modalbox{max-width:1000px;height:90vh;margin:auto;background:#0e1218;border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}.modalhead{padding:20px;border-bottom:1px solid var(--line);display:flex;gap:12px}.search{flex:1;background:#090c11;border:1px solid var(--line);color:white;padding:13px 15px;border-radius:11px;outline:none}.close{background:none;border:0;color:var(--muted);font-size:24px;cursor:pointer}.filters{display:flex;gap:8px;overflow:auto;padding:12px 20px;border-bottom:1px solid var(--line)}.chip{white-space:nowrap;border:1px solid var(--line);background:transparent;color:var(--muted);padding:8px 11px;border-radius:20px;cursor:pointer}.chip.active{border-color:var(--blue);color:white;background:rgba(61,123,255,.12)}.list{padding:18px 20px;overflow:auto;display:grid;gap:9px}.choice{display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:13px;background:var(--panel);border:1px solid var(--line);padding:9px;border-radius:12px;cursor:pointer}.choice:hover{border-color:rgba(61,123,255,.55)}.choice img{width:58px;height:58px;object-fit:contain;background:#090c11;border-radius:8px}.empty{color:var(--muted);padding:30px;text-align:center}.product-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-
-/* Frontend layout fixes */
-.toolbar{padding:26px 0 0;display:flex;justify-content:flex-start}
-.pdf-download-btn{width:100%;max-width:none;min-height:48px;font-size:14px}
-.layout{align-items:start}
-.builder{min-width:0;overflow:hidden}
-.summary{min-width:0}
-.summary-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
-.summary-head h2{margin:0}
-.summary-label{font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:700}
-.summary .total{padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:4px}
-.step{padding:18px 4px}
-.step:first-child{padding-top:4px}
-.stephead{margin-bottom:12px}
-.product{min-width:0}
-.product > div:nth-child(2){min-width:0}
-.pname{overflow-wrap:anywhere}
-.product-actions .btn,.product-actions .learn-more-btn{white-space:nowrap}
-.learn-more-btn{margin-top:0}
-.compatibility-disclaimer{margin-bottom:2px}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.summary{position:static}.product{grid-template-columns:58px 1fr}.product img{width:58px;height:58px}.product .btn{grid-column:2}.summary{order:-1}.toolbar{padding-top:18px}.builder{padding:16px}.summary{padding:18px}.product-actions{justify-content:flex-start}.modal{padding:3vh 3%}.modalbox{height:94vh}.choice{grid-template-columns:52px 1fr}.choice img{width:52px;height:52px}.choice .product-actions{grid-column:2}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GB Tech — Build Your Own PC</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<style>
-.learn-more-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    margin-top: 10px;
-    padding: 9px 14px;
-    border: 1px solid rgba(61,123,255,.55);
-    border-radius: 7px;
-    background: rgba(61,123,255,.08);
-    color: #fff;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    transition: .2s ease;
-}
-.learn-more-btn:hover {
-    background: rgba(61,123,255,.18);
-    border-color: #3D7BFF;
-}
-.pdf-download-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 11px 16px;
-    border: 1px solid #D6B35C;
-    border-radius: 8px;
-    background: rgba(214,179,92,.08);
-    color: #fff;
-    cursor: pointer;
-    font-weight: 700;
-}
-.pdf-download-btn:hover {
-    background: rgba(214,179,92,.16);
-}
-.compatibility-disclaimer {
-    margin-top: 24px;
-    padding: 16px 18px;
-    border: 1px solid rgba(214,179,92,.28);
-    border-radius: 10px;
-    background: rgba(255,255,255,.025);
-    color: rgba(255,255,255,.72);
-    font-size: 12px;
-    line-height: 1.6;
-}
-.compatibility-disclaimer strong {
-    color: #D6B35C;
-}
-</style>
-
+<script src="app.js"></script>
 </head>
 <body>
-<header class="top"><div class="container"><div class="brand">GB TECH</div><h1 class="title">Build Your Own PC</h1><div class="subtitle">Choose your components and check the build as you go. Prices, images and product links come directly from your GB Tech product data.</div></div></header>
-<div class="container toolbar">
-    <button type="button" class="pdf-download-btn" onclick="downloadSelectedPDF()">
-        ↓ Download Selected Items as PDF
-    </button>
-</div>
 
-<main class="container layout">
-    <section class="builder" id="builder"></section>
+  <!-- =========================================================
+       GB TECH — PAGE HEADER
+       ========================================================= -->
+<header class="top">
 
-    <aside class="summary">
-        <div class="summary-head">
-            <h2>Your Build</h2>
-            <span class="summary-label">LIVE TOTAL</span>
+  <div class="container">
+
+    <div class="header-logo">
+      <img
+        src="media/GB tech logo.png"
+        alt="GB Tech"
+      >
+    </div>
+
+    <div class="header-content">
+
+      <div class="brand">
+        GB TECH
+      </div>
+
+      <h1 class="title">
+        Build Your Own PC
+      </h1>
+
+      <p class="subtitle">
+        Choose your components and check the build as you go.
+        Prices, images and product links come directly from your GB Tech product data.
+      </p>
+
+    </div>
+
+  </div>
+
+</header>
+
+  <main class="container">
+
+    <!-- =======================================================
+         TOOLBAR
+         ======================================================= -->
+    <div class="toolbar">
+      <button type="button" class="pdf-download-btn" onclick="downloadSelectedPDF()">
+        ↓&nbsp; Download Selected Items as PDF
+      </button>
+    </div>
+
+    <!-- =======================================================
+         MAIN BUILDER
+         Product data is loaded by app.js from:
+         ./pc_components_normalized.json
+         ======================================================= -->
+    <div class="build-layout">
+
+      <section class="builder-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="panel-kicker">COMPONENT SELECTION</span>
+            <h2>Your Components</h2>
+          </div>
+          <span class="live-badge">LIVE</span>
         </div>
+
+        <div id="builder" class="builder-list">
+          <div class="loading">Loading GB Tech products...</div>
+        </div>
+      </section>
+
+      <aside class="summary-panel">
+        <div class="panel-heading summary-heading">
+          <div>
+            <span class="panel-kicker">BUILD SUMMARY</span>
+            <h2>Your Build</h2>
+          </div>
+          <span class="summary-label">LIVE TOTAL</span>
+        </div>
+
         <div class="total" id="total">PKR 0</div>
+
         <div id="compat"></div>
         <div id="status"></div>
+
         <div class="compatibility-disclaimer">
-            <strong>Compatibility disclaimer</strong><br>
-            This builder performs basic compatibility checks using the product specifications available in the GB Tech product data. It does not guarantee complete system compatibility. Always verify detailed specifications with the manufacturer before purchasing.
+          <strong>Compatibility disclaimer</strong>
+          <p>
+            This builder performs basic compatibility checks using the product specifications
+            available in the GB Tech product data. It does not guarantee complete system
+            compatibility. Always verify detailed specifications with the manufacturer before purchasing.
+          </p>
         </div>
-    </aside>
-</main>
-<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><input id="search" class="search" placeholder="Search products..."><button class="close" onclick="closeModal()">×</button></div><div class="filters" id="filters"></div><div class="list" id="list"></div></div></div>
-<script>
-const PRODUCTS = [];
-async function loadProducts(){
-  try{
-    const response=await fetch("./pc_components_normalized.json", {cache:"no-store"});
-    if(!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data=await response.json();
+      </aside>
 
-    if(!Array.isArray(data)){
-      throw new Error("pc_components_normalized.json must contain an array of products.");
-    }
+    </div>
+  </main>
 
-    PRODUCTS.push(...data);
-    render();
-  }catch(error){
-    console.error("Could not load product data:", error);
-    document.getElementById("builder").innerHTML =
-      '<div class="empty">Could not load product data. Make sure <b>pc_components_normalized.json</b> is in the same folder as index.html.</div>';
-  }
-}
+  <!-- =========================================================
+       PRODUCT SELECTION MODAL
+       ========================================================= -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <span class="panel-kicker">GB TECH CATALOG</span>
+          <h2 id="modal-title">Choose a product</h2>
+        </div>
+        <button class="close-btn" type="button" onclick="closeModal()" aria-label="Close">×</button>
+      </div>
 
-const categories = ["motherboard","graphics_card","ram","case","cooling","power_supply","fan"];
-const labels={motherboard:"Motherboard",graphics_card:"Graphics Card",ram:"RAM",case:"Case",cooling:"CPU Cooling",power_supply:"Power Supply",fan:"Case Fans"};
-let build={}; let currentType=""; let brand="All";
-window.gbTechBuild = build;
+      <div class="modal-tools">
+        <input id="search" class="search-input" type="search" placeholder="Search products..." autocomplete="off">
+        <div class="filters" id="filters"></div>
+      </div>
 
-const money=n=>new Intl.NumberFormat("en-PK",{maximumFractionDigits:0}).format(Number(n)||0);
-const productsBy=t=>PRODUCTS.filter(p=>(p.Compatibility?.type||"").toLowerCase()===t);
-const image=p=>p.Image||"";
-const safePrice=p=>Number(p.Price)||0;
+      <div class="product-list" id="list"></div>
+    </div>
+  </div>
 
-function render(){
- document.getElementById("builder").innerHTML=categories.map((t,i)=>{
-   const p=build[t];
-   return `<div class="step"><div class="stephead"><div class="stepname">${i+1}. ${labels[t]}</div><div class="selected">${p? "Selected":"Not selected"}</div></div>
-   ${p?`<div class="product selected-product" data-selected-product="true"><img src="${image(p)}" onerror="this.style.display='none'"><div><div class="pname">${p["Product Name"]}</div><div class="meta">${p.Brand||""}</div><div class="price">PKR ${money(safePrice(p))}</div></div><div class="product-actions"><button class="btn" onclick="openModal('${t}')">Change</button>${p["Product URL"]?`<a class="btn" href="${p["Product URL"]}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">View Product</a>`:""}</div></div>`
-      :`<button class="btn" onclick="openModal('${t}')">Choose ${labels[t]}</button>`}</div>`
- }).join("");
- updateSummary();
-}
-
-function updateSummary(){
- let total=Object.values(build).reduce((s,p)=>s+safePrice(p),0);
- document.getElementById("total").textContent="PKR "+money(total);
- const c=checks(); 
- document.getElementById("compat").innerHTML=c.map(x=>`<div class="compat ${x.level}"><span class="dot"></span><div><b>${x.title}</b><br>${x.text}</div></div>`).join("");
- const bad=c.some(x=>x.level==="bad"), warn=c.some(x=>x.level==="warn");
- const st=document.getElementById("status");
- st.className="status "+(bad?"bad":warn?"warn":"ok");
- st.textContent=bad?"Compatibility issue found":warn?"Build passes, but some details are unavailable":"Build passes basic checks";
-}
-
-function checks(){
- const out=[]; const m=build.motherboard,r=build.ram,g=build.graphics_card,c=build.case,cool=build.cooling,psu=build.power_supply;
- if(m&&r){
-   const mt=(m.Compatibility?.memory_type||"").toUpperCase(), rt=(r.Compatibility?.memory_type||"").toUpperCase();
-   const inferred=(r.Compatibility?.speed||"").toUpperCase().includes("DDR5")?"DDR5":(r.Compatibility?.speed||"").toUpperCase().includes("DDR4")?"DDR4":"";
-   const ramType=rt||inferred;
-   if(mt&&ramType) out.push({title:"Motherboard ↔ RAM",level:mt===ramType?"ok":"bad",text:mt===ramType?`Motherboard uses ${mt} and RAM is ${ramType}.`:`Motherboard uses ${mt}, but RAM is ${ramType}.`});
-   else out.push({title:"Motherboard ↔ RAM",level:"warn",text:"Memory type information is unavailable."});
- }
- if(m&&c){
-   const mf=(m.Compatibility?.form_factor||"").toLowerCase(), cf=(c.Compatibility?.form_factor||"").toLowerCase();
-   if(mf&&cf) out.push({title:"Motherboard ↔ Case",level:(cf.includes(mf)||mf.includes(cf))?"ok":"bad",text:`Motherboard: ${mf}; case support: ${cf}.`});
-   else out.push({title:"Motherboard ↔ Case",level:"warn",text:"Case or motherboard form-factor details are unavailable."});
- }
- if(g&&psu){
-   const watts=Number(psu.Compatibility?.wattage), rec=Number(g.Compatibility?.recommended_psu_wattage);
-   if(watts&&rec) out.push({title:"Graphics Card ↔ Power Supply",level:watts>=rec?"ok":"bad",text:`PSU provides ${watts}W; GPU recommends ${rec}W.`});
-   else out.push({title:"Graphics Card ↔ Power Supply",level:"warn",text:"PSU wattage or GPU recommendation is unavailable."});
- }
- if(m&&cool){
-   const sockets=(cool.Compatibility?.supported_sockets||cool.Compatibility?.socket_support||[]);
-   const ms=m.Compatibility?.socket;
-   if(ms&&sockets.length) out.push({title:"Motherboard ↔ Cooling",level:sockets.includes(ms)?"ok":"bad",text:sockets.includes(ms)?`Cooler supports ${ms}.`:`Cooler does not list support for ${ms}.`});
-   else out.push({title:"Motherboard ↔ Cooling",level:"warn",text:"CPU socket support information is unavailable."});
- }
- if(g&&c){
-   const gl=Number(g.Compatibility?.length_mm), cc=Number(c.Compatibility?.gpu_clearance_mm);
-   if(gl&&cc) out.push({title:"Graphics Card ↔ Case",level:gl<=cc?"ok":"bad",text:gl<=cc?`GPU is ${gl}mm; case clearance is ${cc}mm.`:`GPU is ${gl}mm but case clearance is ${cc}mm.`});
-   else out.push({title:"Graphics Card ↔ Case",level:"warn",text:"GPU length or case clearance is unavailable."});
- }
- if(build.fan&&c){
-   const fs=Number(build.fan.Compatibility?.size_mm), cs=c.Compatibility?.fan_support;
-   if(fs&&cs) out.push({title:"Fan ↔ Case",level:"ok",text:`Fan size: ${fs}mm; case fan support is available.`});
-   else out.push({title:"Fan ↔ Case",level:"warn",text:"Fan/case size information could not be verified."});
- }
- return out;
-}
-
-function openModal(t){
- currentType=t; brand="All"; document.getElementById("modal").classList.add("open"); document.getElementById("search").value="";
- const brands=["All",...new Set(productsBy(t).map(p=>p.Brand).filter(Boolean))];
- document.getElementById("filters").innerHTML=brands.map(b=>`<button class="chip ${b===brand?"active":""}" onclick="setBrand('${String(b).replaceAll("'","&#39;")}')">${b}</button>`).join("");
- renderList();
-}
-function closeModal(){document.getElementById("modal").classList.remove("open")}
-function setBrand(b){brand=b;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x.textContent===b));renderList()}
-function renderList(){
- const q=document.getElementById("search").value.toLowerCase();
- let arr=productsBy(currentType).filter(p=>(brand==="All"||p.Brand===brand)&&(p["Product Name"]||"").toLowerCase().includes(q));
- document.getElementById("list").innerHTML=arr.map((p,i)=>`<div class="choice" onclick="selectProduct('${p["Product ID"]}')"><img src="${image(p)}" onerror="this.style.display='none'"><div><div class="pname">${p["Product Name"]}</div><div class="meta">${p.Brand||""} · ${p.Category||""}</div><div class="price">PKR ${money(safePrice(p))}</div></div><div class="product-actions"><strong>PKR ${money(safePrice(p))}</strong>${p["Product URL"]?`<a class="btn" href="${p["Product URL"]}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">View Product</a>`:""}</div></div>`).join("")||`<div class="empty">No products found.</div>`;
-}
-function selectProduct(id){const p=PRODUCTS.find(x=>String(x["Product ID"])===String(id));if(p){build[currentType]=p;closeModal();render()}}
-document.getElementById("search").addEventListener("input",renderList);
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
-loadProducts();
-</script>
-
-<script>
-async function downloadSelectedPDF() {
-    const { jsPDF } = window.jspdf || {};
-    if (!jsPDF) {
-        alert("PDF library could not be loaded. Please check your internet connection and try again.");
-        return;
-    }
-
-    // Try to read the current selected components from the page.
-    const selected = [];
-    const selectors = [
-        '[data-selected-product]',
-        '.selected-product',
-        '.selected-item',
-        '.selection-item'
-    ];
-
-    document.querySelectorAll(selectors.join(',')).forEach(el => {
-        const text = el.innerText?.trim();
-        if (text) selected.push(text);
-    });
-
-    // Fallback: inspect common selected-component variables if the app exposes them.
-    if (!selected.length) {
-        const candidates = [
-            window.selectedComponents,
-            window.selectedProducts,
-            window.selectedItems,
-            window.gbTechBuild
-        ];
-        for (const obj of candidates) {
-            if (!obj) continue;
-            if (Array.isArray(obj)) {
-                obj.forEach(x => selected.push(
-                    typeof x === 'string' ? x : (x?.['Product Name'] || x?.name || JSON.stringify(x))
-                ));
-            } else if (typeof obj === 'object') {
-                Object.entries(obj).forEach(([type, item]) => {
-                    if (item) selected.push(
-                        `${type.replaceAll('_',' ').toUpperCase()}: ${item?.['Product Name'] || item?.name || item}`
-                    );
-                });
-            }
-            if (selected.length) break;
-        }
-    }
-
-    if (!selected.length) {
-        alert("Please select your PC components first.");
-        return;
-    }
-
-    const doc = new jsPDF();
-    const margin = 18;
-    let y = 20;
-
-    doc.setFontSize(18);
-    doc.setFont(undefined, "bold");
-    doc.text("GB TECH — PC BUILD", margin, y);
-    y += 10;
-
-    doc.setFontSize(10);
-    doc.setFont(undefined, "normal");
-    doc.text(`Generated: ${new Date().toLocaleDateString()}`, margin, y);
-    y += 12;
-
-    doc.setFontSize(12);
-    doc.setFont(undefined, "bold");
-    doc.text("Selected Components", margin, y);
-    y += 8;
-
-    doc.setFontSize(10);
-    doc.setFont(undefined, "normal");
-
-    for (const item of selected) {
-        const lines = doc.splitTextToSize("• " + item, 174);
-        if (y + lines.length * 5 > 275) {
-            doc.addPage();
-            y = 20;
-        }
-        doc.text(lines, margin, y);
-        y += lines.length * 5 + 3;
-    }
-
-    y += 7;
-    if (y > 250) {
-        doc.addPage();
-        y = 20;
-    }
-
-    doc.setFontSize(9);
-    doc.setFont(undefined, "bold");
-    doc.text("Compatibility Notice", margin, y);
-    y += 5;
-    doc.setFont(undefined, "normal");
-
-    const notice = "This tool performs basic compatibility checks using available product specifications. It does not guarantee complete system compatibility. Always verify detailed specifications with the manufacturer before purchasing.";
-    const noticeLines = doc.splitTextToSize(notice, 174);
-    doc.text(noticeLines, margin, y);
-
-    doc.save("GB-Tech-PC-Build.pdf");
-}
-</script>
+  <!-- =========================================================
+       ALL APPLICATION LOGIC LIVES HERE
+       Edit app.js for product/data/function changes.
+       ========================================================= -->
+  <script src="app.js"></script>
 
 </body>
 </html>
