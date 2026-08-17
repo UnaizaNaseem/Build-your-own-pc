@@ -3,29 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>GB Tech — Build Your Own PC</title>
+
   <link rel="stylesheet" href="styles.css">
+
+  <!-- PDF library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="app.js"></script>
 </head>
+
 <body>
 
   <!-- =========================================================
        GB TECH — PAGE HEADER
        ========================================================= -->
-<header class="top">
+  <header class="top">
 
-  <div class="container">
+  <div class="header-container">
 
+    <!-- LOGO -->
     <div class="header-logo">
       <img
         src="media/GB tech logo.png"
         alt="GB Tech"
+        class="gb-tech-logo"
       >
     </div>
 
+    <!-- HEADER CONTENT -->
     <div class="header-content">
 
       <div class="brand">
@@ -47,90 +52,213 @@
 
 </header>
 
+
+  <!-- =========================================================
+       MAIN BUILDER
+       ========================================================= -->
   <main class="container">
 
     <!-- =======================================================
          TOOLBAR
          ======================================================= -->
     <div class="toolbar">
-      <button type="button" class="pdf-download-btn" onclick="downloadSelectedPDF()">
+
+      <button
+        type="button"
+        class="pdf-download-btn"
+        onclick="downloadSelectedPDF()"
+      >
         ↓&nbsp; Download Selected Items as PDF
       </button>
+
     </div>
 
+
     <!-- =======================================================
-         MAIN BUILDER
-         Product data is loaded by app.js from:
-         ./pc_components_normalized.json
+         BUILDER + SUMMARY
          ======================================================= -->
     <div class="build-layout">
 
+      <!-- BUILDER -->
       <section class="builder-panel">
+
         <div class="panel-heading">
+
           <div>
-            <span class="panel-kicker">COMPONENT SELECTION</span>
-            <h2>Your Components</h2>
+            <span class="panel-kicker">
+              COMPONENT SELECTION
+            </span>
+
+            <h2>
+              Your Components
+            </h2>
           </div>
-          <span class="live-badge">LIVE</span>
+
+          <span class="live-badge">
+            LIVE
+          </span>
+
         </div>
 
-        <div id="builder" class="builder-list">
-          <div class="loading">Loading GB Tech products...</div>
+
+        <!--
+          app.js loads products into this element.
+        -->
+        <div
+          id="builder"
+          class="builder-list"
+        >
+
+          <div class="loading">
+            Loading GB Tech products...
+          </div>
+
         </div>
+
       </section>
 
+
+      <!-- SUMMARY -->
       <aside class="summary-panel">
+
         <div class="panel-heading summary-heading">
+
           <div>
-            <span class="panel-kicker">BUILD SUMMARY</span>
-            <h2>Your Build</h2>
+
+            <span class="panel-kicker">
+              BUILD SUMMARY
+            </span>
+
+            <h2>
+              Your Build
+            </h2>
+
           </div>
-          <span class="summary-label">LIVE TOTAL</span>
+
+          <span class="summary-label">
+            LIVE TOTAL
+          </span>
+
         </div>
 
-        <div class="total" id="total">PKR 0</div>
 
+        <!-- TOTAL -->
+        <div
+          class="total"
+          id="total"
+        >
+          PKR 0
+        </div>
+
+
+        <!-- COMPATIBILITY -->
         <div id="compat"></div>
+
+
+        <!-- STATUS -->
         <div id="status"></div>
 
+
+        <!-- DISCLAIMER -->
         <div class="compatibility-disclaimer">
-          <strong>Compatibility disclaimer</strong>
+
+          <strong>
+            Compatibility disclaimer
+          </strong>
+
           <p>
-            This builder performs basic compatibility checks using the product specifications
-            available in the GB Tech product data. It does not guarantee complete system
-            compatibility. Always verify detailed specifications with the manufacturer before purchasing.
+            This builder performs basic compatibility checks using the
+            product specifications available in the GB Tech product data.
+            It does not guarantee complete system compatibility.
+            Always verify detailed specifications with the manufacturer
+            before purchasing.
           </p>
+
         </div>
+
       </aside>
 
     </div>
+
   </main>
+
 
   <!-- =========================================================
        PRODUCT SELECTION MODAL
        ========================================================= -->
-  <div class="modal" id="modal" aria-hidden="true">
+  <div
+    class="modal"
+    id="modal"
+    aria-hidden="true"
+  >
+
     <div class="modal-box">
+
+      <!-- MODAL HEADER -->
       <div class="modal-header">
+
         <div>
-          <span class="panel-kicker">GB TECH CATALOG</span>
-          <h2 id="modal-title">Choose a product</h2>
+
+          <span class="panel-kicker">
+            GB TECH CATALOG
+          </span>
+
+          <h2 id="modal-title">
+            Choose a product
+          </h2>
+
         </div>
-        <button class="close-btn" type="button" onclick="closeModal()" aria-label="Close">×</button>
+
+        <button
+          class="close-btn"
+          type="button"
+          onclick="closeModal()"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
       </div>
 
+
+      <!-- SEARCH + FILTERS -->
       <div class="modal-tools">
-        <input id="search" class="search-input" type="search" placeholder="Search products..." autocomplete="off">
-        <div class="filters" id="filters"></div>
+
+        <input
+          id="search"
+          class="search-input"
+          type="search"
+          placeholder="Search products..."
+          autocomplete="off"
+        >
+
+        <div
+          class="filters"
+          id="filters"
+        ></div>
+
       </div>
 
-      <div class="product-list" id="list"></div>
+
+      <!-- PRODUCT RESULTS -->
+      <div
+        class="product-list"
+        id="list"
+      ></div>
+
     </div>
+
   </div>
 
+
   <!-- =========================================================
-       ALL APPLICATION LOGIC LIVES HERE
-       Edit app.js for product/data/function changes.
+       APPLICATION LOGIC
+       
+       IMPORTANT:
+       app.js is loaded ONLY ONCE and AFTER the HTML.
+       
+       Product data:
+       ./pc_components_normalized.json
        ========================================================= -->
   <script src="app.js"></script>
 
