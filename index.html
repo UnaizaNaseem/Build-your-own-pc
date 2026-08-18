@@ -8,8 +8,11 @@
 
   <link rel="stylesheet" href="styles.css">
 
-  <!-- PDF library -->
+  <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- jsPDF AutoTable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 </head>
 
 <body>
@@ -19,38 +22,36 @@
        ========================================================= -->
   <header class="top">
 
-  <div class="header-container">
+    <div class="header-container">
 
-    <!-- LOGO -->
-    <div class="header-logo">
-      <img
-        src="media/GB tech logo.png"
-        alt="GB Tech"
-        class="gb-tech-logo"
-      >
-    </div>
-
-    <!-- HEADER CONTENT -->
-    <div class="header-content">
-
-      <div class="brand">
-        GB TECH
+      <div class="header-logo">
+        <img
+          src="media/GB tech logo.png"
+          alt="GB Tech"
+          class="gb-tech-logo"
+        >
       </div>
 
-      <h1 class="title">
-        Build Your Own PC
-      </h1>
+      <div class="header-content">
 
-      <p class="subtitle">
-        Choose your components and check the build as you go.
-        Prices, images and product links come directly from your GB Tech product data.
-      </p>
+        <div class="brand">
+          GB TECH
+        </div>
+
+        <h1 class="title">
+          Build Your Own PC
+        </h1>
+
+        <p class="subtitle">
+          Choose your components and check the build as you go.
+          Prices, images and product links come directly from your GB Tech product data.
+        </p>
+
+      </div>
 
     </div>
 
-  </div>
-
-</header>
+  </header>
 
 
   <!-- =========================================================
@@ -58,9 +59,7 @@
        ========================================================= -->
   <main class="container">
 
-    <!-- =======================================================
-         TOOLBAR
-         ======================================================= -->
+    <!-- TOOLBAR -->
     <div class="toolbar">
 
       <button
@@ -68,18 +67,19 @@
         class="pdf-download-btn"
         onclick="downloadSelectedPDF()"
       >
-        ↓&nbsp; Download Selected Items as PDF
+        <span class="download-icon">↓</span>
+        Download Selected Items as PDF
       </button>
 
     </div>
 
 
-    <!-- =======================================================
-         BUILDER + SUMMARY
-         ======================================================= -->
+    <!-- BUILDER + SUMMARY -->
     <div class="build-layout">
 
-      <!-- BUILDER -->
+      <!-- =====================================================
+           BUILDER
+           ===================================================== -->
       <section class="builder-panel">
 
         <div class="panel-heading">
@@ -101,9 +101,6 @@
         </div>
 
 
-        <!--
-          app.js loads products into this element.
-        -->
         <div
           id="builder"
           class="builder-list"
@@ -118,13 +115,14 @@
       </section>
 
 
-      <!-- SUMMARY -->
+      <!-- =====================================================
+           BUILD SUMMARY
+           ===================================================== -->
       <aside class="summary-panel">
 
         <div class="panel-heading summary-heading">
 
           <div>
-
             <span class="panel-kicker">
               BUILD SUMMARY
             </span>
@@ -132,7 +130,6 @@
             <h2>
               Your Build
             </h2>
-
           </div>
 
           <span class="summary-label">
@@ -159,6 +156,28 @@
         <div id="status"></div>
 
 
+        <!-- SHARE QUOTATION -->
+        <button
+          type="button"
+          class="whatsapp-action-btn"
+          onclick="shareQuotationOnWhatsApp()"
+        >
+          <svg
+            class="whatsapp-icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              d="M20.52 3.48A11.78 11.78 0 0 0 12.1 0C5.6 0 .32 5.28.32 11.78c0 2.08.54 4.11 1.57 5.9L.22 24l6.46-1.64a11.77 11.77 0 0 0 5.42 1.3h.01c6.5 0 11.78-5.28 11.78-11.78 0-3.15-1.23-6.11-3.37-8.4ZM12.1 21.66h-.01a9.82 9.82 0 0 1-5.01-1.37l-.36-.21-3.83.97 1.02-3.73-.23-.38a9.82 9.82 0 0 1-1.5-5.16c0-5.42 4.41-9.83 9.83-9.83 2.63 0 5.1 1.03 6.96 2.89a9.77 9.77 0 0 1 2.87 6.96c0 5.42-4.41 9.83-9.82 9.83Zm5.39-7.36c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.75.95-.92 1.14-.17.19-.34.22-.63.07-.29-.15-1.21-.45-2.3-1.43-.85-.76-1.43-1.69-1.6-1.98-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.19.05-.37-.02-.52-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.43s1.04 2.82 1.19 3.02c.15.19 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.69.22 1.31.19 1.81.12.55-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.19-.56-.34Z"
+            />
+          </svg>
+
+          <span>
+            Share Quotation on WhatsApp
+          </span>
+        </button>
+
+
         <!-- DISCLAIMER -->
         <div class="compatibility-disclaimer">
 
@@ -173,6 +192,46 @@
             Always verify detailed specifications with the manufacturer
             before purchasing.
           </p>
+
+        </div>
+
+
+        <!-- ASK GB TECH -->
+        <div class="help-card">
+
+          <span class="help-kicker">
+            NEED HELP?
+          </span>
+
+          <h3>
+            Not sure what to choose?
+          </h3>
+
+          <p>
+            Talk to GB Tech directly and we'll help you with your build.
+          </p>
+
+          <button
+            type="button"
+            class="whatsapp-help-btn"
+            onclick="askGBTechAboutBuild()"
+          >
+
+            <svg
+              class="whatsapp-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M20.52 3.48A11.78 11.78 0 0 0 12.1 0C5.6 0 .32 5.28.32 11.78c0 2.08.54 4.11 1.57 5.9L.22 24l6.46-1.64a11.77 11.77 0 0 0 5.42 1.3h.01c6.5 0 11.78-5.28 11.78-11.78 0-3.15-1.23-6.11-3.37-8.4ZM12.1 21.66h-.01a9.82 9.82 0 0 1-5.01-1.37l-.36-.21-3.83.97 1.02-3.73-.23-.38a9.82 9.82 0 0 1-1.5-5.16c0-5.42 4.41-9.83 9.83-9.83 2.63 0 5.1 1.03 6.96 2.89a9.77 9.77 0 0 1 2.87 6.96c0 5.42-4.41 9.83-9.82 9.83Zm5.39-7.36c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.75.95-.92 1.14-.17.19-.34.22-.63.07-.29-.15-1.21-.45-2.3-1.43-.85-.76-1.43-1.69-1.6-1.98-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.19.05-.37-.02-.52-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.43s1.04 2.82 1.19 3.02c.15.19 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.69.22 1.31.19 1.81.12.55-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.19-.56-.34Z"
+              />
+            </svg>
+
+            <span>
+              Ask GB Tech About This Build
+            </span>
+
+          </button>
 
         </div>
 
@@ -194,11 +253,9 @@
 
     <div class="modal-box">
 
-      <!-- MODAL HEADER -->
       <div class="modal-header">
 
         <div>
-
           <span class="panel-kicker">
             GB TECH CATALOG
           </span>
@@ -206,7 +263,6 @@
           <h2 id="modal-title">
             Choose a product
           </h2>
-
         </div>
 
         <button
@@ -221,7 +277,6 @@
       </div>
 
 
-      <!-- SEARCH + FILTERS -->
       <div class="modal-tools">
 
         <input
@@ -240,7 +295,6 @@
       </div>
 
 
-      <!-- PRODUCT RESULTS -->
       <div
         class="product-list"
         id="list"
@@ -251,15 +305,7 @@
   </div>
 
 
-  <!-- =========================================================
-       APPLICATION LOGIC
-       
-       IMPORTANT:
-       app.js is loaded ONLY ONCE and AFTER the HTML.
-       
-       Product data:
-       ./pc_components_normalized.json
-       ========================================================= -->
+  <!-- APPLICATION -->
   <script src="app.js"></script>
 
 </body>

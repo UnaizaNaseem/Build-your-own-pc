@@ -1,11 +1,6 @@
 /* ============================================================
    GB TECH — BUILD YOUR OWN PC
-   CLEAN MASTER STYLESHEET
-   ============================================================ */
-
-
-/* ============================================================
-   1. VARIABLES
+   MASTER STYLESHEET
    ============================================================ */
 
 :root {
@@ -16,27 +11,29 @@
   --card-hover: #151a21;
 
   --gold: #ffd86d;
-  --gold-soft: rgba(255, 210, 100, 0.55);
-  --gold-faint: rgba(255, 210, 100, 0.14);
+  --gold-soft: rgba(255, 210, 100, .55);
+  --gold-faint: rgba(255, 210, 100, .14);
 
   --blue: #3d7bff;
-  --blue-soft: rgba(61, 123, 255, 0.13);
+  --blue-soft: rgba(61, 123, 255, .13);
 
   --white: #ffffff;
   --text: #f1f3f7;
   --muted: #a5adba;
 
-  --line: rgba(255, 255, 255, 0.09);
+  --line: rgba(255, 255, 255, .09);
 
   --green: #55d68b;
   --red: #ff647c;
 
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.42);
+  --whatsapp: #25d366;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, .42);
 }
 
 
 /* ============================================================
-   2. GLOBAL RESET
+   GLOBAL RESET
    ============================================================ */
 
 * {
@@ -78,7 +75,7 @@ a {
 
 
 /* ============================================================
-   3. FIXED FULL-PAGE TECH BACKGROUND
+   FIXED GB TECH TECH-LINES BACKGROUND
    ============================================================ */
 
 body::before {
@@ -92,8 +89,8 @@ body::before {
 
   background-image:
     linear-gradient(
-      rgba(2, 6, 11, 0.30),
-      rgba(2, 6, 11, 0.70)
+      rgba(2, 6, 11, .35),
+      rgba(2, 6, 11, .72)
     ),
     url("media/GB TECH | tech lines.png");
 
@@ -101,27 +98,27 @@ body::before {
   background-size: cover;
   background-repeat: no-repeat;
 
-  opacity: 0.65;
+  opacity: .62;
 
   filter:
-    brightness(1.15)
-    contrast(1.10)
+    brightness(1.2)
+    contrast(1.12)
     saturate(1.05);
 }
 
 
 /* ============================================================
-   4. MAIN CONTAINER
+   MAIN CONTAINER
    ============================================================ */
 
 .container {
-  width: min(1508px, 94%);
+  width: min(1450px, 94%);
   margin: 0 auto;
 }
 
 
 /* ============================================================
-   5. HEADER
+   HEADER
    ============================================================ */
 
 .top {
@@ -135,13 +132,9 @@ body::before {
   overflow: hidden;
 }
 
-
-/* HEADER INNER */
-
 .header-container {
-  width: min(1350px, 92%);
-
-  min-height: 245px;
+  width: min(1250px, 92%);
+  min-height: 220px;
 
   margin: 0 auto;
 
@@ -153,16 +146,11 @@ body::before {
   padding: 35px 0;
 }
 
-
-/* ============================================================
-   6. HEADER LOGO
-   ============================================================ */
-
 .header-logo {
-  flex: 0 0 220px;
+  flex: 0 0 230px;
 
-  width: 220px;
-  max-width: 220px;
+  width: 230px;
+  max-width: 230px;
 
   display: flex;
   align-items: center;
@@ -172,8 +160,8 @@ body::before {
 .gb-tech-logo {
   display: block;
 
-  width: 220px;
-  max-width: 220px;
+  width: 100%;
+  max-width: 230px;
 
   height: auto;
 
@@ -181,11 +169,6 @@ body::before {
 
   flex-shrink: 0;
 }
-
-
-/* ============================================================
-   7. HEADER CONTENT
-   ============================================================ */
 
 .header-content {
   flex: 1 1 auto;
@@ -195,45 +178,36 @@ body::before {
   text-align: left;
 }
 
-
-/* BRAND */
-
 .brand {
   margin: 0 0 9px;
 
   color: var(--gold);
 
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 750;
 
-  letter-spacing: 2.8px;
+  letter-spacing: 2.5px;
 }
-
-
-/* TITLE */
 
 .title {
   margin: 0 0 14px;
 
   color: var(--white);
 
-  font-size: clamp(40px, 4vw, 58px);
+  font-size: clamp(36px, 4vw, 56px);
 
-  line-height: 1.04;
+  line-height: 1.05;
 
-  font-weight: 800;
+  font-weight: 750;
 
-  letter-spacing: -1px;
+  letter-spacing: -.8px;
 
   text-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.9);
+    0 2px 8px rgba(0, 0, 0, .9);
 }
 
-
-/* SUBTITLE */
-
 .subtitle {
-  max-width: 850px;
+  max-width: 760px;
 
   margin: 0;
 
@@ -244,30 +218,35 @@ body::before {
   line-height: 1.6;
 
   text-shadow:
-    0 1px 4px rgba(0, 0, 0, 0.9);
+    0 1px 4px rgba(0, 0, 0, .9);
 }
 
 
 /* ============================================================
-   8. PDF TOOLBAR
+   PDF TOOLBAR
    ============================================================ */
 
 .toolbar {
-  padding: 24px 0 0;
+  padding: 28px 0 0;
 }
 
 .pdf-download-btn {
   width: 100%;
 
-  min-height: 54px;
+  min-height: 50px;
 
   padding: 12px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
 
   border: 1px solid var(--gold-soft);
 
   border-radius: 8px;
 
-  background: rgba(17, 19, 24, 0.92);
+  background: rgba(17, 19, 24, .88);
 
   color: var(--white);
 
@@ -276,66 +255,61 @@ body::before {
   font-weight: 750;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
 }
 
 .pdf-download-btn:hover {
-  background: rgba(255, 216, 109, 0.08);
+  background: rgba(255, 216, 109, .09);
 
   border-color: var(--gold);
 
   transform: translateY(-1px);
 }
 
+.download-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
 
 /* ============================================================
-   9. MAIN BUILD LAYOUT
+   MAIN BUILD LAYOUT
    ============================================================ */
 
 .build-layout {
   display: grid;
 
-  /*
-     Wide component panel
-     Narrow summary panel
-  */
   grid-template-columns:
-    minmax(0, 2.45fr)
-    minmax(360px, 1fr);
+    minmax(0, 1fr)
+    390px;
 
   gap: 24px;
 
   align-items: start;
 
-  padding: 26px 0 70px;
+  padding: 24px 0 70px;
 }
 
 
 /* ============================================================
-   10. BUILDER + SUMMARY PANELS
+   BUILDER + SUMMARY PANELS
    ============================================================ */
 
 .builder-panel,
 .summary-panel {
   position: relative;
-
   overflow: hidden;
 
-  background: rgba(17, 19, 23, 0.96);
+  background: rgba(17, 19, 24, .94);
 
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid var(--line);
 
   border-radius: 14px;
 
   box-shadow: var(--shadow);
 }
-
-
-/* ============================================================
-   11. TECH LINES INSIDE PANELS
-   ============================================================ */
 
 .builder-panel::before,
 .summary-panel::before {
@@ -345,13 +319,12 @@ body::before {
   inset: 0;
 
   z-index: 0;
-
   pointer-events: none;
 
   background-image:
     linear-gradient(
-      rgba(17, 19, 23, 0.84),
-      rgba(17, 19, 23, 0.94)
+      rgba(17, 19, 24, .88),
+      rgba(17, 19, 24, .96)
     ),
     url("media/GB TECH | tech lines.png");
 
@@ -359,11 +332,8 @@ body::before {
   background-size: cover;
   background-repeat: no-repeat;
 
-  opacity: 0.30;
+  opacity: .35;
 }
-
-
-/* KEEP PANEL CONTENT ABOVE BACKGROUND */
 
 .builder-panel > *,
 .summary-panel > * {
@@ -371,31 +341,20 @@ body::before {
   z-index: 1;
 }
 
-
-/* ============================================================
-   12. BUILDER PANEL
-   ============================================================ */
-
 .builder-panel {
-  min-width: 0;
+  padding: 24px;
 }
-
-
-/* ============================================================
-   13. SUMMARY PANEL
-   ============================================================ */
 
 .summary-panel {
+  padding: 0 0 24px;
+
   position: sticky;
-
   top: 20px;
-
-  min-width: 0;
 }
 
 
 /* ============================================================
-   14. PANEL HEADINGS
+   PANEL HEADINGS
    ============================================================ */
 
 .panel-heading {
@@ -406,7 +365,7 @@ body::before {
 
   gap: 15px;
 
-  padding: 22px 26px;
+  padding: 22px 24px;
 
   border-bottom: 1px solid var(--line);
 }
@@ -416,11 +375,9 @@ body::before {
 
   color: var(--white);
 
-  font-size: 23px;
+  font-size: 22px;
 
   line-height: 1.2;
-
-  font-weight: 800;
 }
 
 .panel-kicker {
@@ -432,22 +389,19 @@ body::before {
 
   font-weight: 800;
 
-  letter-spacing: 1.7px;
+  letter-spacing: 1.5px;
 }
-
-
-/* LIVE BADGE */
 
 .live-badge {
   flex-shrink: 0;
 
   padding: 6px 10px;
 
-  border: 1px solid rgba(85, 214, 139, 0.35);
+  border: 1px solid rgba(85, 214, 139, .35);
 
   border-radius: 5px;
 
-  background: rgba(85, 214, 139, 0.08);
+  background: rgba(85, 214, 139, .08);
 
   color: var(--green);
 
@@ -458,9 +412,6 @@ body::before {
   letter-spacing: 1px;
 }
 
-
-/* SUMMARY LABEL */
-
 .summary-label {
   color: var(--muted);
 
@@ -468,25 +419,25 @@ body::before {
 
   font-weight: 700;
 
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
 }
 
 
 /* ============================================================
-   15. BUILDER LIST
+   BUILDER LIST
    ============================================================ */
 
 .builder-list {
-  padding: 0 26px 20px;
+  padding: 0 24px 20px;
 }
 
 
 /* ============================================================
-   16. BUILD STEPS
+   BUILD STEPS
    ============================================================ */
 
 .step {
-  padding: 24px 0;
+  padding: 20px 4px;
 
   border-bottom: 1px solid var(--line);
 }
@@ -495,11 +446,7 @@ body::before {
   border-bottom: 0;
 }
 
-
-/* STEP HEADER */
-
-.stephead,
-.step-header {
+.stephead {
   display: flex;
 
   align-items: center;
@@ -507,28 +454,18 @@ body::before {
 
   gap: 12px;
 
-  margin-bottom: 14px;
+  margin-bottom: 13px;
 }
 
-
-/* STEP NAME */
-
-.stepname,
-.step-title {
+.stepname {
   color: var(--white);
 
   font-size: 17px;
 
   font-weight: 750;
-
-  line-height: 1.3;
 }
 
-
-/* SELECTED / NOT SELECTED */
-
-.selected,
-.step-description {
+.selected {
   color: var(--blue);
 
   font-size: 11px;
@@ -538,105 +475,90 @@ body::before {
 
 
 /* ============================================================
-   17. PRODUCT CARD
+   PRODUCT CARDS
    ============================================================ */
 
 .product {
   display: grid;
 
   grid-template-columns:
-    78px
+    70px
     minmax(0, 1fr)
     auto;
 
   align-items: center;
 
-  gap: 16px;
+  gap: 15px;
 
-  padding: 13px;
+  padding: 12px;
 
-  background: rgba(13, 17, 23, 0.88);
+  background: rgba(13, 17, 23, .82);
 
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, .07);
 
-  border-radius: 10px;
+  border-radius: 9px;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
+    border-color .2s ease,
+    background .2s ease;
 }
 
 .product:hover {
-  background: rgba(21, 26, 33, 0.95);
+  background: rgba(21, 26, 33, .95);
 
-  border-color: rgba(255, 216, 109, 0.25);
+  border-color: rgba(255, 216, 109, .25);
 }
-
-
-/* PRODUCT IMAGE */
 
 .product img {
   display: block;
 
-  width: 78px;
-  height: 78px;
+  width: 70px;
+  height: 70px;
 
   object-fit: contain;
 
-  border-radius: 7px;
+  border-radius: 6px;
 
-  background: #ffffff;
+  background: #fff;
 }
-
-
-/* PRODUCT INFORMATION */
 
 .product-info {
   min-width: 0;
 }
 
-.product-name {
+.pname {
   color: var(--white);
 
   font-size: 15px;
 
-  font-weight: 700;
+  font-weight: 650;
 
   line-height: 1.4;
-
-  overflow-wrap: anywhere;
 }
 
-.product-price {
-  margin-top: 5px;
+.meta {
+  margin-top: 3px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  line-height: 1.4;
+}
+
+.price {
+  margin-top: 4px;
 
   color: var(--gold);
 
-  font-size: 15px;
+  font-size: 14px;
 
-  font-weight: 800;
+  font-weight: 750;
 }
 
 
 /* ============================================================
-   18. PRODUCT ACTIONS
-   ============================================================ */
-
-.product-actions {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: flex-end;
-
-  gap: 8px;
-
-  flex-wrap: wrap;
-}
-
-
-/* ============================================================
-   19. BUTTONS
+   BUTTONS
    ============================================================ */
 
 .btn,
@@ -645,11 +567,15 @@ body::before {
 
   padding: 9px 14px;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border: 1px solid var(--gold-soft);
 
   border-radius: 7px;
 
-  background: rgba(17, 19, 24, 0.92);
+  background: rgba(17, 19, 24, .9);
 
   color: var(--white);
 
@@ -657,145 +583,375 @@ body::before {
 
   font-size: 12px;
 
-  font-weight: 750;
+  font-weight: 700;
 
   text-decoration: none;
 
   white-space: nowrap;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
 }
 
 .btn:hover,
 .learn-more-btn:hover {
-  background: rgba(255, 216, 109, 0.09);
+  background: rgba(255, 216, 109, .09);
 
   border-color: var(--gold);
 
   color: var(--white);
+
+  transform: translateY(-1px);
+}
+
+.add-product-btn {
+  border-color: rgba(61, 123, 255, .65);
+
+  background: rgba(61, 123, 255, .08);
+}
+
+.add-product-btn:hover {
+  border-color: var(--blue);
+
+  background: rgba(61, 123, 255, .16);
 }
 
 
 /* ============================================================
-   20. SUMMARY
+   SUMMARY
    ============================================================ */
 
-.summary-panel {
-  padding-bottom: 24px;
-}
-
 .summary-heading {
-  padding-left: 26px;
-  padding-right: 26px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
-
-
-/* TOTAL */
 
 .total {
-  padding: 30px 26px 18px;
+  padding: 28px 24px 18px;
 
   color: var(--gold);
 
-  font-size: 36px;
+  font-size: 34px;
 
-  font-weight: 850;
+  font-weight: 800;
 
   line-height: 1;
 }
 
 
 /* ============================================================
-   21. COMPATIBILITY / STATUS
+   COMPATIBILITY
    ============================================================ */
 
-#compat,
-#status {
-  padding: 0 26px;
+#compat {
+  padding: 0 24px;
 }
 
+.compat {
+  display: flex;
 
-/* STATUS */
+  align-items: flex-start;
 
-.status {
-  padding: 14px;
+  gap: 10px;
 
-  margin-top: 18px;
+  padding: 12px 0;
 
-  border-radius: 10px;
-
-  font-weight: 750;
-
-  font-size: 13px;
-}
-
-.status.ok {
-  background: rgba(85, 214, 139, 0.08);
-
-  color: var(--green);
-}
-
-.status.bad {
-  background: rgba(255, 100, 124, 0.08);
-
-  color: var(--red);
-}
-
-.status.warn {
-  background: rgba(214, 179, 92, 0.08);
-
-  color: var(--gold);
-}
-
-
-/* ============================================================
-   22. COMPATIBILITY DISCLAIMER
-   ============================================================ */
-
-.compatibility-disclaimer {
-  margin: 24px 26px;
-
-  padding: 17px;
-
-  background: rgba(2, 6, 11, 0.72);
-
-  border: 1px solid rgba(255, 216, 109, 0.22);
-
-  border-radius: 9px;
-}
-
-.compatibility-disclaimer strong {
-  display: block;
-
-  margin-bottom: 8px;
-
-  color: var(--gold);
-
-  font-size: 12px;
-
-  font-weight: 800;
-}
-
-.compatibility-disclaimer p {
-  margin: 0;
+  border-bottom: 1px solid var(--line);
 
   color: var(--muted);
 
   font-size: 12px;
 
-  line-height: 1.6;
+  line-height: 1.5;
+}
+
+.compat:last-child {
+  border-bottom: 0;
+}
+
+.compat b {
+  color: var(--text);
+
+  font-weight: 700;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+
+  min-width: 8px;
+
+  margin-top: 5px;
+
+  border-radius: 50%;
+}
+
+.compat.ok .dot {
+  background: var(--green);
+}
+
+.compat.bad .dot {
+  background: var(--red);
+}
+
+.compat.warn .dot {
+  background: var(--gold);
 }
 
 
 /* ============================================================
-   23. LOADING
+   STATUS
+   ============================================================ */
+
+#status {
+  padding: 0 24px;
+}
+
+.status {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 14px 16px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+
+  font-weight: 750;
+
+  line-height: 1.45;
+
+  box-sizing: border-box;
+}
+
+.status.ok {
+  background: rgba(85, 214, 139, .09);
+
+  border: 1px solid rgba(85, 214, 139, .14);
+
+  color: var(--green);
+}
+
+.status.bad {
+  background: rgba(255, 100, 124, .09);
+
+  border: 1px solid rgba(255, 100, 124, .14);
+
+  color: var(--red);
+}
+
+/*
+   IMPORTANT:
+   Warning status is deliberately NOT gold.
+   This keeps it visually separate from the gold total.
+*/
+
+.status.warn {
+  background: rgba(61, 123, 255, .08);
+
+  border: 1px solid rgba(61, 123, 255, .16);
+
+  color: #b9c9ed;
+}
+
+
+/* ============================================================
+   WHATSAPP QUOTATION BUTTON
+   ============================================================ */
+
+.whatsapp-action-btn {
+  width: calc(100% - 48px);
+
+  margin: 20px 24px 0;
+
+  min-height: 50px;
+
+  padding: 12px 16px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border: 1px solid rgba(37, 211, 102, .48);
+
+  border-radius: 9px;
+
+  background: rgba(37, 211, 102, .08);
+
+  color: #eafff1;
+
+  cursor: pointer;
+
+  font-size: 13px;
+
+  font-weight: 750;
+
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+.whatsapp-action-btn:hover {
+  background: rgba(37, 211, 102, .15);
+
+  border-color: rgba(37, 211, 102, .8);
+
+  transform: translateY(-1px);
+}
+
+.whatsapp-icon {
+  width: 21px;
+  height: 21px;
+
+  flex: 0 0 auto;
+
+  fill: currentColor;
+}
+
+
+/* ============================================================
+   DISCLAIMER
+   ============================================================ */
+
+.compatibility-disclaimer {
+  margin: 20px 24px 0;
+
+  padding: 16px 17px;
+
+  background: rgba(2, 6, 11, .72);
+
+  border: 1px solid rgba(255, 216, 109, .18);
+
+  border-radius: 9px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+.compatibility-disclaimer strong {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--gold);
+
+  font-size: 12px;
+}
+
+.compatibility-disclaimer p {
+  margin: 0;
+}
+
+
+/* ============================================================
+   HELP CARD
+   ============================================================ */
+
+.help-card {
+  margin: 20px 24px 0;
+
+  padding: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(61, 123, 255, .08),
+      rgba(17, 19, 24, .75)
+    );
+
+  border: 1px solid rgba(61, 123, 255, .22);
+
+  border-radius: 10px;
+}
+
+.help-kicker {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--blue);
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+}
+
+.help-card h3 {
+  margin: 0 0 7px;
+
+  color: var(--white);
+
+  font-size: 16px;
+}
+
+.help-card p {
+  margin: 0 0 16px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+.whatsapp-help-btn {
+  width: 100%;
+
+  min-height: 46px;
+
+  padding: 10px 14px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: 1px solid rgba(37, 211, 102, .45);
+
+  border-radius: 8px;
+
+  background: rgba(37, 211, 102, .07);
+
+  color: #eafff1;
+
+  cursor: pointer;
+
+  font-size: 12px;
+
+  font-weight: 750;
+
+  transition:
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.whatsapp-help-btn:hover {
+  background: rgba(37, 211, 102, .14);
+
+  border-color: rgba(37, 211, 102, .75);
+}
+
+
+/* ============================================================
+   LOADING
    ============================================================ */
 
 .loading {
-  padding: 40px 10px;
+  padding: 35px 10px;
 
   color: var(--muted);
 
@@ -804,14 +960,21 @@ body::before {
   font-size: 13px;
 }
 
+.empty {
+  padding: 40px 20px;
+
+  color: var(--muted);
+
+  text-align: center;
+}
+
 
 /* ============================================================
-   24. MODAL
+   MODAL
    ============================================================ */
 
 .modal {
   position: fixed;
-
   inset: 0;
 
   z-index: 1000;
@@ -823,17 +986,14 @@ body::before {
 
   padding: 4vh 4%;
 
-  background: rgba(0, 0, 0, 0.78);
+  background: rgba(0, 0, 0, .78);
 
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(6px);
 }
 
 .modal.open {
   display: flex;
 }
-
-
-/* MODAL BOX */
 
 .modal-box {
   width: min(1050px, 100%);
@@ -853,12 +1013,12 @@ body::before {
   border-radius: 12px;
 
   box-shadow:
-    0 20px 70px rgba(0, 0, 0, 0.7);
+    0 20px 70px rgba(0, 0, 0, .7);
 }
 
 
 /* ============================================================
-   25. MODAL HEADER
+   MODAL HEADER
    ============================================================ */
 
 .modal-header {
@@ -880,18 +1040,11 @@ body::before {
   color: var(--white);
 
   font-size: 22px;
-
-  font-weight: 800;
 }
 
-
-/* CLOSE */
-
 .close-btn {
-  width: 40px;
-  height: 40px;
-
-  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
 
   border: 1px solid var(--line);
 
@@ -903,7 +1056,7 @@ body::before {
 
   cursor: pointer;
 
-  font-size: 25px;
+  font-size: 24px;
 
   line-height: 1;
 }
@@ -916,11 +1069,13 @@ body::before {
 
 
 /* ============================================================
-   26. MODAL TOOLS
+   MODAL TOOLS
    ============================================================ */
 
 .modal-tools {
   display: flex;
+
+  align-items: center;
 
   gap: 12px;
 
@@ -929,21 +1084,18 @@ body::before {
   border-bottom: 1px solid var(--line);
 }
 
-
-/* SEARCH */
-
 .search-input {
   flex: 1;
 
   width: 100%;
 
-  min-height: 44px;
+  min-height: 42px;
 
-  padding: 10px 14px;
+  padding: 10px 13px;
 
   background: #0d1117;
 
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, .1);
 
   border-radius: 7px;
 
@@ -952,40 +1104,36 @@ body::before {
   outline: none;
 }
 
-.search-input::placeholder {
-  color: #7e8794;
-}
-
 .search-input:focus {
-  border-color: var(--blue);
+  border-color: var(--gold-soft);
 }
-
-
-/* FILTERS */
 
 .filters {
   display: flex;
 
+  align-items: center;
+
   gap: 8px;
 
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 
-  align-items: center;
+  overflow-x: auto;
+
+  max-width: 45%;
+
+  padding-bottom: 2px;
 }
 
-
-/* FILTER BUTTON / CHIP */
-
-.filters button,
-.filter-btn,
 .chip {
+  flex: 0 0 auto;
+
   min-height: 36px;
 
   padding: 8px 13px;
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, .12);
 
-  border-radius: 20px;
+  border-radius: 999px;
 
   background: transparent;
 
@@ -993,37 +1141,35 @@ body::before {
 
   cursor: pointer;
 
-  font-size: 12px;
+  font-size: 11px;
+
+  font-weight: 700;
 
   white-space: nowrap;
 
   transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
+    background .2s ease,
+    border-color .2s ease,
+    color .2s ease;
 }
 
-.filters button:hover,
-.filter-btn:hover,
 .chip:hover {
-  color: var(--white);
+  border-color: rgba(61, 123, 255, .55);
 
-  border-color: var(--blue);
+  color: var(--white);
 }
 
-.filters button.active,
-.filter-btn.active,
 .chip.active {
   border-color: var(--blue);
 
-  background: var(--blue-soft);
+  background: rgba(61, 123, 255, .12);
 
   color: var(--white);
 }
 
 
 /* ============================================================
-   27. PRODUCT MODAL LIST
+   PRODUCT MODAL LIST
    ============================================================ */
 
 .product-list {
@@ -1033,9 +1179,6 @@ body::before {
 
   padding: 20px 24px;
 }
-
-
-/* MODAL PRODUCT */
 
 .choice {
   display: grid;
@@ -1055,23 +1198,20 @@ body::before {
 
   background: #0d1117;
 
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, .07);
 
-  border-radius: 10px;
+  border-radius: 8px;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
+    background .2s ease,
+    border-color .2s ease;
 }
 
 .choice:hover {
   background: #151a21;
 
-  border-color: rgba(255, 216, 109, 0.25);
+  border-color: rgba(255, 216, 109, .25);
 }
-
-
-/* MODAL IMAGE */
 
 .choice img {
   width: 70px;
@@ -1079,29 +1219,47 @@ body::before {
 
   object-fit: contain;
 
-  background: #ffffff;
+  background: #fff;
 
   border-radius: 6px;
 }
 
+.choice .pname {
+  font-size: 14px;
+}
 
-/* ============================================================
-   28. EMPTY STATE
-   ============================================================ */
-
-.empty {
-  padding: 40px 20px;
-
-  color: var(--muted);
-
-  text-align: center;
-
-  font-size: 13px;
+.choice .meta {
+  text-transform: uppercase;
 }
 
 
 /* ============================================================
-   29. SCROLLBAR
+   MODAL PRODUCT ACTIONS
+   ============================================================ */
+
+.product-actions {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+}
+
+.product-actions > strong {
+  color: var(--gold);
+
+  font-size: 13px;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   SCROLLBAR
    ============================================================ */
 
 ::-webkit-scrollbar {
@@ -1124,7 +1282,7 @@ body::before {
 
 
 /* ============================================================
-   30. TABLET
+   TABLET
    ============================================================ */
 
 @media (max-width: 1000px) {
@@ -1136,15 +1294,14 @@ body::before {
   }
 
   .header-logo {
-    flex-basis: 180px;
+    flex-basis: 190px;
 
-    width: 180px;
-    max-width: 180px;
+    width: 190px;
+    max-width: 190px;
   }
 
   .gb-tech-logo {
-    width: 180px;
-    max-width: 180px;
+    max-width: 190px;
   }
 
   .title {
@@ -1156,17 +1313,17 @@ body::before {
   }
 
   .summary-panel {
-    position: relative;
-
-    top: auto;
-
     order: -1;
+
+    position: relative;
+    top: auto;
   }
+
 }
 
 
 /* ============================================================
-   31. MOBILE
+   MOBILE
    ============================================================ */
 
 @media (max-width: 650px) {
@@ -1176,16 +1333,16 @@ body::before {
   }
 
 
-  /* ----------------------------------------------------------
-     HEADER
-     ---------------------------------------------------------- */
+  /* HEADER */
 
   .header-container {
     width: 92%;
 
     min-height: auto;
 
-    padding: 30px 0 34px;
+    padding: 30px 0 32px;
+
+    display: flex;
 
     flex-direction: column;
 
@@ -1239,39 +1396,26 @@ body::before {
   }
 
 
-  /* ----------------------------------------------------------
-     TOOLBAR
-     ---------------------------------------------------------- */
+  /* MAIN */
 
   .toolbar {
     padding-top: 18px;
   }
 
-  .pdf-download-btn {
-    min-height: 48px;
-
-    font-size: 13px;
-  }
-
-
-  /* ----------------------------------------------------------
-     MAIN
-     ---------------------------------------------------------- */
-
   .build-layout {
     padding: 18px 0 45px;
-
-    gap: 18px;
   }
 
 
-  /* ----------------------------------------------------------
-     PANELS
-     ---------------------------------------------------------- */
+  /* PANELS */
 
   .builder-panel,
   .summary-panel {
     border-radius: 11px;
+  }
+
+  .builder-panel {
+    padding: 0;
   }
 
   .panel-heading {
@@ -1287,37 +1431,21 @@ body::before {
   }
 
 
-  /* ----------------------------------------------------------
-     STEPS
-     ---------------------------------------------------------- */
-
-  .step {
-    padding: 19px 0;
-  }
-
-  .stepname,
-  .step-title {
-    font-size: 16px;
-  }
-
-
-  /* ----------------------------------------------------------
-     PRODUCTS
-     ---------------------------------------------------------- */
+  /* PRODUCTS */
 
   .product {
     grid-template-columns:
-      58px
+      52px
       minmax(0, 1fr);
 
     gap: 10px;
 
-    padding: 10px;
+    padding: 9px;
   }
 
   .product img {
-    width: 58px;
-    height: 58px;
+    width: 52px;
+    height: 52px;
   }
 
   .product-actions {
@@ -1331,14 +1459,10 @@ body::before {
     min-height: 36px;
 
     padding: 8px 11px;
-
-    font-size: 11px;
   }
 
 
-  /* ----------------------------------------------------------
-     SUMMARY
-     ---------------------------------------------------------- */
+  /* SUMMARY */
 
   .total {
     padding: 24px 18px 15px;
@@ -1347,23 +1471,26 @@ body::before {
   }
 
   #compat,
-#status {
-  margin: 20px 0 !important;
-}
+  #status {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
 
-#status > div {
-  padding: 13px 18px !important;
-  border-radius: 10px !important;
-  box-sizing: border-box !important;
-}
-  .compatibility-disclaimer {
-    margin: 20px 18px;
+  .whatsapp-action-btn {
+    width: calc(100% - 36px);
+
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .compatibility-disclaimer,
+  .help-card {
+    margin-left: 18px;
+    margin-right: 18px;
   }
 
 
-  /* ----------------------------------------------------------
-     MODAL
-     ---------------------------------------------------------- */
+  /* MODAL */
 
   .modal {
     padding: 2vh 2.5%;
@@ -1385,6 +1512,16 @@ body::before {
     padding: 13px 17px;
 
     flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .filters {
+    max-width: 100%;
+
+    width: 100%;
+
+    overflow-x: auto;
   }
 
   .product-list {
@@ -1409,11 +1546,12 @@ body::before {
 
     justify-content: flex-start;
   }
+
 }
 
 
 /* ============================================================
-   32. VERY SMALL PHONES
+   VERY SMALL PHONES
    ============================================================ */
 
 @media (max-width: 400px) {
@@ -1423,11 +1561,7 @@ body::before {
     padding-bottom: 27px;
   }
 
-  .header-logo {
-    width: 125px;
-    max-width: 125px;
-  }
-
+  .header-logo,
   .gb-tech-logo {
     width: 125px;
     max-width: 125px;
@@ -1449,29 +1583,5 @@ body::before {
     padding-left: 15px;
     padding-right: 15px;
   }
-}
 
-/* ============================================================
-   STATUS BAR — FINAL SPACING FIX
-   ============================================================ */
-
-#status.status {
-  width: 100% !important;
-
-  min-height: 46px !important;
-
-  display: flex !important;
-  align-items: center !important;
-
-  margin-top: 18px !important;
-
-  padding: 13px 18px !important;
-
-  box-sizing: border-box !important;
-
-  border-radius: 9px !important;
-
-  font-size: 12px !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
 }

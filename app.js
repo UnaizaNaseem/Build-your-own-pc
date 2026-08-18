@@ -1,28 +1,15 @@
 /* ============================================================
-   GB TECH PC BUILDER — JAVASCRIPT / LOGIC ONLY
-   ============================================================
-   This file controls:
-   - Loading product data
-   - Product selection
-   - Search and brand filters
-   - Compatibility checks
-   - Total price
-   - Product links
-   - PDF download
-
-   PRODUCT DATA IS NOT HARDCODED HERE.
-
-   Products are loaded from:
-   ./pc_components_normalized.json
+   GB TECH — BUILD YOUR OWN PC
+   APPLICATION LOGIC
    ============================================================ */
-
 
 const PRODUCTS = [];
 
+let build = {};
+let currentType = "";
+let brand = "All";
 
-// ============================================================
-// COMPONENT CATEGORIES
-// ============================================================
+const WHATSAPP_NUMBER = "923055183777";
 
 const categories = [
   "motherboard",
@@ -33,7 +20,6 @@ const categories = [
   "power_supply",
   "fan"
 ];
-
 
 const labels = {
   motherboard: "Motherboard",
@@ -46,82 +32,62 @@ const labels = {
 };
 
 
-// ============================================================
-// CURRENT BUILD STATE
-// ============================================================
-
-let build = {};
-
-let currentType = "";
-
-let brand = "All";
-
-
-// Make build available globally if needed
-window.gbTechBuild = build;
-
-
-// ============================================================
-// GENERAL HELPERS
-// ============================================================
+/* ============================================================
+   HELPERS
+   ============================================================ */
 
 const money = (value) => {
-
   return new Intl.NumberFormat("en-PK", {
     maximumFractionDigits: 0
   }).format(Number(value) || 0);
-
-};
-
-
-const productsBy = (type) => {
-
-  return PRODUCTS.filter(product => {
-
-    return (
-      product.Compatibility?.type || ""
-    ).toLowerCase() === type;
-
-  });
-
-};
-
-
-const image = (product) => {
-
-  return product?.Image || "";
-
 };
 
 
 const safePrice = (product) => {
-
   return Number(product?.Price) || 0;
-
 };
 
 
-// Prevent product data from being interpreted as HTML
-function escapeHtml(value) {
+const image = (product) => {
+  return product?.Image || "";
+};
 
+
+const productsBy = (type) => {
+  return PRODUCTS.filter(product =>
+    String(product?.Compatibility?.type || "")
+      .toLowerCase() === type
+  );
+};
+
+
+const escapeHTML = (value) => {
   return String(value ?? "")
-
-    .replaceAll("&", "&amp;")
-
-    .replaceAll("<", "&lt;")
-
-    .replaceAll(">", "&gt;")
-
-    .replaceAll('"', "&quot;")
-
-    .replaceAll("'", "&#039;");
-
-}
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
 
 
-// ============================================================
-// LOAD PRODUCT DATA
-// ============================================================
+const selectedEntries = () => {
+  return Object.entries(build)
+    .filter(([, product]) => product);
+};
+
+
+const selectedTotal = () => {
+  return selectedEntries().reduce(
+    (total, [, product]) => total + safePrice(product),
+    0
+  );
+};
+
+
+/* ============================================================
+   LOAD PRODUCTS
+   ============================================================ */
 
 async function loadProducts() {
 
@@ -134,33 +100,21 @@ async function loadProducts() {
       }
     );
 
-
     if (!response.ok) {
-
-      throw new Error(
-        `HTTP ${response.status}`
-      );
-
+      throw new Error(`HTTP ${response.status}`);
     }
-
 
     const data = await response.json();
 
-
     if (!Array.isArray(data)) {
-
       throw new Error(
-        "pc_components_normalized.json must contain an array of products."
+        "pc_components_normalized.json must contain an array."
       );
-
     }
-
 
     PRODUCTS.push(...data);
 
-
     render();
-
 
   } catch (error) {
 
@@ -169,357 +123,205 @@ async function loadProducts() {
       error
     );
 
-
-    const builder =
-      document.getElementById("builder");
-
-
-    if (builder) {
-
-      builder.innerHTML = `
-
-        <div class="empty">
-
-          Could not load product data.
-
-          <br><br>
-
-          Make sure
-
-          <b>
-            pc_components_normalized.json
-          </b>
-
-          is in the same folder as
-
-          <b>
-            index.html
-          </b>.
-
-        </div>
-
-      `;
-
-    }
-
+    document.getElementById("builder").innerHTML = `
+      <div class="empty">
+        Could not load product data.
+        Make sure
+        <b>pc_components_normalized.json</b>
+        is in the same folder as index.html.
+      </div>
+    `;
   }
-
 }
 
 
-// ============================================================
-// MAIN BUILDER RENDER
-// ============================================================
+/* ============================================================
+   MAIN BUILDER RENDER
+   ============================================================ */
 
 function render() {
 
-  const builder =
-    document.getElementById("builder");
+  const builder = document.getElementById("builder");
 
+  builder.innerHTML = categories
+    .map((type, index) => {
 
-  if (!builder) return;
-
-
-  builder.innerHTML = categories.map(
-    (type, index) => {
-
-      const product =
-        build[type];
-
-
-      // ------------------------------------------------------
-      // CATEGORY WITH NO PRODUCT SELECTED
-      // ------------------------------------------------------
-
-      if (!product) {
-
-        return `
-
-          <div class="step">
-
-            <div class="stephead">
-
-              <div class="stepname">
-
-                ${index + 1}.
-                ${labels[type]}
-
-              </div>
-
-              <div class="selected">
-
-                Not selected
-
-              </div>
-
-            </div>
-
-
-            <button
-              class="btn"
-              type="button"
-              onclick="openModal('${type}')"
-            >
-
-              Choose ${labels[type]}
-
-            </button>
-
-          </div>
-
-        `;
-
-      }
-
-
-      // ------------------------------------------------------
-      // SELECTED PRODUCT
-      // ------------------------------------------------------
-
-      const productName =
-        escapeHtml(
-          product["Product Name"]
-        );
-
-
-      const productBrand =
-        escapeHtml(
-          product.Brand || ""
-        );
-
-
-      const productImage =
-        escapeHtml(
-          image(product)
-        );
-
-
-      const productUrl =
-        escapeHtml(
-          product["Product URL"] || ""
-        );
-
+      const product = build[type];
 
       return `
-
         <div class="step">
 
           <div class="stephead">
 
             <div class="stepname">
-
-              ${index + 1}.
-              ${labels[type]}
-
+              ${index + 1}. ${escapeHTML(labels[type])}
             </div>
 
             <div class="selected">
-
-              Selected
-
+              ${product ? "Selected" : "Not selected"}
             </div>
 
           </div>
 
 
-          <div
-            class="product selected-product"
-            data-selected-product="true"
-          >
+          ${
+            product
+              ? selectedProductHTML(type, product)
+              : `
+                <button
+                  type="button"
+                  class="btn add-product-btn"
+                  onclick="openModal('${type}')"
+                >
+                  Add ${escapeHTML(labels[type])}
+                </button>
+              `
+          }
 
-            ${
-              productImage
-                ? `
+        </div>
+      `;
 
-                  <img
-                    src="${productImage}"
-                    alt="${productName}"
-                    onerror="this.style.display='none'"
-                  >
+    })
+    .join("");
 
-                `
-                : ""
-            }
-
-
-            <div>
-
-              <div class="pname">
-
-                ${productName}
-
-              </div>
+  updateSummary();
+}
 
 
-              <div class="meta">
+/* ============================================================
+   SELECTED PRODUCT CARD
+   ============================================================ */
 
-                ${productBrand}
+function selectedProductHTML(type, product) {
 
-              </div>
+  const productName =
+    escapeHTML(product["Product Name"] || "Unnamed product");
+
+  const productBrand =
+    escapeHTML(product.Brand || "");
+
+  const productImage =
+    escapeHTML(image(product));
+
+  const productPrice =
+    money(safePrice(product));
+
+  const productURL =
+    product["Product URL"]
+      ? escapeHTML(product["Product URL"])
+      : "";
+
+  return `
+    <div class="product">
+
+      <img
+        src="${productImage}"
+        alt=""
+        onerror="this.style.display='none'"
+      >
+
+      <div class="product-info">
+
+        <div class="pname">
+          ${productName}
+        </div>
+
+        <div class="meta">
+          ${productBrand}
+        </div>
+
+        <div class="price">
+          PKR ${productPrice}
+        </div>
+
+      </div>
 
 
-              <div class="price">
+      <div class="product-actions">
 
-                PKR ${money(
-                  safePrice(product)
-                )}
+        <button
+          type="button"
+          class="btn change-product-btn"
+          onclick="openModal('${type}')"
+        >
+          Change
+        </button>
 
-              </div>
-
-            </div>
-
-
-            <div class="product-actions">
-
-              <button
-                class="btn"
-                type="button"
-                onclick="openModal('${type}')"
+        ${
+          productURL
+            ? `
+              <a
+                class="btn view-product-btn"
+                href="${productURL}"
+                target="_blank"
+                rel="noopener noreferrer"
               >
+                View Product
+              </a>
+            `
+            : ""
+        }
 
-                Change
+      </div>
 
-              </button>
+    </div>
+  `;
+}
 
 
-              ${
-                productUrl
-                  ? `
+/* ============================================================
+   SUMMARY
+   ============================================================ */
 
-                    <a
-                      class="learn-more-btn"
-                      href="${productUrl}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onclick="event.stopPropagation()"
-                    >
+function updateSummary() {
 
-                      View Product
+  const total = selectedTotal();
 
-                    </a>
+  document.getElementById("total").textContent =
+    `PKR ${money(total)}`;
 
-                  `
-                  : ""
-              }
 
-            </div>
+  const compatibility = checks();
+
+
+  document.getElementById("compat").innerHTML =
+    compatibility
+      .map(item => `
+        <div class="compat ${item.level}">
+
+          <span class="dot"></span>
+
+          <div>
+
+            <b>
+              ${escapeHTML(item.title)}
+            </b>
+
+            <br>
+
+            ${escapeHTML(item.text)}
 
           </div>
 
         </div>
+      `)
+      .join("");
 
-      `;
-
-    }
-  ).join("");
-
-
-  updateSummary();
-
-}
-
-
-// ============================================================
-// UPDATE SUMMARY
-// ============================================================
-
-function updateSummary() {
-
-  const total =
-    Object.values(build)
-
-      .reduce(
-        (sum, product) => {
-
-          return (
-            sum +
-            safePrice(product)
-          );
-
-        },
-        0
-      );
-
-
-  const totalElement =
-    document.getElementById("total");
-
-
-  if (totalElement) {
-
-    totalElement.textContent =
-      `PKR ${money(total)}`;
-
-  }
-
-
-  // ----------------------------------------------------------
-  // COMPATIBILITY
-  // ----------------------------------------------------------
-
-  const checksResult =
-    checks();
-
-
-  const compatibilityElement =
-    document.getElementById("compat");
-
-
-  if (compatibilityElement) {
-
-    compatibilityElement.innerHTML =
-      checksResult
-
-        .map(check => `
-
-          <div
-            class="compat ${check.level}"
-          >
-
-            <span class="dot"></span>
-
-            <div>
-
-              <b>
-                ${escapeHtml(check.title)}
-              </b>
-
-              <br>
-
-              ${escapeHtml(check.text)}
-
-            </div>
-
-          </div>
-
-        `)
-
-        .join("");
-
-  }
-
-
-  // ----------------------------------------------------------
-  // BUILD STATUS
-  // ----------------------------------------------------------
 
   const hasBad =
-    checksResult.some(
-      check => check.level === "bad"
+    compatibility.some(
+      item => item.level === "bad"
     );
 
 
   const hasWarning =
-    checksResult.some(
-      check => check.level === "warn"
+    compatibility.some(
+      item => item.level === "warn"
     );
 
 
   const status =
     document.getElementById("status");
-
-
-  if (!status) return;
 
 
   status.className =
@@ -534,178 +336,109 @@ function updateSummary() {
 
 
   status.textContent =
-
     hasBad
-
       ? "Compatibility issue found"
-
       : hasWarning
-
         ? "Build passes, but some details are unavailable"
-
         : "Build passes basic checks";
-
 }
 
 
-// ============================================================
-// COMPATIBILITY CHECKS
-// ============================================================
+/* ============================================================
+   COMPATIBILITY CHECKS
+   ============================================================ */
 
 function checks() {
 
-  const output = [];
+  const out = [];
+
+  const motherboard = build.motherboard;
+  const ram = build.ram;
+  const graphics = build.graphics_card;
+  const pcCase = build.case;
+  const cooling = build.cooling;
+  const psu = build.power_supply;
 
 
-  const motherboard =
-    build.motherboard;
-
-
-  const ram =
-    build.ram;
-
-
-  const gpu =
-    build.graphics_card;
-
-
-  const pcCase =
-    build.case;
-
-
-  const cooling =
-    build.cooling;
-
-
-  const psu =
-    build.power_supply;
-
-
-  const fan =
-    build.fan;
-
-
-  // ==========================================================
-  // MOTHERBOARD ↔ RAM
-  // ==========================================================
+  /* ----------------------------------------------------------
+     MOTHERBOARD ↔ RAM
+     ---------------------------------------------------------- */
 
   if (motherboard && ram) {
 
     const motherboardMemory =
-
-      (
-        motherboard
-          .Compatibility
-          ?.memory_type || ""
+      String(
+        motherboard.Compatibility?.memory_type || ""
       ).toUpperCase();
 
 
     const ramMemory =
-
-      (
-        ram
-          .Compatibility
-          ?.memory_type || ""
+      String(
+        ram.Compatibility?.memory_type || ""
       ).toUpperCase();
 
 
-    const speed =
-
-      (
-        ram
-          .Compatibility
-          ?.speed || ""
+    const ramSpeed =
+      String(
+        ram.Compatibility?.speed || ""
       ).toUpperCase();
 
 
-    const inferredRam =
-
-      speed.includes("DDR5")
-
+    const inferred =
+      ramSpeed.includes("DDR5")
         ? "DDR5"
-
-        : speed.includes("DDR4")
-
+        : ramSpeed.includes("DDR4")
           ? "DDR4"
-
           : "";
 
 
     const ramType =
-      ramMemory || inferredRam;
+      ramMemory || inferred;
 
 
-    if (
-      motherboardMemory &&
-      ramType
-    ) {
+    if (motherboardMemory && ramType) {
 
-      const compatible =
-        motherboardMemory === ramType;
-
-
-      output.push({
-
-        title:
-          "Motherboard ↔ RAM",
+      out.push({
+        title: "Motherboard ↔ RAM",
 
         level:
-          compatible
+          motherboardMemory === ramType
             ? "ok"
             : "bad",
 
         text:
-
-          compatible
-
+          motherboardMemory === ramType
             ? `Motherboard uses ${motherboardMemory} and RAM is ${ramType}.`
-
             : `Motherboard uses ${motherboardMemory}, but RAM is ${ramType}.`
-
       });
-
 
     } else {
 
-      output.push({
-
-        title:
-          "Motherboard ↔ RAM",
-
-        level:
-          "warn",
-
-        text:
-          "Memory type information is unavailable."
-
+      out.push({
+        title: "Motherboard ↔ RAM",
+        level: "warn",
+        text: "Memory type information is unavailable."
       });
 
     }
-
   }
 
 
-  // ==========================================================
-  // MOTHERBOARD ↔ CASE
-  // ==========================================================
+  /* ----------------------------------------------------------
+     MOTHERBOARD ↔ CASE
+     ---------------------------------------------------------- */
 
   if (motherboard && pcCase) {
 
     const motherboardFormFactor =
-
-      (
-        motherboard
-          .Compatibility
-          ?.form_factor || ""
+      String(
+        motherboard.Compatibility?.form_factor || ""
       ).toLowerCase();
 
 
     const caseFormFactor =
-
-      (
-        pcCase
-          .Compatibility
-          ?.form_factor || ""
+      String(
+        pcCase.Compatibility?.form_factor || ""
       ).toLowerCase();
 
 
@@ -715,22 +448,13 @@ function checks() {
     ) {
 
       const compatible =
-
-        caseFormFactor.includes(
-          motherboardFormFactor
-        )
-
-        ||
-
-        motherboardFormFactor.includes(
-          caseFormFactor
-        );
+        caseFormFactor.includes(motherboardFormFactor) ||
+        motherboardFormFactor.includes(caseFormFactor);
 
 
-      output.push({
+      out.push({
 
-        title:
-          "Motherboard ↔ Case",
+        title: "Motherboard ↔ Case",
 
         level:
           compatible
@@ -742,16 +466,13 @@ function checks() {
 
       });
 
-
     } else {
 
-      output.push({
+      out.push({
 
-        title:
-          "Motherboard ↔ Case",
+        title: "Motherboard ↔ Case",
 
-        level:
-          "warn",
+        level: "warn",
 
         text:
           "Case or motherboard form-factor details are unavailable."
@@ -759,69 +480,52 @@ function checks() {
       });
 
     }
-
   }
 
 
-  // ==========================================================
-  // GPU ↔ PSU
-  // ==========================================================
+  /* ----------------------------------------------------------
+     GPU ↔ PSU
+     ---------------------------------------------------------- */
 
-  if (gpu && psu) {
+  if (graphics && psu) {
 
-    const watts = Number(
-      psu
-        .Compatibility
-        ?.wattage
-    );
-
-
-    const recommended = Number(
-      gpu
-        .Compatibility
-        ?.recommended_psu_wattage
-    );
+    const watts =
+      Number(
+        psu.Compatibility?.wattage
+      );
 
 
-    if (
-      watts &&
-      recommended
-    ) {
-
-      const compatible =
-        watts >= recommended;
+    const recommended =
+      Number(
+        graphics.Compatibility?.recommended_psu_wattage
+      );
 
 
-      output.push({
+    if (watts && recommended) {
+
+      out.push({
 
         title:
           "Graphics Card ↔ Power Supply",
 
         level:
-          compatible
+          watts >= recommended
             ? "ok"
             : "bad",
 
         text:
-
-          compatible
-
-            ? `PSU provides ${watts}W; GPU recommends ${recommended}W.`
-
-            : `PSU provides ${watts}W, but GPU recommends ${recommended}W.`
+          `PSU provides ${watts}W; GPU recommends ${recommended}W.`
 
       });
 
-
     } else {
 
-      output.push({
+      out.push({
 
         title:
           "Graphics Card ↔ Power Supply",
 
-        level:
-          "warn",
+        level: "warn",
 
         text:
           "PSU wattage or GPU recommendation is unavailable."
@@ -829,38 +533,23 @@ function checks() {
       });
 
     }
-
   }
 
 
-  // ==========================================================
-  // MOTHERBOARD ↔ COOLING
-  // ==========================================================
+  /* ----------------------------------------------------------
+     MOTHERBOARD ↔ COOLING
+     ---------------------------------------------------------- */
 
   if (motherboard && cooling) {
 
     const sockets =
-
-      cooling
-        .Compatibility
-        ?.supported_sockets
-
-      ||
-
-      cooling
-        .Compatibility
-        ?.socket_support
-
-      ||
-
+      cooling.Compatibility?.supported_sockets ||
+      cooling.Compatibility?.socket_support ||
       [];
 
 
     const motherboardSocket =
-
-      motherboard
-        .Compatibility
-        ?.socket;
+      motherboard.Compatibility?.socket;
 
 
     if (
@@ -869,12 +558,10 @@ function checks() {
     ) {
 
       const compatible =
-        sockets.includes(
-          motherboardSocket
-        );
+        sockets.includes(motherboardSocket);
 
 
-      output.push({
+      out.push({
 
         title:
           "Motherboard ↔ Cooling",
@@ -885,25 +572,20 @@ function checks() {
             : "bad",
 
         text:
-
           compatible
-
             ? `Cooler supports ${motherboardSocket}.`
-
             : `Cooler does not list support for ${motherboardSocket}.`
 
       });
 
-
     } else {
 
-      output.push({
+      out.push({
 
         title:
           "Motherboard ↔ Cooling",
 
-        level:
-          "warn",
+        level: "warn",
 
         text:
           "CPU socket support information is unavailable."
@@ -911,28 +593,25 @@ function checks() {
       });
 
     }
-
   }
 
 
-  // ==========================================================
-  // GPU ↔ CASE
-  // ==========================================================
+  /* ----------------------------------------------------------
+     GPU ↔ CASE
+     ---------------------------------------------------------- */
 
-  if (gpu && pcCase) {
+  if (graphics && pcCase) {
 
-    const gpuLength = Number(
-      gpu
-        .Compatibility
-        ?.length_mm
-    );
+    const gpuLength =
+      Number(
+        graphics.Compatibility?.length_mm
+      );
 
 
-    const caseClearance = Number(
-      pcCase
-        .Compatibility
-        ?.gpu_clearance_mm
-    );
+    const caseClearance =
+      Number(
+        pcCase.Compatibility?.gpu_clearance_mm
+      );
 
 
     if (
@@ -944,7 +623,7 @@ function checks() {
         gpuLength <= caseClearance;
 
 
-      output.push({
+      out.push({
 
         title:
           "Graphics Card ↔ Case",
@@ -955,25 +634,20 @@ function checks() {
             : "bad",
 
         text:
-
           compatible
-
             ? `GPU is ${gpuLength}mm; case clearance is ${caseClearance}mm.`
-
             : `GPU is ${gpuLength}mm but case clearance is ${caseClearance}mm.`
 
       });
 
-
     } else {
 
-      output.push({
+      out.push({
 
         title:
           "Graphics Card ↔ Case",
 
-        level:
-          "warn",
+        level: "warn",
 
         text:
           "GPU length or case clearance is unavailable."
@@ -981,27 +655,23 @@ function checks() {
       });
 
     }
-
   }
 
 
-  // ==========================================================
-  // FAN ↔ CASE
-  // ==========================================================
+  /* ----------------------------------------------------------
+     FAN ↔ CASE
+     ---------------------------------------------------------- */
 
-  if (fan && pcCase) {
+  if (build.fan && pcCase) {
 
-    const fanSize = Number(
-      fan
-        .Compatibility
-        ?.size_mm
-    );
+    const fanSize =
+      Number(
+        build.fan.Compatibility?.size_mm
+      );
 
 
     const caseFanSupport =
-      pcCase
-        .Compatibility
-        ?.fan_support;
+      pcCase.Compatibility?.fan_support;
 
 
     if (
@@ -1009,29 +679,26 @@ function checks() {
       caseFanSupport
     ) {
 
-      output.push({
+      out.push({
 
         title:
           "Fan ↔ Case",
 
-        level:
-          "ok",
+        level: "ok",
 
         text:
           `Fan size: ${fanSize}mm; case fan support is available.`
 
       });
 
-
     } else {
 
-      output.push({
+      out.push({
 
         title:
           "Fan ↔ Case",
 
-        level:
-          "warn",
+        level: "warn",
 
         text:
           "Fan/case size information could not be verified."
@@ -1039,317 +706,277 @@ function checks() {
       });
 
     }
-
   }
 
 
-  return output;
-
+  return out;
 }
 
 
-// ============================================================
-// PRODUCT MODAL
-// ============================================================
+/* ============================================================
+   PRODUCT MODAL
+   ============================================================ */
 
-function openModal(t) {
-  currentType = t;
+function openModal(type) {
+
+  currentType = type;
+
   brand = "All";
 
-  document.getElementById("modal").classList.add("open");
-  document.getElementById("search").value = "";
 
-  const brands = [
-    "All",
-    ...new Set(
-      productsBy(t)
-        .map(p => p.Brand)
-        .filter(Boolean)
-    )
-  ];
+  const modal =
+    document.getElementById("modal");
 
-  const filters = document.getElementById("filters");
 
-  filters.innerHTML = brands.map(b => `
-    <button
-      type="button"
-      class="chip ${b === "All" ? "active" : ""}"
-      data-brand="${b}"
-    >
-      ${b}
-    </button>
-  `).join("");
+  modal.classList.add("open");
 
-  /* Attach filter click events */
-  filters.querySelectorAll(".chip").forEach(button => {
-    button.addEventListener("click", function () {
+  modal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
 
-      brand = this.dataset.brand;
 
-      /* Update active button */
-      filters.querySelectorAll(".chip").forEach(chip => {
-        chip.classList.remove("active");
-      });
+  document.getElementById("modal-title")
+    .textContent =
+      `Choose ${labels[type]}`;
 
-      this.classList.add("active");
 
-      /* Re-render products */
-      renderList();
-    });
-  });
+  const search =
+    document.getElementById("search");
+
+  search.value = "";
+
+  search.focus();
+
+
+  renderFilters();
 
   renderList();
 }
 
-
-function closeModal() {
-  document.getElementById("modal").classList.remove("open");
-}
-
-
-function setBrand(b) {
-  brand = b;
-
-  const filters = document.getElementById("filters");
-
-  filters.querySelectorAll(".chip").forEach(chip => {
-    chip.classList.toggle(
-      "active",
-      chip.dataset.brand === b
-    );
-  });
-
-  renderList();
-}
-
-// ============================================================
-// CLOSE MODAL
-// ============================================================
 
 function closeModal() {
 
   const modal =
-    document.getElementById(
-      "modal"
-    );
+    document.getElementById("modal");
 
 
-  if (!modal) return;
-
-
-  modal.classList.remove(
-    "open"
-  );
-
+  modal.classList.remove("open");
 
   modal.setAttribute(
     "aria-hidden",
     "true"
   );
-
 }
 
 
-// ============================================================
-// BRAND FILTER
-// ============================================================
+/* ============================================================
+   FILTERS
+   ============================================================ */
 
-function setBrand(selectedBrand) {
+function renderFilters() {
 
-  brand =
-    selectedBrand;
+  const filters =
+    document.getElementById("filters");
 
 
-  document
+  const brands = [
+    "All",
+    ...new Set(
+      productsBy(currentType)
+        .map(product =>
+          String(product.Brand || "").trim()
+        )
+        .filter(Boolean)
+    )
+  ];
+
+
+  filters.innerHTML =
+    brands
+      .map(brandName => `
+        <button
+          type="button"
+          class="chip ${brandName === brand ? "active" : ""}"
+          data-brand="${escapeHTML(brandName)}"
+        >
+          ${escapeHTML(brandName)}
+        </button>
+      `)
+      .join("");
+
+
+  filters
     .querySelectorAll(".chip")
-    .forEach(chip => {
+    .forEach(button => {
 
-      chip.classList.toggle(
-        "active",
-        chip.textContent.trim() === brand
+      button.addEventListener(
+        "click",
+        () => {
+
+          brand =
+            button.dataset.brand;
+
+          filters
+            .querySelectorAll(".chip")
+            .forEach(chip => {
+
+              chip.classList.toggle(
+                "active",
+                chip.dataset.brand === brand
+              );
+
+            });
+
+          renderList();
+
+        }
       );
 
     });
-
-
-  renderList();
-
 }
 
 
-// ============================================================
-// PRODUCT LIST
-// ============================================================
+/* ============================================================
+   PRODUCT LIST
+   ============================================================ */
 
 function renderList() {
 
-  const search =
-    document.getElementById(
-      "search"
-    );
+  const searchInput =
+    document.getElementById("search");
 
 
   const query =
-    search
-      ? search.value
-          .toLowerCase()
-          .trim()
-      : "";
+    searchInput.value
+      .trim()
+      .toLowerCase();
 
 
-  const products =
+  const filtered =
     productsBy(currentType)
-
       .filter(product => {
 
         const matchesBrand =
-
           brand === "All" ||
+          String(product.Brand || "").trim() === brand;
 
-          product.Brand === brand;
+
+        const productName =
+          String(
+            product["Product Name"] || ""
+          ).toLowerCase();
 
 
-        const name =
-
-          (
-            product["Product Name"] ||
-            ""
+        const category =
+          String(
+            product.Category || ""
           ).toLowerCase();
 
 
         return (
           matchesBrand &&
-          name.includes(query)
+          (
+            productName.includes(query) ||
+            category.includes(query)
+          )
         );
 
       });
 
 
-  const list =
-    document.getElementById(
-      "list"
-    );
-
-
-  if (!list) return;
-
-
-  list.innerHTML =
-
-    products.length
-
-      ? products
-          .map(
-            product =>
-              renderChoice(product)
-          )
+  document.getElementById("list").innerHTML =
+    filtered.length
+      ? filtered
+          .map(product => productChoiceHTML(product))
           .join("")
-
       : `
-
-          <div class="empty">
-
-            No products found.
-
-          </div>
-
-        `;
-
+        <div class="empty">
+          No products found.
+        </div>
+      `;
 }
 
 
-// ============================================================
-// RENDER INDIVIDUAL PRODUCT CHOICE
-// ============================================================
+/* ============================================================
+   PRODUCT MODAL CARD
+   ============================================================ */
 
-function renderChoice(product) {
+function productChoiceHTML(product) {
+
+  const id =
+    String(product["Product ID"]);
+
 
   const name =
-    escapeHtml(
-      product["Product Name"]
+    escapeHTML(
+      product["Product Name"] ||
+      "Unnamed product"
     );
 
 
   const productBrand =
-    escapeHtml(
+    escapeHTML(
       product.Brand || ""
     );
 
 
   const category =
-    escapeHtml(
-      product.Category || ""
+    escapeHTML(
+      String(
+        product.Category || ""
+      ).toUpperCase()
     );
 
 
   const productImage =
-    escapeHtml(
+    escapeHTML(
       image(product)
     );
 
 
-  const productUrl =
-    escapeHtml(
-      product["Product URL"] || ""
+  const price =
+    money(
+      safePrice(product)
     );
 
 
-  const productId =
-    product["Product ID"];
+  const productURL =
+    product["Product URL"]
+      ? escapeHTML(
+          product["Product URL"]
+        )
+      : "";
 
 
   return `
+    <div class="choice">
 
-    <div
-      class="choice"
-      onclick='selectProduct(${JSON.stringify(productId)})'
-    >
-
-      ${
-        productImage
-
-          ? `
-
-            <img
-              src="${productImage}"
-              alt="${name}"
-              onerror="this.style.display='none'"
-            >
-
-          `
-
-          : ""
-      }
+      <img
+        src="${productImage}"
+        alt=""
+        onerror="this.style.display='none'"
+      >
 
 
       <div>
 
         <div class="pname">
-
           ${name}
-
         </div>
-
 
         <div class="meta">
-
           ${productBrand}
-
           ${
-            category
-              ? ` · ${category}`
+            productBrand && category
+              ? " · "
               : ""
           }
-
+          ${category}
         </div>
 
-
         <div class="price">
-
-          PKR ${money(
-            safePrice(product)
-          )}
-
+          PKR ${price}
         </div>
 
       </div>
@@ -1358,61 +985,58 @@ function renderChoice(product) {
       <div class="product-actions">
 
         <strong>
-
-          PKR ${money(
-            safePrice(product)
-          )}
-
+          PKR ${price}
         </strong>
 
 
+        <button
+          type="button"
+          class="btn add-product-btn"
+          data-product-id="${escapeHTML(id)}"
+        >
+          Add Product
+        </button>
+
+
         ${
-          productUrl
-
+          productURL
             ? `
-
               <a
-                class="learn-more-btn"
-                href="${productUrl}"
+                class="btn view-product-btn"
+                href="${productURL}"
                 target="_blank"
                 rel="noopener noreferrer"
-                onclick="event.stopPropagation()"
               >
-
                 View Product
-
               </a>
-
             `
-
             : ""
         }
 
       </div>
 
     </div>
-
   `;
-
 }
 
 
-// ============================================================
-// SELECT PRODUCT
-// ============================================================
+/* ============================================================
+   PRODUCT SELECTION
+   ============================================================ */
 
 function selectProduct(id) {
 
   const product =
     PRODUCTS.find(
       item =>
-        String(
-          item["Product ID"]
-        ) === String(id)
+        String(item["Product ID"]) ===
+        String(id)
     );
 
 
-  if (!product) return;
+  if (!product) {
+    return;
+  }
 
 
   build[currentType] =
@@ -1421,35 +1045,227 @@ function selectProduct(id) {
 
   closeModal();
 
-
   render();
+}
+
+
+/* ============================================================
+   WHATSAPP BUILD MESSAGE
+   ============================================================ */
+
+function buildWhatsAppMessage(type = "quotation") {
+
+  const selected =
+    selectedEntries();
+
+
+  if (!selected.length) {
+    return null;
+  }
+
+
+  const total =
+    selectedTotal();
+
+
+  let intro =
+    type === "help"
+      ? "Hi GB Tech! I need help with this PC build."
+      : "Hi GB Tech! I would like to share my PC build quotation.";
+
+
+  const componentLines =
+    selected
+      .map(
+        ([componentType, product]) => {
+
+          const category =
+            labels[componentType]
+              .toUpperCase();
+
+
+          const name =
+            product["Product Name"] ||
+            "Unnamed product";
+
+
+          const price =
+            `PKR ${money(
+              safePrice(product)
+            )}`;
+
+
+          return `• ${category}: ${name} — ${price}`;
+
+        }
+      )
+      .join("\n");
+
+
+  return `${intro}
+
+GB Tech — Build Your Own PC
+
+Selected components:
+${componentLines}
+
+Estimated total: PKR ${money(total)}
+
+Please review this build and let me know if you recommend any changes or if there are any compatibility concerns.
+
+Build tool:
+https://build-your-own-pc.gb-tech.pk/`;
+}
+
+
+/* ============================================================
+   OPEN WHATSAPP
+   ============================================================ */
+
+function openWhatsApp(message) {
+
+  if (!message) {
+
+    alert(
+      "Please select at least one component first."
+    );
+
+    return false;
+  }
+
+
+  const url =
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+
+  const newWindow =
+    window.open(
+      url,
+      "_blank"
+    );
+
+
+  if (!newWindow) {
+
+    alert(
+      "WhatsApp could not be opened. Please allow pop-ups for this site."
+    );
+
+    return false;
+  }
+
+
+  return true;
+}
+
+
+/* ============================================================
+   SHARE QUOTATION
+   ============================================================ */
+
+async function shareQuotationOnWhatsApp() {
+
+  const selected =
+    selectedEntries();
+
+
+  if (!selected.length) {
+
+    alert(
+      "Please select your PC components first."
+    );
+
+    return;
+  }
+
+
+  /*
+     Open WhatsApp immediately while the click
+     still has user activation.
+
+     This avoids popup blockers.
+  */
+
+  const message =
+    buildWhatsAppMessage("quotation");
+
+
+  openWhatsApp(message);
+
+
+  /*
+     Generate the exact same quotation PDF
+     after opening WhatsApp.
+  */
+
+  await downloadSelectedPDF();
 
 }
 
 
-// ============================================================
-// SEARCH EVENT
-// ============================================================
+/* ============================================================
+   ASK GB TECH ABOUT BUILD
+   ============================================================ */
 
-const searchInput =
-  document.getElementById(
-    "search"
-  );
+function askGBTechAboutBuild() {
+
+  const message =
+    buildWhatsAppMessage("help");
 
 
-if (searchInput) {
+  openWhatsApp(message);
+}
 
-  searchInput.addEventListener(
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+
+document
+  .getElementById("search")
+  .addEventListener(
     "input",
     renderList
   );
 
-}
+
+/* ============================================================
+   PRODUCT BUTTON DELEGATION
+   ============================================================ */
+
+document
+  .getElementById("list")
+  .addEventListener(
+    "click",
+    event => {
+
+      const button =
+        event.target.closest(
+          ".add-product-btn"
+        );
 
 
-// ============================================================
-// KEYBOARD EVENTS
-// ============================================================
+      if (!button) {
+        return;
+      }
+
+
+      event.preventDefault();
+
+      event.stopPropagation();
+
+
+      selectProduct(
+        button.dataset.productId
+      );
+
+    }
+  );
+
+
+/* ============================================================
+   KEYBOARD
+   ============================================================ */
 
 document.addEventListener(
   "keydown",
@@ -1467,24 +1283,19 @@ document.addEventListener(
 );
 
 
-// ============================================================
-// CLOSE MODAL WHEN CLICKING BACKDROP
-// ============================================================
+/* ============================================================
+   CLICK OUTSIDE MODAL
+   ============================================================ */
 
-const modal =
-  document.getElementById(
-    "modal"
-  );
-
-
-if (modal) {
-
-  modal.addEventListener(
+document
+  .getElementById("modal")
+  .addEventListener(
     "click",
     event => {
 
       if (
-        event.target.id === "modal"
+        event.target.id ===
+        "modal"
       ) {
 
         closeModal();
@@ -1494,225 +1305,449 @@ if (modal) {
     }
   );
 
+
+/* ============================================================
+   PDF — LOAD LOCAL IMAGE
+   ============================================================ */
+
+function loadImageAsDataURL(src) {
+
+  return new Promise(
+    (resolve, reject) => {
+
+      const img =
+        new Image();
+
+
+      img.onload = () => {
+
+        const canvas =
+          document.createElement(
+            "canvas"
+          );
+
+
+        canvas.width =
+          img.naturalWidth;
+
+
+        canvas.height =
+          img.naturalHeight;
+
+
+        const context =
+          canvas.getContext(
+            "2d"
+          );
+
+
+        context.drawImage(
+          img,
+          0,
+          0
+        );
+
+
+        resolve(
+          canvas.toDataURL(
+            "image/png"
+          )
+        );
+
+      };
+
+
+      img.onerror =
+        reject;
+
+
+      img.src = src;
+
+    }
+  );
 }
 
 
-// ============================================================
-// PDF DOWNLOAD
-// ============================================================
+/* ============================================================
+   PDF — DOWNLOAD BUILD
+   ============================================================ */
 
 async function downloadSelectedPDF() {
 
   const {
     jsPDF
-  } = window.jspdf || {};
+  } =
+    window.jspdf || {};
 
 
   if (!jsPDF) {
 
     alert(
-      "PDF library could not be loaded. Please check your internet connection and try again."
+      "PDF library could not be loaded. Please check your internet connection."
     );
 
     return;
-
   }
 
 
-  const selectedProducts =
-
-    Object.entries(build)
-
-      .filter(
-        ([, product]) =>
-          product
-      )
-
-      .map(
-        ([type, product]) => ({
-          type,
-          product
-        })
-      );
+  const selected =
+    selectedEntries();
 
 
-  if (
-    !selectedProducts.length
-  ) {
+  if (!selected.length) {
 
     alert(
       "Please select your PC components first."
     );
 
     return;
-
   }
 
 
   const doc =
-    new jsPDF();
+    new jsPDF({
+      unit: "mm",
+      format: "a4"
+    });
 
 
-  const margin = 18;
+  const pageWidth =
+    doc.internal.pageSize.getWidth();
 
-  const pageWidth = 210;
 
-  const contentWidth =
+  const pageHeight =
+    doc.internal.pageSize.getHeight();
+
+
+  const margin = 15;
+
+
+  /* ==========================================================
+     PDF HEADER
+     ========================================================== */
+
+  const headerX = margin;
+  const headerY = 12;
+
+  const headerWidth =
     pageWidth - margin * 2;
 
-  let y = 20;
+  const headerHeight = 34;
 
 
-  // ----------------------------------------------------------
-  // PDF TITLE
-  // ----------------------------------------------------------
-
-  doc.setFontSize(18);
-
-  doc.setFont(
-    undefined,
-    "bold"
+  doc.setFillColor(
+    17,
+    19,
+    23
   );
 
 
-  doc.text(
-    "GB TECH — PC BUILD",
-    margin,
-    y
+  doc.roundedRect(
+    headerX,
+    headerY,
+    headerWidth,
+    headerHeight,
+    4,
+    4,
+    "F"
   );
 
 
-  y += 10;
+  let logoLoaded = false;
 
 
-  // ----------------------------------------------------------
-  // DATE
-  // ----------------------------------------------------------
+  try {
 
-  doc.setFontSize(10);
-
-  doc.setFont(
-    undefined,
-    "normal"
-  );
-
-
-  doc.text(
-    `Generated: ${new Date().toLocaleDateString()}`,
-    margin,
-    y
-  );
-
-
-  y += 12;
-
-
-  // ----------------------------------------------------------
-  // COMPONENT HEADING
-  // ----------------------------------------------------------
-
-  doc.setFontSize(12);
-
-  doc.setFont(
-    undefined,
-    "bold"
-  );
-
-
-  doc.text(
-    "Selected Components",
-    margin,
-    y
-  );
-
-
-  y += 8;
-
-
-  // ----------------------------------------------------------
-  // PRODUCTS
-  // ----------------------------------------------------------
-
-  doc.setFontSize(10);
-
-  doc.setFont(
-    undefined,
-    "normal"
-  );
-
-
-  selectedProducts.forEach(
-    ({ type, product }) => {
-
-      const line =
-
-        `${labels[type]}: ${
-          product["Product Name"]
-        } — PKR ${
-          money(
-            safePrice(product)
-          )
-        }`;
-
-
-      const lines =
-        doc.splitTextToSize(
-          `• ${line}`,
-          contentWidth
-        );
-
-
-      // New page if necessary
-
-      if (
-        y +
-        lines.length * 5 >
-        275
-      ) {
-
-        doc.addPage();
-
-        y = 20;
-
-      }
-
-
-      doc.text(
-        lines,
-        margin,
-        y
+    const logoData =
+      await loadImageAsDataURL(
+        "media/GB-tech logo white.png"
       );
 
 
-      y +=
-        lines.length * 5 + 3;
+    doc.addImage(
+      logoData,
+      "PNG",
+      margin + 7,
+      headerY + 5,
+      42,
+      0
+    );
 
-    }
+
+    logoLoaded = true;
+
+  } catch (error) {
+
+    console.warn(
+      "Could not load PDF logo.",
+      error
+    );
+
+  }
+
+
+  const titleX =
+    logoLoaded
+      ? margin + 57
+      : margin + 8;
+
+
+  doc.setTextColor(
+    255,
+    255,
+    255
   );
 
 
-  // ----------------------------------------------------------
-  // TOTAL
-  // ----------------------------------------------------------
+  doc.setFont(
+    "helvetica",
+    "bold"
+  );
+
+
+  doc.setFontSize(
+    18
+  );
+
+
+  doc.text(
+    "PC BUILD QUOTATION",
+    titleX,
+    headerY + 13
+  );
+
+
+  doc.setFont(
+    "helvetica",
+    "normal"
+  );
+
+
+  doc.setFontSize(
+    9
+  );
+
+
+  doc.setTextColor(
+    205,
+    210,
+    220
+  );
+
+
+  doc.text(
+    "GB Tech — Build Your Own PC",
+    titleX,
+    headerY + 20
+  );
+
+
+  doc.text(
+    `Generated: ${new Date().toLocaleDateString("en-GB")}`,
+    titleX,
+    headerY + 27
+  );
+
+
+  /* ==========================================================
+     SELECTED COMPONENTS TITLE
+     ========================================================== */
+
+  let tableStartY =
+    headerY +
+    headerHeight +
+    14;
+
+
+  doc.setTextColor(
+    40,
+    40,
+    40
+  );
+
+
+  doc.setFont(
+    "helvetica",
+    "bold"
+  );
+
+
+  doc.setFontSize(
+    13
+  );
+
+
+  doc.text(
+    "SELECTED COMPONENTS",
+    margin,
+    tableStartY
+  );
+
+
+  tableStartY += 7;
+
+
+  /* ==========================================================
+     TABLE DATA
+     ========================================================== */
+
+  const tableRows =
+    selected.map(
+      ([type, product]) => [
+
+        labels[type]
+          .toUpperCase(),
+
+        product["Product Name"] ||
+          "—",
+
+        product.Brand ||
+          "—",
+
+        `PKR ${money(
+          safePrice(product)
+        )}`
+
+      ]
+    );
+
 
   const total =
-
-    Object.values(build)
-
-      .reduce(
-        (sum, product) =>
-
-          sum +
-          safePrice(product),
-
-        0
-      );
+    selected.reduce(
+      (sum, [, product]) =>
+        sum + safePrice(product),
+      0
+    );
 
 
-  y += 6;
+  /* ==========================================================
+     TABLE
+     ========================================================== */
+
+  doc.autoTable({
+
+    startY: tableStartY,
+
+    margin: {
+      left: margin,
+      right: margin
+    },
+
+    head: [
+      [
+        "COMPONENT",
+        "PRODUCT",
+        "BRAND",
+        "PRICE"
+      ]
+    ],
+
+    body:
+      tableRows,
+
+    theme:
+      "grid",
+
+    styles: {
+
+      font:
+        "helvetica",
+
+      fontSize:
+        8.5,
+
+      cellPadding:
+        4,
+
+      textColor:
+        [45, 45, 45],
+
+      lineColor:
+        [218, 218, 218],
+
+      lineWidth:
+        .2,
+
+      valign:
+        "middle",
+
+      overflow:
+        "linebreak"
+
+    },
+
+    headStyles: {
+
+      fillColor:
+        [17, 19, 23],
+
+      textColor:
+        [255, 216, 109],
+
+      fontStyle:
+        "bold",
+
+      halign:
+        "left",
+
+      cellPadding:
+        4.5
+
+    },
+
+    alternateRowStyles: {
+
+      fillColor:
+        [248, 248, 248]
+
+    },
+
+    columnStyles: {
+
+      /*
+         COMPONENT deliberately wider.
+      */
+
+      0: {
+        cellWidth: 38
+      },
+
+      /*
+         PRODUCT gets the largest space.
+      */
+
+      1: {
+        cellWidth: 88
+      },
+
+      2: {
+        cellWidth: 25
+      },
+
+      3: {
+        cellWidth: 29,
+
+        halign:
+          "right"
+      }
+
+    }
+
+  });
 
 
-  if (y > 250) {
+  /* ==========================================================
+     TOTAL BUILD
+     ========================================================== */
+
+  let y =
+    doc.lastAutoTable.finalY + 10;
+
+
+  if (
+    y >
+    pageHeight - 65
+  ) {
 
     doc.addPage();
 
@@ -1721,64 +1756,126 @@ async function downloadSelectedPDF() {
   }
 
 
-  doc.setFontSize(12);
+  doc.setFillColor(
+    17,
+    19,
+    23
+  );
+
+
+  doc.roundedRect(
+    margin,
+    y,
+    pageWidth - margin * 2,
+    19,
+    4,
+    4,
+    "F"
+  );
+
+
+  doc.setTextColor(
+    255,
+    216,
+    109
+  );
+
 
   doc.setFont(
-    undefined,
+    "helvetica",
     "bold"
   );
 
 
+  doc.setFontSize(
+    12
+  );
+
+
   doc.text(
-    `Total: PKR ${money(total)}`,
+    "TOTAL BUILD",
+    margin + 7,
+    y + 12
+  );
+
+
+  doc.text(
+    `PKR ${money(total)}`,
+    pageWidth - margin - 7,
+    y + 12,
+    {
+      align:
+        "right"
+    }
+  );
+
+
+  /* ==========================================================
+     COMPATIBILITY NOTICE
+     ========================================================== */
+
+  y += 29;
+
+
+  if (
+    y >
+    pageHeight - 45
+  ) {
+
+    doc.addPage();
+
+    y = 20;
+
+  }
+
+
+  doc.setTextColor(
+    45,
+    45,
+    45
+  );
+
+
+  doc.setFont(
+    "helvetica",
+    "bold"
+  );
+
+
+  doc.setFontSize(
+    10
+  );
+
+
+  doc.text(
+    "COMPATIBILITY NOTICE",
     margin,
     y
   );
 
 
-  y += 12;
-
-
-  // ----------------------------------------------------------
-  // DISCLAIMER
-  // ----------------------------------------------------------
-
-  doc.setFontSize(9);
-
-  doc.setFont(
-    undefined,
-    "bold"
-  );
-
-
-  doc.text(
-    "Compatibility Notice",
-    margin,
-    y
-  );
-
-
-  y += 5;
+  y += 6;
 
 
   doc.setFont(
-    undefined,
+    "helvetica",
     "normal"
   );
 
 
-  const notice =
+  doc.setFontSize(
+    8.5
+  );
 
-    "This tool performs basic compatibility checks using available product specifications. " +
-    "It does not guarantee complete system compatibility. " +
-    "Always verify detailed specifications with the manufacturer before purchasing.";
+
+  const notice =
+    "This builder performs basic compatibility checks using the product specifications available in the GB Tech product data. It does not guarantee complete system compatibility. Always verify detailed specifications with the manufacturer before purchasing.";
 
 
   const noticeLines =
-
     doc.splitTextToSize(
       notice,
-      contentWidth
+      pageWidth - margin * 2
     );
 
 
@@ -1789,19 +1886,78 @@ async function downloadSelectedPDF() {
   );
 
 
-  // ----------------------------------------------------------
-  // SAVE
-  // ----------------------------------------------------------
+  /* ==========================================================
+     FOOTER
+     ========================================================== */
 
-  doc.save(
-    "GB-Tech-PC-Build.pdf"
+  doc.setDrawColor(
+    214,
+    179,
+    92
   );
 
+
+  doc.setLineWidth(
+    .35
+  );
+
+
+  doc.line(
+    margin,
+    pageHeight - 18,
+    pageWidth - margin,
+    pageHeight - 18
+  );
+
+
+  doc.setFont(
+    "helvetica",
+    "normal"
+  );
+
+
+  doc.setFontSize(
+    8
+  );
+
+
+  doc.setTextColor(
+    120,
+    120,
+    120
+  );
+
+
+  doc.text(
+    "GB Tech — Your Ultimate Gaming Hub",
+    margin,
+    pageHeight - 10
+  );
+
+
+  doc.text(
+    "gb-tech.pk",
+    pageWidth - margin,
+    pageHeight - 10,
+    {
+      align:
+        "right"
+    }
+  );
+
+
+  /* ==========================================================
+     SAVE
+     ========================================================== */
+
+  doc.save(
+    "GB-Tech-PC-Build-Quotation.pdf"
+  );
 }
 
 
-// ============================================================
-// START APPLICATION
-// ============================================================
+/* ============================================================
+   START
+   ============================================================ */
 
 loadProducts();
