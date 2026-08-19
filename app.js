@@ -1159,49 +1159,6 @@ function openWhatsApp(message) {
 }
 
 
-/* ============================================================
-   SHARE QUOTATION
-   ============================================================ */
-
-async function shareQuotationOnWhatsApp() {
-
-  const selected =
-    selectedEntries();
-
-
-  if (!selected.length) {
-
-    alert(
-      "Please select your PC components first."
-    );
-
-    return;
-  }
-
-
-  /*
-     Open WhatsApp immediately while the click
-     still has user activation.
-
-     This avoids popup blockers.
-  */
-
-  const message =
-    buildWhatsAppMessage("quotation");
-
-
-  openWhatsApp(message);
-
-
-  /*
-     Generate the exact same quotation PDF
-     after opening WhatsApp.
-  */
-
-  await downloadSelectedPDF();
-
-}
-
 
 /* ============================================================
    ASK GB TECH ABOUT BUILD
@@ -1209,11 +1166,75 @@ async function shareQuotationOnWhatsApp() {
 
 function askGBTechAboutBuild() {
 
-  const message =
-    buildWhatsAppMessage("help");
+  const selectedProducts = [];
+
+  Object.keys(selected || {}).forEach(category => {
+
+    const product = selected[category];
+
+    if (!product) return;
+
+    const productName =
+      product.name ||
+      product.title ||
+      product.product_name ||
+      "Product";
+
+    const price =
+      Number(
+        product.price ||
+        product.sale_price ||
+        product.product_price ||
+        0
+      );
+
+    selectedProducts.push(
+      `${productName}${price ? ` — PKR ${price.toLocaleString()}` : ""}`
+    );
+  });
 
 
-  openWhatsApp(message);
+  if (!selectedProducts.length) {
+
+    const message =
+      "Hi GB Tech, I would like some help choosing components for a PC build.";
+
+    window.open(
+      `https://wa.me/923055183777?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+
+    return;
+  }
+
+
+  const totalElement =
+    document.getElementById("total");
+
+  const total =
+    totalElement
+      ? totalElement.innerText.trim()
+      : "PKR 0";
+
+
+  const message = [
+    "Hi GB Tech, I would like some help with my PC build.",
+    "",
+    "Selected components:",
+    ...selectedProducts.map(
+      item => `• ${item}`
+    ),
+    "",
+    `Estimated build total: ${total}`,
+    "",
+    "Could you please review this build and advise me if any changes are recommended?"
+  ].join("\n");
+
+
+  window.open(
+    `https://wa.me/923055183777?text=${encodeURIComponent(message)}`,
+    "_blank"
+  );
 }
 
 
@@ -1310,187 +1331,217 @@ document
    PDF — LOAD LOCAL IMAGE
    ============================================================ */
 
+/* ============================================================
+   PDF — LOAD LOCAL IMAGE WITHOUT DISTORTION
+   ============================================================ */
+
 function loadImageAsDataURL(src) {
+  return new Promise((resolve, reject) => {
 
-  return new Promise(
-    (resolve, reject) => {
+    const img = new Image();
 
-      const img =
-        new Image();
+    img.onload = () => {
 
+      const canvas = document.createElement("canvas");
 
-      img.onload = () => {
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
 
-        const canvas =
-          document.createElement(
-            "canvas"
-          );
+      const context = canvas.getContext("2d");
 
+      context.drawImage(
+        img,
+        0,
+        0,
+        img.naturalWidth,
+        img.naturalHeight
+      );
 
-        canvas.width =
-          img.naturalWidth;
+      resolve({
+        data: canvas.toDataURL("image/png"),
+        width: img.naturalWidth,
+        height: img.naturalHeight
+      });
 
+    };
 
-        canvas.height =
-          img.naturalHeight;
+    img.onerror = () => {
+      reject(new Error("Could not load image: " + src));
+    };
 
+    img.src = src;
+  });
+}
 
-        const context =
-          canvas.getContext(
-            "2d"
-          );
+function pdfSafeCompatibilityTitle(title) {
 
+  return String(title || "")
+    .replace(/↔/g, " / ")
+    .replace(/\s+/g, " ")
+    .trim();
 
-        context.drawImage(
-          img,
-          0,
-          0
-        );
-
-
-        resolve(
-          canvas.toDataURL(
-            "image/png"
-          )
-        );
-
-      };
-
-
-      img.onerror =
-        reject;
-
-
-      img.src = src;
-
-    }
-  );
 }
 
 
 /* ============================================================
-   PDF — DOWNLOAD BUILD
+   PDF — GB TECH PC BUILD QUOTATION
    ============================================================ */
 
 async function downloadSelectedPDF() {
 
-  const {
-    jsPDF
-  } =
-    window.jspdf || {};
-
+  const { jsPDF } = window.jspdf || {};
 
   if (!jsPDF) {
-
     alert(
       "PDF library could not be loaded. Please check your internet connection."
     );
+    return;
+  }
 
+  /*
+    IMPORTANT:
+    Your actual builder stores selected products in `build`.
+    selectedEntries() returns:
+    [
+      ["motherboard", product],
+      ["ram", product],
+      ...
+    ]
+  */
+
+  const selected = selectedEntries();
+
+  if (!selected || !selected.length) {
+    alert("Please select your PC components first.");
     return;
   }
 
 
-  const selected =
-    selectedEntries();
+  /* ============================================================
+     PDF SETUP
+     ============================================================ */
 
-
-  if (!selected.length) {
-
-    alert(
-      "Please select your PC components first."
-    );
-
-    return;
-  }
-
-
-  const doc =
-    new jsPDF({
-      unit: "mm",
-      format: "a4"
-    });
-
+  const doc = new jsPDF({
+    unit: "mm",
+    format: "a4",
+    orientation: "portrait"
+  });
 
   const pageWidth =
     doc.internal.pageSize.getWidth();
 
-
   const pageHeight =
     doc.internal.pageSize.getHeight();
 
-
   const margin = 15;
 
-
-  /* ==========================================================
-     PDF HEADER
-     ========================================================== */
-
-  const headerX = margin;
-  const headerY = 12;
-
-  const headerWidth =
-    pageWidth - margin * 2;
-
-  const headerHeight = 34;
+  const contentWidth =
+    pageWidth - (margin * 2);
 
 
-  doc.setFillColor(
-    17,
-    19,
-    23
-  );
+  /* ============================================================
+     COLORS
+     ============================================================ */
 
+  const DARK = [17, 19, 23];
+  const GOLD = [214, 179, 92];
+
+  const TEXT = [45, 45, 45];
+  const MUTED = [105, 105, 105];
+
+  const RED = [180, 48, 48];
+  const RED_BG = [253, 239, 239];
+
+  const GREEN = [52, 125, 68];
+
+
+  /* ============================================================
+     HEADER
+     ============================================================ */
+
+  const headerY = 10;
+  const headerHeight = 32;
+
+  doc.setFillColor(...DARK);
 
   doc.roundedRect(
-    headerX,
+    margin,
     headerY,
-    headerWidth,
+    contentWidth,
     headerHeight,
-    4,
-    4,
+    5,
+    5,
     "F"
   );
 
 
+  /*
+    LOAD LOGO
+    Preserve original aspect ratio.
+  */
+
   let logoLoaded = false;
 
-
   try {
+    const logo = await loadImageAsDataURL(
+    "media/GB tech logo.png"
+  );
 
-    const logoData =
-      await loadImageAsDataURL(
-        "media/GB-tech logo white.png"
-      );
+  /*
+     Keep the original aspect ratio.
+     The logo is intentionally larger but never stretched.
+  */
 
+  const maxLogoWidth = 48;
+  const maxLogoHeight = 26;
 
-    doc.addImage(
-      logoData,
-      "PNG",
-      margin + 7,
-      headerY + 5,
-      42,
-      0
-    );
+  const aspectRatio =
+    logo.width / logo.height;
 
+  let logoWidth = maxLogoWidth;
+  let logoHeight = logoWidth / aspectRatio;
 
-    logoLoaded = true;
+  if (logoHeight > maxLogoHeight) {
+    logoHeight = maxLogoHeight;
+    logoWidth = logoHeight * aspectRatio;
+  }
+
+  const logoX =
+    margin + 7;
+
+  const logoY =
+    headerY + (headerHeight - logoHeight) / 2;
+
+  doc.addImage(
+    logo.data,
+    "PNG",
+    logoX,
+    logoY,
+    logoWidth,
+    logoHeight
+  );
+
+  logoLoaded = true;
+
 
   } catch (error) {
 
-    console.warn(
-      "Could not load PDF logo.",
-      error
-    );
-
+    
+  console.warn(
+    "Could not load PDF logo.",
+    error
+  );
   }
 
 
+  /* ============================================================
+     HEADER TEXT
+     ============================================================ */
+
   const titleX =
     logoLoaded
-      ? margin + 57
+      ? margin + 58
       : margin + 8;
-
 
   doc.setTextColor(
     255,
@@ -1498,22 +1549,17 @@ async function downloadSelectedPDF() {
     255
   );
 
-
   doc.setFont(
     "helvetica",
     "bold"
   );
 
-
-  doc.setFontSize(
-    18
-  );
-
+  doc.setFontSize(17);
 
   doc.text(
     "PC BUILD QUOTATION",
     titleX,
-    headerY + 13
+    headerY + 12
   );
 
 
@@ -1522,11 +1568,7 @@ async function downloadSelectedPDF() {
     "normal"
   );
 
-
-  doc.setFontSize(
-    9
-  );
-
+  doc.setFontSize(9);
 
   doc.setTextColor(
     205,
@@ -1534,13 +1576,11 @@ async function downloadSelectedPDF() {
     220
   );
 
-
   doc.text(
     "GB Tech — Build Your Own PC",
     titleX,
     headerY + 20
   );
-
 
   doc.text(
     `Generated: ${new Date().toLocaleDateString("en-GB")}`,
@@ -1549,89 +1589,93 @@ async function downloadSelectedPDF() {
   );
 
 
-  /* ==========================================================
-     SELECTED COMPONENTS TITLE
-     ========================================================== */
+  /* ============================================================
+     SELECTED COMPONENTS
+     ============================================================ */
 
-  let tableStartY =
+  let y =
     headerY +
     headerHeight +
-    14;
+    13;
 
-
-  doc.setTextColor(
-    40,
-    40,
-    40
-  );
-
+  doc.setTextColor(...TEXT);
 
   doc.setFont(
     "helvetica",
     "bold"
   );
 
-
-  doc.setFontSize(
-    13
-  );
-
+  doc.setFontSize(13);
 
   doc.text(
     "SELECTED COMPONENTS",
     margin,
-    tableStartY
+    y
   );
 
+  y += 7;
 
-  tableStartY += 7;
 
-
-  /* ==========================================================
+  /* ============================================================
      TABLE DATA
-     ========================================================== */
+     ============================================================ */
 
   const tableRows =
     selected.map(
-      ([type, product]) => [
+      ([type, product]) => {
 
-        labels[type]
-          .toUpperCase(),
+        return [
+          String(
+            labels[type] || type
+          ).toUpperCase(),
 
-        product["Product Name"] ||
-          "—",
+          product["Product Name"] ||
+            "—",
 
-        product.Brand ||
-          "—",
+          product.Brand ||
+            "—",
 
-        `PKR ${money(
-          safePrice(product)
-        )}`
-
-      ]
+          `PKR ${money(
+            safePrice(product)
+          )}`
+        ];
+      }
     );
 
 
+  /* ============================================================
+     TOTAL
+     ============================================================ */
+
   const total =
     selected.reduce(
-      (sum, [, product]) =>
-        sum + safePrice(product),
+      (sum, [, product]) => {
+
+        return (
+          sum +
+          safePrice(product)
+        );
+
+      },
       0
     );
 
 
-  /* ==========================================================
-     TABLE
-     ========================================================== */
+  /* ============================================================
+     PRODUCT TABLE
+     ============================================================ */
 
   doc.autoTable({
 
-    startY: tableStartY,
+    startY: y,
 
     margin: {
       left: margin,
       right: margin
     },
+
+    tableWidth:
+      contentWidth,
 
     head: [
       [
@@ -1660,64 +1704,71 @@ async function downloadSelectedPDF() {
         4,
 
       textColor:
-        [45, 45, 45],
+        TEXT,
 
       lineColor:
         [218, 218, 218],
 
       lineWidth:
-        .2,
+        0.2,
 
       valign:
         "middle",
 
       overflow:
         "linebreak"
-
     },
 
     headStyles: {
 
       fillColor:
-        [17, 19, 23],
+        DARK,
 
       textColor:
-        [255, 216, 109],
+        GOLD,
 
       fontStyle:
         "bold",
 
-      halign:
-        "left",
+      fontSize:
+        8.5,
 
       cellPadding:
-        4.5
+        4,
 
+      valign:
+        "middle"
+    },
+
+    bodyStyles: {
+
+      fillColor:
+        [249, 249, 249]
     },
 
     alternateRowStyles: {
 
       fillColor:
-        [248, 248, 248]
-
+        [243, 243, 243]
     },
 
     columnStyles: {
 
       /*
-         COMPONENT deliberately wider.
+        Category stays wide.
       */
 
       0: {
-        cellWidth: 38
+        cellWidth: 40,
+        fontStyle: "bold"
       },
 
       /*
-         PRODUCT gets the largest space.
+        Product is the widest.
       */
 
       1: {
-        cellWidth: 88
+        cellWidth: 86
       },
 
       2: {
@@ -1726,23 +1777,361 @@ async function downloadSelectedPDF() {
 
       3: {
         cellWidth: 29,
-
-        halign:
-          "right"
+        halign: "right",
+        fontStyle: "bold"
       }
+    },
 
+    didParseCell(data) {
+
+      /*
+        Explicitly eliminate character spacing.
+      */
+
+      data.cell.styles.charSpace = 0;
     }
-
   });
 
 
-  /* ==========================================================
-     TOTAL BUILD
-     ========================================================== */
+  /* ============================================================
+     THIN TOTAL BUILD BAR
+     ============================================================ */
 
-  let y =
-    doc.lastAutoTable.finalY + 10;
+  y =
+    doc.lastAutoTable.finalY +
+    8;
 
+
+  /*
+    MUCH thinner than before.
+
+    11mm high instead of 19mm/25mm.
+  */
+
+  const totalHeight = 11;
+
+
+  /*
+    Keep it on the same page where possible.
+  */
+
+  if (
+    y + totalHeight >
+    pageHeight - 55
+  ) {
+
+    doc.addPage();
+
+    y = 18;
+  }
+
+
+  doc.setFillColor(
+    ...DARK
+  );
+
+  doc.roundedRect(
+    margin,
+    y,
+    contentWidth,
+    totalHeight,
+    3.5,
+    3.5,
+    "F"
+  );
+
+
+  /*
+    Small text.
+    Both sides use the EXACT same vertical baseline.
+  */
+
+  doc.setTextColor(
+    ...GOLD
+  );
+
+  doc.setFont(
+    "helvetica",
+    "bold"
+  );
+
+  doc.setFontSize(9.5);
+
+
+  /*
+    This baseline is deliberately centered
+    vertically inside the 11mm bar.
+  */
+
+  const totalBaseline =
+    y + 7;
+
+
+  doc.text(
+    "TOTAL BUILD",
+    margin + 7,
+    totalBaseline
+  );
+
+
+  doc.text(
+    `PKR ${money(total)}`,
+    pageWidth - margin - 7,
+    totalBaseline,
+    {
+      align: "right"
+    }
+  );
+
+
+  /* ============================================================
+     COMPATIBILITY CHECK
+     ============================================================ */
+
+  y +=
+    totalHeight +
+    10;
+
+
+  if (
+    y >
+    pageHeight - 75
+  ) {
+
+    doc.addPage();
+
+    y = 20;
+  }
+
+
+  doc.setTextColor(
+    ...TEXT
+  );
+
+  doc.setFont(
+    "helvetica",
+    "bold"
+  );
+
+  doc.setFontSize(10.5);
+
+  doc.text(
+    "COMPATIBILITY CHECK",
+    margin,
+    y
+  );
+
+  y += 7;
+
+
+  /*
+    Use the SAME compatibility engine as the website.
+    Your app.js already defines checks() for:
+    - Motherboard ↔ RAM
+    - Motherboard ↔ Case
+    - GPU ↔ PSU
+    - Motherboard ↔ Cooling
+    - GPU ↔ Case
+    - Fan ↔ Case
+  */
+
+  const compatibility =
+    checks();
+
+
+  const issues =
+    compatibility.filter(
+      item =>
+        item.level === "bad" ||
+        item.level === "warn"
+    );
+
+
+  /* ============================================================
+     NO ISSUES
+     ============================================================ */
+
+  if (!issues.length) {
+
+    doc.setFont(
+      "helvetica",
+      "bold"
+    );
+
+    doc.setFontSize(8.5);
+
+    doc.setTextColor(
+      ...GREEN
+    );
+
+    doc.text(
+      "No compatibility conflicts were identified from the available specifications.",
+      margin,
+      y
+    );
+
+    y += 12;
+  }
+
+
+  /* ============================================================
+   ISSUES
+   ============================================================ */
+
+else {
+
+  issues.forEach(issue => {
+
+    /*
+      Clean the component names before sending them
+      to jsPDF.
+
+      This prevents the weird spaced-out appearance
+      caused by unsupported Unicode characters.
+    */
+    const rawTitle = String(issue.title || "");
+
+    const title = rawTitle
+      .replace(/↔/g, " / ")
+      .replace(/[^\x20-\x7E]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+
+    /*
+      Clean compatibility message
+    */
+    const message = String(issue.text || "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+
+    /*
+      Calculate description height
+    */
+    doc.setFont(
+      "helvetica",
+      "normal"
+    );
+
+    doc.setFontSize(7.5);
+
+    const messageLines =
+      doc.splitTextToSize(
+        message,
+        contentWidth - 14
+      );
+
+
+    const boxHeight =
+      23 +
+      Math.max(
+        0,
+        (messageLines.length - 1) * 3.5
+      );
+
+
+    /*
+      RED COMPATIBILITY BOX
+    */
+    doc.setFillColor(
+      ...RED_BG
+    );
+
+    doc.roundedRect(
+      margin,
+      y,
+      contentWidth,
+      boxHeight,
+      3,
+      3,
+      "F"
+    );
+
+
+    /*
+      ISSUE LABEL
+    */
+    doc.setTextColor(
+      ...RED
+    );
+
+    doc.setFont(
+      "helvetica",
+      "bold"
+    );
+
+    doc.setFontSize(8.5);
+
+    doc.text(
+      "Compatibility issue found",
+      margin + 7,
+      y + 7
+    );
+
+
+    /*
+      COMPONENT NAMES
+
+      Example:
+
+      MOTHERBOARD / RAM
+    */
+    doc.setTextColor(
+      ...TEXT
+    );
+
+    doc.setFont(
+      "helvetica",
+      "bold"
+    );
+
+    doc.setFontSize(8);
+
+    doc.text(
+      title,
+      margin + 7,
+      y + 13
+    );
+
+
+    /*
+      EXPLANATION
+    */
+    doc.setFont(
+      "helvetica",
+      "normal"
+    );
+
+    doc.setFontSize(7.5);
+
+    doc.setTextColor(
+      ...MUTED
+    );
+
+    doc.text(
+      messageLines,
+      margin + 7,
+      y + 18,
+      {
+        lineHeightFactor: 1.15
+      }
+    );
+
+
+    /*
+      Space before next section
+    */
+    y += boxHeight + 6;
+
+  });
+
+}
+
+
+  /* ============================================================
+     IMPORTANT INFORMATION
+     ============================================================ */
 
   if (
     y >
@@ -1752,161 +2141,125 @@ async function downloadSelectedPDF() {
     doc.addPage();
 
     y = 20;
-
   }
 
 
-  doc.setFillColor(
-    17,
-    19,
-    23
+  y += 2;
+
+
+  doc.setDrawColor(
+    210,
+    210,
+    210
   );
 
+  doc.setLineWidth(
+    0.25
+  );
 
-  doc.roundedRect(
+  doc.line(
     margin,
     y,
-    pageWidth - margin * 2,
-    19,
-    4,
-    4,
-    "F"
+    pageWidth - margin,
+    y
   );
+
+
+  y += 8;
 
 
   doc.setTextColor(
-    255,
-    216,
-    109
+    ...TEXT
   );
-
 
   doc.setFont(
     "helvetica",
     "bold"
   );
 
+  doc.setFontSize(10);
 
-  doc.setFontSize(
-    12
+  doc.text(
+    "IMPORTANT INFORMATION",
+    margin,
+    y
   );
 
 
-  doc.text(
-    "TOTAL BUILD",
-    margin + 7,
-    y + 12
+  y += 7;
+
+
+  doc.setFont(
+    "helvetica",
+    "normal"
+  );
+
+  doc.setFontSize(7.5);
+
+  doc.setTextColor(
+    ...MUTED
   );
 
 
-  doc.text(
-    `PKR ${money(total)}`,
-    pageWidth - margin - 7,
-    y + 12,
-    {
-      align:
-        "right"
+  const disclaimers = [
+
+    "Prices shown are estimates and may change due to supplier pricing, market conditions, or other factors.",
+
+    "Compatibility should be independently confirmed before purchase. The builder's checks are intended as guidance only.",
+
+    "Product availability and stock status may change between generating this quotation and placing an order.",
+
+    "Product specifications are based on the information available in the GB Tech product data at the time of generation."
+  ];
+
+
+  disclaimers.forEach(
+    text => {
+
+      const lines =
+        doc.splitTextToSize(
+          `• ${text}`,
+          contentWidth
+        );
+
+      doc.text(
+        lines,
+        margin,
+        y,
+        {
+          charSpace: 0,
+          lineHeightFactor: 1.25
+        }
+      );
+
+      y +=
+        (lines.length * 3.8) +
+        3;
     }
   );
 
 
-  /* ==========================================================
-     COMPATIBILITY NOTICE
-     ========================================================== */
-
-  y += 29;
-
-
-  if (
-    y >
-    pageHeight - 45
-  ) {
-
-    doc.addPage();
-
-    y = 20;
-
-  }
-
-
-  doc.setTextColor(
-    45,
-    45,
-    45
-  );
-
-
-  doc.setFont(
-    "helvetica",
-    "bold"
-  );
-
-
-  doc.setFontSize(
-    10
-  );
-
-
-  doc.text(
-    "COMPATIBILITY NOTICE",
-    margin,
-    y
-  );
-
-
-  y += 6;
-
-
-  doc.setFont(
-    "helvetica",
-    "normal"
-  );
-
-
-  doc.setFontSize(
-    8.5
-  );
-
-
-  const notice =
-    "This builder performs basic compatibility checks using the product specifications available in the GB Tech product data. It does not guarantee complete system compatibility. Always verify detailed specifications with the manufacturer before purchasing.";
-
-
-  const noticeLines =
-    doc.splitTextToSize(
-      notice,
-      pageWidth - margin * 2
-    );
-
-
-  doc.text(
-    noticeLines,
-    margin,
-    y
-  );
-
-
-  /* ==========================================================
+  /* ============================================================
      FOOTER
-     ========================================================== */
+     ============================================================ */
+
+  const footerLineY =
+    pageHeight - 18;
+
 
   doc.setDrawColor(
-    214,
-    179,
-    92
+    ...GOLD
   );
-
 
   doc.setLineWidth(
-    .35
+    0.25
   );
-
 
   doc.line(
     margin,
-    pageHeight - 18,
+    footerLineY,
     pageWidth - margin,
-    pageHeight - 18
+    footerLineY
   );
 
 
@@ -1915,11 +2268,7 @@ async function downloadSelectedPDF() {
     "normal"
   );
 
-
-  doc.setFontSize(
-    8
-  );
-
+  doc.setFontSize(7.5);
 
   doc.setTextColor(
     120,
@@ -1940,18 +2289,49 @@ async function downloadSelectedPDF() {
     pageWidth - margin,
     pageHeight - 10,
     {
-      align:
-        "right"
+      align: "right"
     }
   );
 
 
-  /* ==========================================================
-     SAVE
-     ========================================================== */
+  /* ============================================================
+     DOWNLOAD
+     ============================================================ */
 
   doc.save(
     "GB-Tech-PC-Build-Quotation.pdf"
+  );
+}
+
+function addPDFFooter(doc, pageWidth, pageHeight) {
+
+  doc.setDrawColor(225, 226, 229);
+
+  doc.line(
+    15,
+    pageHeight - 15,
+    pageWidth - 15,
+    pageHeight - 15
+  );
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+
+  doc.setTextColor(130, 134, 140);
+
+  doc.text(
+    "GB Tech — Build Your Own PC",
+    15,
+    pageHeight - 9
+  );
+
+  doc.text(
+    "Generated quotation",
+    pageWidth - 15,
+    pageHeight - 9,
+    {
+      align: "right"
+    }
   );
 }
 
