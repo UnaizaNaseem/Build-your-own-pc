@@ -904,10 +904,6 @@ function removeProduct(type) {
     checks();
 }
 
-/* ============================================================
-   SUMMARY
-   ============================================================ */
-
 function updateSummary() {
 
     const total =
@@ -1004,6 +1000,65 @@ function updateSummary() {
     }
 
 
+    /* ------------------------------------------------------------
+       STATUS LOGIC
+
+       0 selected components
+           → no compatibility result
+
+       1 selected component
+           → no compatibility result
+
+       2+ selected components
+           → evaluate actual compatibility results
+       ------------------------------------------------------------ */
+
+    const selectedCount =
+        selectedEntries().length;
+
+
+    /*
+     ------------------------------------------------------------
+     NOTHING SELECTED
+     ------------------------------------------------------------
+    */
+
+    if (!selectedCount) {
+
+        status.className =
+            "status idle";
+
+        status.textContent =
+            "Select components to check compatibility";
+
+        return;
+    }
+
+
+    /*
+     ------------------------------------------------------------
+     COMPONENTS SELECTED BUT NOTHING CAN BE CHECKED YET
+     ------------------------------------------------------------
+    */
+
+    if (!compatibility.length) {
+
+        status.className =
+            "status idle";
+
+        status.textContent =
+            "Add compatible components to run checks";
+
+        return;
+    }
+
+
+    /*
+     ------------------------------------------------------------
+     ACTUAL COMPATIBILITY RESULT EXISTS
+     ------------------------------------------------------------
+    */
+
     status.className =
         "status " +
         (
@@ -1027,7 +1082,6 @@ function updateSummary() {
                 : "Build passes basic checks";
 
 }
-
 
 /* ============================================================
    COMPATIBILITY HELPERS

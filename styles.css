@@ -931,7 +931,18 @@ body::after {
     0 0 18px rgba(85, 214, 139, .025);
 }
 
+#status.status.idle,
+#status .status.idle {
+  color: var(--muted);
 
+  background:
+    rgba(165, 173, 186, .055);
+
+  border:
+    1px solid rgba(165, 173, 186, .18);
+
+  box-shadow: none;
+}
 /* ------------------------------------------------------------
    WARNING
    ------------------------------------------------------------ */
