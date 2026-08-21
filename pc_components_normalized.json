@@ -308,8 +308,7 @@
         "Product URL": "https://www.gb-tech.pk/xpg-prime-argb-dual-8pin-pcie-extension-cable",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-prime-argb-dual-8-pin-pcie-extension-cable-91598-2640663-280726111851527.webp",
         "Compatibility": {
-            "type": "power_supply",
-            "wattage": null
+            "type": "unknown"
         }
     },
     {
@@ -320,6 +319,126 @@
         "Price": "48000.00",
         "Product URL": "https://www.gb-tech.pk/andaseat-luna-black-gaming-chair-ergonomic-reclining-chair",
         "Image": "https://static3.webx.pk/files/91598/Images/andaseat-luna-black-gaming-chair-ergonomic-reclining-chair-91598-2641473-280726101420976.webp",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663180",
+        "Product Name": "AndaSeat Luna Series Gaming Chair — Fabric/Linen Upholstery, Black (AD18-44-B-F)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "48000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-luna-series-gaming-chair-fabriclinen-upholstery-black-ad1844bf",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663181",
+        "Product Name": "AndaSeat Luna Series Gaming Chair — Grey Fabric/Linen Upholstery (AD18-44-G-F)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "48000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-luna-series-gaming-chair-grey-fabriclinen-upholstery-ad1844gf",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663179",
+        "Product Name": "AndaSeat Luna Series Gaming Chair — Premium PVC Leather, Black (AD18-44-B-PV)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "48000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-luna-series-gaming-chair-premium-pvc-leather-black-ad1844bpv",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663183",
+        "Product Name": "AndaSeat Novis Ultra Premium Gaming Chair — Ash Gray, Linen Fabric (AD23-L-01-G-F-G02)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "52000.00",
+        "Product URL": "https://www.gb-tech.pk/gaming-gear/chairs/andaseat-novis-ultra-premium-gaming-chair-ash-gray-linen-fabric-ad23l01gfg02",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663182",
+        "Product Name": "AndaSeat Novis Ultra Premium Gaming Chair — Elegant Black, PVC Leather (AD23-L-01-B-PV-B02)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "52000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-novis-ultra-premium-gaming-chair-elegant-black-pvc-leather-ad23l01bpvb02",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663200",
+        "Product Name": "AndaSeat Novis Ultra XL Premium Gaming Chair — Ash Gray, Linen Fabric (AD23-XL-01-G-F-G02)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "55000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-novis-ultra-xl-premium-gaming-chair-ash-gray-linen-fabric-ad23xl01gfg02",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663199",
+        "Product Name": "AndaSeat Novis Ultra XL Premium Gaming Chair — Elegant Black, PVC Leather (AD23-XL-01-B-PV-B02)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "55000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-novis-ultra-xl-premium-gaming-chair-elegant-black-pvc-leather-ad23xl01bpvb02",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663202",
+        "Product Name": "AndaSeat X-Air Pro Premium Mesh Gaming Chair — Ash Grey (AD-WY-01-GGF-G01)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "85000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-xair-pro-premium-mesh-gaming-chair-ash-grey-adwy01ggfg01",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663203",
+        "Product Name": "AndaSeat X-Air Pro Premium Mesh Gaming Chair — Celeste (AD-WY-01-BBC-B01)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "85000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-xair-pro-premium-mesh-gaming-chair-celeste-adwy01bbcb01",
+        "Image": "",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2663201",
+        "Product Name": "AndaSeat X-Air Pro Premium Mesh Gaming Chair — Space Black (AD-WY-01-BBB-B01)",
+        "Category": "Gaming Gear > Chairs",
+        "Brand": "AndaSeat",
+        "Price": "85000.00",
+        "Product URL": "https://www.gb-tech.pk/andaseat-xair-pro-premium-mesh-gaming-chair-space-black-adwy01bbbb01",
+        "Image": "",
         "Compatibility": {
             "type": "unknown"
         }
@@ -685,6 +804,18 @@
         }
     },
     {
+        "Product ID": "2662726",
+        "Product Name": "Rapoo V30L Wired/Wireless Gaming Mouse with RGB Backlight",
+        "Category": "Gaming Peripherals > Gaming Mouse",
+        "Brand": "Rapoo",
+        "Price": "5995.00",
+        "Product URL": "https://www.gb-tech.pk/rapoo-v30l-wiredwireless-gaming-mouse-with-rgb-backlight",
+        "Image": "https://static3.webx.pk/files/91598/Images/rapoo-v30l-wired-91598-2662726-190826061942677.webp",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
         "Product ID": "2659423",
         "Product Name": "Rapoo VPRO V25S 6200 DPI Wired Optical Gaming Mouse — Black",
         "Category": "Gaming Peripherals > Gaming Mouse",
@@ -848,6 +979,18 @@
         "Price": "5800.00",
         "Product URL": "https://www.gb-tech.pk/gaming-peripherals/headphones-headsets/rapoo-h200-dualmode-wireless-stereo-headset-black",
         "Image": "https://static3.webx.pk/files/91598/Images/rapoo-h200-dual-mode-wireless-stereo-headset-91598-2659418-140826063620616.webp",
+        "Compatibility": {
+            "type": "unknown"
+        }
+    },
+    {
+        "Product ID": "2662758",
+        "Product Name": "Rapoo VH160 Virtual 7.1 Channel RGB Gaming Headset",
+        "Category": "Gaming Peripherals > Headphones / Headsets",
+        "Brand": "Rapoo",
+        "Price": "4095.00",
+        "Product URL": "https://www.gb-tech.pk/rapoo-vh160-virtual-71-channel-rgb-gaming-headset",
+        "Image": "https://static3.webx.pk/files/91598/Images/vh160-7.1-ch-gaming-headset-91598-2662758-190826063529983.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -1153,324 +1296,63 @@
         }
     },
     {
-        "Product ID": "2653331",
-        "Product Name": "ASUS AYW Gaming LC 360 ARGB LCD — 360mm AIO CPU Liquid Cooler",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "ASUS",
-        "Price": "41000.00",
-        "Product URL": "https://www.gb-tech.pk/asus-ayw-gaming-lc-360-argb-lcd-360mm-aio-cpu-liquid-cooler",
-        "Image": "https://static3.webx.pk/files/91598/Images/asus-ayw-gaming-lc-360-argb-lcd-cooler-91598-2653331-040826061933574.webp",
+        "Product ID": "2662777",
+        "Product Name": "Rapoo XR100 Wireless Presenter with Laser Pointer",
+        "Category": "Gaming Peripherals > Laser Pointer",
+        "Brand": "Rapoo",
+        "Price": "1995.00",
+        "Product URL": "https://www.gb-tech.pk/uncategorized/rapoo-xr100-wireless-presenter-with-laser-pointer",
+        "Image": "https://static3.webx.pk/files/91598/Images/rapoo-xr100-91598-2662777-190826070239878.webp",
         "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": null
+            "type": "unknown"
         }
     },
     {
-        "Product ID": "2653330",
-        "Product Name": "ASUS Prime LC 360 ARGB White Edition — 360mm AIO CPU Liquid Cooler",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "ASUS",
-        "Price": "26800.00",
-        "Product URL": "https://www.gb-tech.pk/asus-prime-lc-360-argb-white-edition-360mm-aio-cpu-liquid-cooler",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-lc-360-argb-white-edition-91598-0-040826061130347.webp",
+        "Product ID": "2662778",
+        "Product Name": "Rapoo XR200 Wireless Touch Presenter with Laser Pointer",
+        "Category": "Gaming Peripherals > Laser Pointer",
+        "Brand": "Rapoo",
+        "Price": "4995.00",
+        "Product URL": "https://www.gb-tech.pk/rapoo-xr200-wireless-touch-presenter-with-laser-pointer",
+        "Image": "https://static3.webx.pk/files/91598/Images/rapoo-xr200-91598-2662778-190826071346646.webp",
         "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": null
+            "type": "unknown"
         }
     },
     {
-        "Product ID": "2653333",
-        "Product Name": "ASUS ROG Ryujin III 360 ARGB Extreme White Edition — Premium 360mm AIO CPU Liquid Cooler",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "ASUS",
-        "Price": "118000.00",
-        "Product URL": "https://www.gb-tech.pk/asus-rog-ryujin-iii-360-argb-extreme-white-edition-premium-360mm-aio-cpu-liquid-cooler",
-        "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-ryujin-iii-360-extreme-white-cooler-91598-2653333-040826062524980.webp",
+        "Product ID": "2662759",
+        "Product Name": "Rapoo V10C Fabric Gaming Mouse Pad — For Control",
+        "Category": "Gaming Peripherals > Mouse Pad",
+        "Brand": "Rapoo",
+        "Price": "1095.00",
+        "Product URL": "https://www.gb-tech.pk/rapoo-v10c-fabric-gaming-mouse-pad-for-control",
+        "Image": "https://static3.webx.pk/files/91598/Images/rapoo-v10c-fabric-gaming-mouse-pad-91598-2662759-190826065242685.webp",
         "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1200",
-                "AM4",
-                "AM5"
-            ],
-            "radiator_size_mm": null
+            "type": "unknown"
         }
     },
     {
-        "Product ID": "2653343",
-        "Product Name": "ASUS ROG Ryuo IV SLC 360 ARGB — Curved 6.67\" AMOLED 360mm AIO CPU Liquid Cooler",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "ASUS",
-        "Price": "110000.00",
-        "Product URL": "https://www.gb-tech.pk/asus-rog-ryuo-iv-slc-360-argb-curved-667-amoled-360mm-aio-cpu-liquid-cooler",
-        "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-ryuo-iv-slc-360-amoled-cooler-91598-2653343-040826062946783.webp",
+        "Product ID": "2662760",
+        "Product Name": "Rapoo V10S Fabric Gaming Mouse Pad — For Speed",
+        "Category": "Gaming Peripherals > Mouse Pad",
+        "Brand": "Rapoo",
+        "Price": "1095.00",
+        "Product URL": "https://www.gb-tech.pk/rapoo-v10s-fabric-gaming-mouse-pad-for-speed",
+        "Image": "https://static3.webx.pk/files/91598/Images/rapoo-v10s-91598-2662760-190826070012363.webp",
         "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": null
+            "type": "unknown"
         }
     },
     {
-        "Product ID": "2653405",
-        "Product Name": "Thermalright TR 240 AQUA ELITE V6 ARGB 240mm AIO Liquid CPU Cooler (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "11500.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-240-aqua-elite-v6-argb-240mm-aio-liquid-cpu-cooler-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-aqua-elite-v6-argb-240mm-4-91598-2653405-040826090607921.webp",
+        "Product ID": "2662779",
+        "Product Name": "Rapoo A80 Wired Compact Multimedia Stereo Speaker",
+        "Category": "Gaming Peripherals > Stereo speaker",
+        "Brand": "Rapoo",
+        "Price": "3295.00",
+        "Product URL": "https://www.gb-tech.pk/rapoo-a80-wired-compact-multimedia-stereo-speaker",
+        "Image": "https://static3.webx.pk/files/91598/Images/rapoo-a80-wired-compact-multimedia-stereo-speaker-91598-2662779-190826071831334.webp",
         "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200",
-                "LGA1150",
-                "LGA1151",
-                "LGA1155",
-                "LGA1156"
-            ],
-            "radiator_size_mm": 240
-        }
-    },
-    {
-        "Product ID": "2653480",
-        "Product Name": "Thermalright TR 240 FROZEN INFINITY ARGB 240mm AIO Liquid CPU Cooler (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "15500.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-240-frozen-infinity-argb-240mm-aio-liquid-cpu-cooler-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-frozen-infinity-argb-240mm-4-91598-2653480-040826093624432.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200",
-                "LGA1150",
-                "LGA1151",
-                "LGA1155",
-                "LGA1156",
-                "LGA2011",
-                "LGA2066"
-            ],
-            "radiator_size_mm": 240
-        }
-    },
-    {
-        "Product ID": "2654079",
-        "Product Name": "Thermalright TR 240 PEERLESS VISION LCD ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "25000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-240-peerless-vision-lcd-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-peerless-vision-lcd-argb-4-91598-2654079-050826085937714.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200"
-            ],
-            "radiator_size_mm": 240
-        }
-    },
-    {
-        "Product ID": "2653479",
-        "Product Name": "Thermalright TR 360 AQUA ELITE V6 ARGB 360mm AIO Liquid CPU Cooler (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "16900.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-aqua-elite-v6-argb-360mm-aio-liquid-cpu-cooler-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-aqua-elite-v6-argb-360mm-4-91598-2653479-040826091925634.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200",
-                "LGA1150",
-                "LGA1151",
-                "LGA1155",
-                "LGA1156"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654076",
-        "Product Name": "Thermalright TR 360 CORE MATRIX VISION ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "21000.00",
-        "Product URL": "https://www.gb-tech.pk/gaming-peripherals/liquid-cooler/thermalright-tr-360-frozen-infinity-argb-360mm-aio-liquid-cpu-cooler-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-core-matrix-vision-argb-6-91598-2654076-050826082741811.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2653481",
-        "Product Name": "Thermalright TR 360 FROZEN INFINITY ARGB 360mm AIO Liquid CPU Cooler (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "19500.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-frozen-infinity-argb-360mm-aio-liquid-cpu-cooler-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-aqua-elite-v6-argb-240mm-5-91598-2653481-040826095038239.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200",
-                "LGA1150",
-                "LGA1151",
-                "LGA1155",
-                "LGA1156",
-                "LGA2011",
-                "LGA2066"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654729",
-        "Product Name": "Thermalright TR 360 GRAND VISION ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "45000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-grand-vision-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-grand-vision-argb-4-91598-2654729-060826080920174.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654077",
-        "Product Name": "Thermalright TR 360 MAGIC QUBE ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "20000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-magic-qube-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-magic-qube-argb-4-91598-2654077-050826084410622.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654081",
-        "Product Name": "Thermalright TR 360 PEERLESS VISION LCD ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "31000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-peerless-vision-lcd-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-peerless-vision-lcd-argb-5-91598-2654081-050826091851885.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "LGA1851",
-                "LGA1700",
-                "LGA1200"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654727",
-        "Product Name": "Thermalright TR 360 PEERLESS VISION UB LCD ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "34000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-peerless-vision-ub-lcd-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-peerless-vision-ub-lcd-argb-3-91598-2654727-060826074150414.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654728",
-        "Product Name": "Thermalright TR 360 TROFEO VISION LCD ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "47000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-trofeo-vision-lcd-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-trofeo-vision-lcd-argb-4-91598-2654728-060826075646248.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654731",
-        "Product Name": "Thermalright TR 360 WONDER VISION TURBO LCD ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "95000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-wonder-vision-turbo-lcd-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-wonder-vision-turbo-lcd-argb-4-91598-2654731-060826083201965.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": 360
-        }
-    },
-    {
-        "Product ID": "2654730",
-        "Product Name": "Thermalright TR 360 WONDER VISION UB LCD ARGB (Black / White)",
-        "Category": "Gaming Peripherals > Liquid Cooler",
-        "Brand": "Thermalright",
-        "Price": "82000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-wonder-vision-ub-lcd-argb-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-wonder-vision-ub-lcd-argb-4-91598-2654730-060826082010023.webp",
-        "Compatibility": {
-            "type": "cooling",
-            "socket_support": [
-                "AM5",
-                "AM4"
-            ],
-            "radiator_size_mm": 360
+            "type": "unknown"
         }
     },
     {
@@ -1680,271 +1562,171 @@
     {
         "Product ID": "2660939",
         "Product Name": "ADATA ED600 2.5\" External HDD/SSD Enclosure",
-        "Category": "PC Components > Cases",
+        "Category": "PC Components > Cooling",
         "Brand": "ADATA",
         "Price": "2700.00",
         "Product URL": "https://www.gb-tech.pk/adata-ed600-25-external-hddssd-enclosure",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-ed600-2.5-external-hdd-ssd-enclosure-3-91598-2660939-160826092837923.webp",
         "Compatibility": {
-            "type": "case",
-            "motherboard_support": [],
-            "gpu_clearance_mm": null,
-            "fan_support": null
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2653366",
         "Product Name": "ASUS A32 Plus TG ARGB White ATX Mid-Tower PC Case",
-        "Category": "PC Components > Cases",
+        "Category": "PC Components > Cooling",
         "Brand": "ASUS",
         "Price": "27000.00",
         "Product URL": "https://www.gb-tech.pk/asus-a32-plus-tg-argb-white-atx-midtower-pc-case",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-a32-plus-tg-argb-white-atx-case-91598-2653366-040826070135863.webp",
         "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "ATX"
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
+        }
+    },
+    {
+        "Product ID": "2652330",
+        "Product Name": "ASUS AR120 ARGB PWM Case Fan — 120mm (Single Pack)",
+        "Category": "PC Components > Cooling",
+        "Brand": "ASUS",
+        "Price": "3500.00",
+        "Product URL": "https://www.gb-tech.pk/asus-ar120-argb-pwm-case-fan-120mm-single-pack",
+        "Image": "https://static3.webx.pk/files/91598/Images/asus-ar120-argb-pwm-case-fan-91598-0-020826085756779.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
+        }
+    },
+    {
+        "Product ID": "2653331",
+        "Product Name": "ASUS AYW Gaming LC 360 ARGB LCD — 360mm AIO CPU Liquid Cooler",
+        "Category": "PC Components > Cooling",
+        "Brand": "ASUS",
+        "Price": "41000.00",
+        "Product URL": "https://www.gb-tech.pk/asus-ayw-gaming-lc-360-argb-lcd-360mm-aio-cpu-liquid-cooler",
+        "Image": "https://static3.webx.pk/files/91598/Images/asus-ayw-gaming-lc-360-argb-lcd-cooler-91598-2653331-040826061933574.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "AM5",
+                "AM4"
             ],
-            "gpu_clearance_mm": null,
-            "fan_support": null
+            "radiator_size_mm": null
+        }
+    },
+    {
+        "Product ID": "2653330",
+        "Product Name": "ASUS Prime LC 360 ARGB White Edition — 360mm AIO CPU Liquid Cooler",
+        "Category": "PC Components > Cooling",
+        "Brand": "ASUS",
+        "Price": "26800.00",
+        "Product URL": "https://www.gb-tech.pk/asus-prime-lc-360-argb-white-edition-360mm-aio-cpu-liquid-cooler",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-lc-360-argb-white-edition-91598-0-040826061130347.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "AM5",
+                "AM4"
+            ],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2654073",
         "Product Name": "ASUS ProArt PA401 Wood Edition — Metal Panel, Black",
-        "Category": "PC Components > Cases",
+        "Category": "PC Components > Cooling",
         "Brand": "ASUS",
         "Price": "38000.00",
         "Product URL": "https://www.gb-tech.pk/asus-proart-pa401-wood-edition-metal-panel-black",
         "Image": "https://static3.webx.pk/files/91598/Images/991927cb-7dae-4b0f-bb2f-5fdb4e11236f-91598-2654073-050826073657428.webp",
         "Compatibility": {
-            "type": "case",
-            "motherboard_support": [],
-            "gpu_clearance_mm": null,
-            "fan_support": null
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
+        }
+    },
+    {
+        "Product ID": "2653333",
+        "Product Name": "ASUS ROG Ryujin III 360 ARGB Extreme White Edition — Premium 360mm AIO CPU Liquid Cooler",
+        "Category": "PC Components > Cooling",
+        "Brand": "ASUS",
+        "Price": "118000.00",
+        "Product URL": "https://www.gb-tech.pk/asus-rog-ryujin-iii-360-argb-extreme-white-edition-premium-360mm-aio-cpu-liquid-cooler",
+        "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-ryujin-iii-360-extreme-white-cooler-91598-2653333-040826062524980.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1200",
+                "AM4",
+                "AM5"
+            ],
+            "radiator_size_mm": null
+        }
+    },
+    {
+        "Product ID": "2653343",
+        "Product Name": "ASUS ROG Ryuo IV SLC 360 ARGB — Curved 6.67\" AMOLED 360mm AIO CPU Liquid Cooler",
+        "Category": "PC Components > Cooling",
+        "Brand": "ASUS",
+        "Price": "110000.00",
+        "Product URL": "https://www.gb-tech.pk/asus-rog-ryuo-iv-slc-360-argb-curved-667-amoled-360mm-aio-cpu-liquid-cooler",
+        "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-ryuo-iv-slc-360-amoled-cooler-91598-2653343-040826062946783.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "AM5",
+                "AM4"
+            ],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2653367",
         "Product Name": "ASUS ROG Strix Helios GX601 White Edition RGB Mid-Tower Case",
-        "Category": "PC Components > Cases",
+        "Category": "PC Components > Cooling",
         "Brand": "ASUS",
         "Price": "90000.00",
         "Product URL": "https://www.gb-tech.pk/asus-rog-strix-helios-gx601-white-edition-rgb-midtower-case",
         "Image": "https://static3.webx.pk/files/91598/Images/aad04146-a605-47d9-9d34-317d6c116c6e-91598-2653367-040826070421961.webp",
         "Compatibility": {
-            "type": "case",
-            "motherboard_support": [],
-            "gpu_clearance_mm": null,
-            "fan_support": null
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2654072",
         "Product Name": "ASUS ROG Strix Helios II White Edition (GX601S) EATX Mid-Tower Case",
-        "Category": "PC Components > Cases",
+        "Category": "PC Components > Cooling",
         "Brand": "ASUS",
         "Price": "95000.00",
         "Product URL": "https://www.gb-tech.pk/asus-rog-strix-helios-ii-white-edition-gx601s-eatx-midtower-case",
         "Image": "https://static3.webx.pk/files/91598/Images/96c7641d-29e2-43fa-8bbb-6409a98c5477-91598-2654072-050826073307294.webp",
         "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "E-ATX"
-            ],
-            "gpu_clearance_mm": null,
-            "fan_support": null
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2657183",
         "Product Name": "Thermalright A70 ARGB ATX Gaming Case (Black / White) – 5 Fans",
-        "Category": "PC Components > Cases",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
-        "Price": "31000.00",
+        "Price": "30000.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-a70-argb-atx-gaming-case-black-white-5-fans",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-a70-argb-atx-gaming-case-7-91598-2657183-100826090713665.webp",
         "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 420.0,
-            "fan_support": null
-        }
-    },
-    {
-        "Product ID": "2657178",
-        "Product Name": "Thermalright TL-M10 ARGB Micro-ATX Gaming Case (Black / White) – 4 Fans",
-        "Category": "PC Components > Cases",
-        "Brand": "Thermalright",
-        "Price": "17500.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tlm10-argb-microatx-gaming-case-black-white-4-fans",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m10-argb-micro-atx-gaming-case-3-91598-2657178-100826082815662.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 360.0,
-            "fan_support": "120 mm / 140 mm"
-        }
-    },
-    {
-        "Product ID": "2657182",
-        "Product Name": "Thermalright TL-M10 VISION LCD Micro-ATX Gaming Case (Black / White) – 4 Fans",
-        "Category": "PC Components > Cases",
-        "Brand": "Thermalright",
-        "Price": "27800.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tlm10-vision-lcd-microatx-gaming-case-black-white-4-fans",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m10-vision-lcd-micro-atx-gaming-case-4-91598-2657182-100826085210568.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 360.0,
-            "fan_support": null
-        }
-    },
-    {
-        "Product ID": "2657184",
-        "Product Name": "Thermalright TR A70 VISION LCD ATX Gaming Case (Black / White)",
-        "Category": "PC Components > Cases",
-        "Brand": "Thermalright",
-        "Price": "38000.00",
-        "Product URL": "https://www.gb-tech.pk/thermalright-tr-a70-vision-lcd-atx-gaming-case-black-white",
-        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-a70-argb-atx-gaming-case-7-91598-2657184-100826091816893.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 420.0,
-            "fan_support": "Up to 8 × 120 mm"
-        }
-    },
-    {
-        "Product ID": "2640580",
-        "Product Name": "XPG INVADER X Mid-Tower PC Chassis",
-        "Category": "PC Components > Cases",
-        "Brand": "XPG",
-        "Price": "32000.00",
-        "Product URL": "https://www.gb-tech.pk/xpg-invader-x-midtower-pc-chassis",
-        "Image": "https://static3.webx.pk/files/91598/Images/xpg-invader-x-mid-tower-pc-chassis-91598-2640580-280726112044059.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 400.0,
-            "fan_support": "REAR :120mm x 1 / 140mm x 1 TOP:120mm x 3 / 140mm x 2 Side:120mm x 3 Bottom: 120mm x 1 / 140mm x 1 PSU shroud :120mm x 2"
-        }
-    },
-    {
-        "Product ID": "2640506",
-        "Product Name": "XPG LANDER 500 MID-TOWER CHASSIS",
-        "Category": "PC Components > Cases",
-        "Brand": "XPG",
-        "Price": "15000.00",
-        "Product URL": "https://www.gb-tech.pk/xpg-lander-500-midtower-chassis",
-        "Image": "https://static3.webx.pk/files/91598/Images/xpg-lander-500-mid-tower-chassis-91598-2640506-280726113331740.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 340.0,
-            "fan_support": "Front: 120mm x3 / 140mm x2 Top: 120 mm x2 Rear: 120 mm x1"
-        }
-    },
-    {
-        "Product ID": "2640575",
-        "Product Name": "XPG STARKER AIR BTF Mid-Tower Chassis",
-        "Category": "PC Components > Cases",
-        "Brand": "XPG",
-        "Price": "0.00",
-        "Product URL": "https://www.gb-tech.pk/xpg-starker-air-btf-midtower-chassis",
-        "Image": "https://static3.webx.pk/files/91598/Images/xpg-starker-air-btf-mid-tower-chassis-91598-2640575-280726112931341.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "E-ATX",
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 390.0,
-            "fan_support": "Front: 120mm x 3 / 140mm x 3 Top: 120mm x 3 / 140mm x 2 Rear: 120mm x 1 / 140mm x 1 PSU Shroud: 120mm x 3 Side: 120mm x 2 (with E-ATX bracket removed)"
-        }
-    },
-    {
-        "Product ID": "2634256",
-        "Product Name": "XPG VALOR AIR MT",
-        "Category": "PC Components > Cases",
-        "Brand": "XPG",
-        "Price": "12800.00",
-        "Product URL": "https://www.gb-tech.pk/xpg-valor-air-mt",
-        "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-air-mt-91598-2634256-280726113931457.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": null,
-            "fan_support": "Front: 120mm x3, 140mm x2 Top: 120mm x2, 140mm x2 Rear: 120mm x1"
-        }
-    },
-    {
-        "Product ID": "2634351",
-        "Product Name": "XPG VALOR AIR PLUS MID-TOWER CHASSIS",
-        "Category": "PC Components > Cases",
-        "Brand": "XPG",
-        "Price": "15000.00",
-        "Product URL": "https://www.gb-tech.pk/xpg-valor-air-plus-midtower-chassis",
-        "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-air-plus-mid-tower-chassis-91598-2634351-280726113508467.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": 340.0,
-            "fan_support": "Front: 120mm x3 Top: 120mm x2 Rear: 120mm x1"
-        }
-    },
-    {
-        "Product ID": "2634315",
-        "Product Name": "XPG VALOR MESH Compact Mid-Tower Chassis",
-        "Category": "PC Components > Cases",
-        "Brand": "XPG",
-        "Price": "12800.00",
-        "Product URL": "https://www.gb-tech.pk/xpg-valor-mesh-compact-midtower-chassis",
-        "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-mesh-compact-mid-tower-chassis-91598-2634315-280726113620483.webp",
-        "Compatibility": {
-            "type": "case",
-            "motherboard_support": [
-                "Micro-ATX",
-                "Mini-ITX",
-                "ATX"
-            ],
-            "gpu_clearance_mm": null,
-            "fan_support": "Front: 120mm x3, 140mm x2 Top: 120mm x2, 140mm x2 Rear: 120mm x1"
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 360
         }
     },
     {
@@ -1988,7 +1770,7 @@
         "Product Name": "Thermalright Assassin X 120 Refined SE ARGB CPU Cooler (Black / White)",
         "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
-        "Price": "5500.00",
+        "Price": "5800.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-assassin-x-120-refined-se-argb-cpu-cooler-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-assassin-x-120-refined-se-argb-cpu-cooler-6-91598-2657635-110826090834514.webp",
         "Compatibility": {
@@ -2001,129 +1783,490 @@
         }
     },
     {
-        "Product ID": "2652330",
-        "Product Name": "ASUS AR120 ARGB PWM Case Fan — 120mm (Single Pack)",
-        "Category": "PC Components > Fans",
-        "Brand": "ASUS",
-        "Price": "3500.00",
-        "Product URL": "https://www.gb-tech.pk/uncategorized/asus-ar120-argb-pwm-case-fan-120mm-single-pack",
-        "Image": "https://static3.webx.pk/files/91598/Images/asus-ar120-argb-pwm-case-fan-91598-0-020826085756779.webp",
-        "Compatibility": {
-            "type": "fan",
-            "size": null,
-            "size_mm": 120
-        }
-    },
-    {
         "Product ID": "2655832",
         "Product Name": "Thermalright TL-C12C-S 3-Pack ARGB 120mm Case Fans (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "4000.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tlc12cs-3pack-argb-120mm-case-fans-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-c12c-s-3-pack-argb-120mm-case-fans-7-91598-2655832-080826085958558.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2655838",
         "Product Name": "Thermalright TL-E12-S V3 ARGB 120mm Case Fan (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "1500.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tle12s-v3-argb-120mm-case-fan-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-e12-s-v3-argb-120mm-case-fan-4-91598-2655838-080826095037257.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
+        }
+    },
+    {
+        "Product ID": "2657178",
+        "Product Name": "Thermalright TL-M10 ARGB Micro-ATX Gaming Case (Black / White) – 4 Fans",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "17500.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tlm10-argb-microatx-gaming-case-black-white-4-fans",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m10-argb-micro-atx-gaming-case-3-91598-2657178-100826082815662.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2657182",
+        "Product Name": "Thermalright TL-M10 VISION LCD Micro-ATX Gaming Case (Black / White) – 4 Fans",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "27800.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tlm10-vision-lcd-microatx-gaming-case-black-white-4-fans",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m10-vision-lcd-micro-atx-gaming-case-4-91598-2657182-100826085210568.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 360
         }
     },
     {
         "Product ID": "2655675",
         "Product Name": "Thermalright TL-M12-S ARGB 120mm Case Fan (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "1350.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tlm12s-argb-120mm-case-fan-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m12-s-argb-120mm-case-fan-4-91598-2655675-080826030203570.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2655833",
         "Product Name": "Thermalright TL-M12Q-S X3 ARGB 120mm Case Fans (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "4500.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tlm12qs-x3-argb-120mm-case-fans-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m12q-s-x3-argb-120mm-case-fans-5-91598-2655833-080826091813855.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2655836",
         "Product Name": "Thermalright TL-M12QR-S X3 ARGB 120mm Reverse Case Fans (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "4500.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tlm12qrs-x3-argb-120mm-reverse-case-fans-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m12qr-s-x3-argb-120mm-reverse-case-fans-7-91598-2655836-080826093626984.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2655831",
         "Product Name": "Thermalright TL-M12R-S ARGB 120mm Reverse Case Fan (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "1650.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tlm12rs-argb-120mm-reverse-case-fan-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m12r-s-argb-120mm-reverse-case-fan-7-91598-2655831-080826083841534.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2655647",
         "Product Name": "Thermalright TL-UB24 2 IN 1 ARGB 240mm PWM Case Fan (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "5500.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tlub24-2-in-1-argb-240mm-pwm-case-fan-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-ub24-2-in-1-argb-240mm-pwm-case-fan-3-91598-2655647-080826022833338.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm × 2",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
         }
     },
     {
         "Product ID": "2655672",
         "Product Name": "Thermalright TL-UB36R 3 IN 1 ARGB 360mm Case Fan (Black / White)",
-        "Category": "PC Components > Fans > Case Fan",
+        "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
         "Price": "7800.00",
         "Product URL": "https://www.gb-tech.pk/thermalright-tlub36r-3-in-1-argb-360mm-case-fan-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-ub36r-3-in-1-argb-360mm-case-fan-5-91598-2655672-080826024517278.webp",
         "Compatibility": {
-            "type": "fan",
-            "size": "120mm × 3",
-            "size_mm": 120
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": null
+        }
+    },
+    {
+        "Product ID": "2653405",
+        "Product Name": "Thermalright TR 240 AQUA ELITE V6 ARGB 240mm AIO Liquid CPU Cooler (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "11500.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-240-aqua-elite-v6-argb-240mm-aio-liquid-cpu-cooler-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-aqua-elite-v6-argb-240mm-4-91598-2653405-040826090607921.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200",
+                "LGA1150",
+                "LGA1151",
+                "LGA1155",
+                "LGA1156"
+            ],
+            "radiator_size_mm": 240
+        }
+    },
+    {
+        "Product ID": "2653480",
+        "Product Name": "Thermalright TR 240 FROZEN INFINITY ARGB 240mm AIO Liquid CPU Cooler (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "14950.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-240-frozen-infinity-argb-240mm-aio-liquid-cpu-cooler-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-frozen-infinity-argb-240mm-4-91598-2653480-040826093624432.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200",
+                "LGA1150",
+                "LGA1151",
+                "LGA1155",
+                "LGA1156",
+                "LGA2011",
+                "LGA2066"
+            ],
+            "radiator_size_mm": 240
+        }
+    },
+    {
+        "Product ID": "2654079",
+        "Product Name": "Thermalright TR 240 PEERLESS VISION LCD ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "25000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-240-peerless-vision-lcd-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-peerless-vision-lcd-argb-4-91598-2654079-050826085937714.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200"
+            ],
+            "radiator_size_mm": 240
+        }
+    },
+    {
+        "Product ID": "2653479",
+        "Product Name": "Thermalright TR 360 AQUA ELITE V6 ARGB 360mm AIO Liquid CPU Cooler (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "17500.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-aqua-elite-v6-argb-360mm-aio-liquid-cpu-cooler-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-aqua-elite-v6-argb-360mm-4-91598-2653479-040826091925634.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200",
+                "LGA1150",
+                "LGA1151",
+                "LGA1155",
+                "LGA1156"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654076",
+        "Product Name": "Thermalright TR 360 CORE MATRIX VISION ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "21000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-core-matrix-vision-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-core-matrix-vision-argb-6-91598-2654076-050826082741811.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2653481",
+        "Product Name": "Thermalright TR 360 FROZEN INFINITY ARGB 360mm AIO Liquid CPU Cooler (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "18800.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-frozen-infinity-argb-360mm-aio-liquid-cpu-cooler-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-aqua-elite-v6-argb-240mm-5-91598-2653481-040826095038239.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200",
+                "LGA1150",
+                "LGA1151",
+                "LGA1155",
+                "LGA1156",
+                "LGA2011",
+                "LGA2066"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654729",
+        "Product Name": "Thermalright TR 360 GRAND VISION ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "47000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-grand-vision-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-grand-vision-argb-4-91598-2654729-060826080920174.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "AM5",
+                "AM4"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654077",
+        "Product Name": "Thermalright TR 360 MAGIC QUBE ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "21000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-magic-qube-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-magic-qube-argb-4-91598-2654077-050826084410622.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654081",
+        "Product Name": "Thermalright TR 360 PEERLESS VISION LCD ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "30000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-peerless-vision-lcd-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-peerless-vision-lcd-argb-5-91598-2654081-050826091851885.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "LGA1851",
+                "LGA1700",
+                "LGA1200"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654727",
+        "Product Name": "Thermalright TR 360 PEERLESS VISION UB LCD ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "33000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-peerless-vision-ub-lcd-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-peerless-vision-ub-lcd-argb-3-91598-2654727-060826074150414.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "AM5",
+                "AM4"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654728",
+        "Product Name": "Thermalright TR 360 TROFEO VISION LCD ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "47000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-trofeo-vision-lcd-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-trofeo-vision-lcd-argb-4-91598-2654728-060826075646248.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "AM5",
+                "AM4"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654731",
+        "Product Name": "Thermalright TR 360 WONDER VISION TURBO LCD ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "85000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-wonder-vision-turbo-lcd-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-wonder-vision-turbo-lcd-argb-4-91598-2654731-060826083201965.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "AM5",
+                "AM4"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2654730",
+        "Product Name": "Thermalright TR 360 WONDER VISION UB LCD ARGB (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "82000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-360-wonder-vision-ub-lcd-argb-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-wonder-vision-ub-lcd-argb-4-91598-2654730-060826082010023.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [
+                "AM5",
+                "AM4"
+            ],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2657184",
+        "Product Name": "Thermalright TR A70 VISION LCD ATX Gaming Case (Black / White)",
+        "Category": "PC Components > Cooling",
+        "Brand": "Thermalright",
+        "Price": "39000.00",
+        "Product URL": "https://www.gb-tech.pk/thermalright-tr-a70-vision-lcd-atx-gaming-case-black-white",
+        "Image": "https://static3.webx.pk/files/91598/Images/thermalright-a70-argb-atx-gaming-case-7-91598-2657184-100826091816893.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2640580",
+        "Product Name": "XPG INVADER X Mid-Tower PC Chassis",
+        "Category": "PC Components > Cooling",
+        "Brand": "XPG",
+        "Price": "32000.00",
+        "Product URL": "https://www.gb-tech.pk/xpg-invader-x-midtower-pc-chassis",
+        "Image": "https://static3.webx.pk/files/91598/Images/xpg-invader-x-mid-tower-pc-chassis-91598-2640580-280726112044059.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 270
+        }
+    },
+    {
+        "Product ID": "2640506",
+        "Product Name": "XPG LANDER 500 MID-TOWER CHASSIS",
+        "Category": "PC Components > Cooling",
+        "Brand": "XPG",
+        "Price": "15000.00",
+        "Product URL": "https://www.gb-tech.pk/xpg-lander-500-midtower-chassis",
+        "Image": "https://static3.webx.pk/files/91598/Images/xpg-lander-500-mid-tower-chassis-91598-2640506-280726113331740.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 360
+        }
+    },
+    {
+        "Product ID": "2640575",
+        "Product Name": "XPG STARKER AIR BTF Mid-Tower Chassis",
+        "Category": "PC Components > Cooling",
+        "Brand": "XPG",
+        "Price": "0.00",
+        "Product URL": "https://www.gb-tech.pk/xpg-starker-air-btf-midtower-chassis",
+        "Image": "https://static3.webx.pk/files/91598/Images/xpg-starker-air-btf-mid-tower-chassis-91598-2640575-280726112931341.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 240
+        }
+    },
+    {
+        "Product ID": "2634256",
+        "Product Name": "XPG VALOR AIR MT",
+        "Category": "PC Components > Cooling",
+        "Brand": "XPG",
+        "Price": "12800.00",
+        "Product URL": "https://www.gb-tech.pk/xpg-valor-air-mt",
+        "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-air-mt-91598-2634256-280726113931457.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 240
+        }
+    },
+    {
+        "Product ID": "2634351",
+        "Product Name": "XPG VALOR AIR PLUS MID-TOWER CHASSIS",
+        "Category": "PC Components > Cooling",
+        "Brand": "XPG",
+        "Price": "15000.00",
+        "Product URL": "https://www.gb-tech.pk/xpg-valor-air-plus-midtower-chassis",
+        "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-air-plus-mid-tower-chassis-91598-2634351-280726113508467.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 240
+        }
+    },
+    {
+        "Product ID": "2634315",
+        "Product Name": "XPG VALOR MESH Compact Mid-Tower Chassis",
+        "Category": "PC Components > Cooling",
+        "Brand": "XPG",
+        "Price": "12800.00",
+        "Product URL": "https://www.gb-tech.pk/xpg-valor-mesh-compact-midtower-chassis",
+        "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-mesh-compact-mid-tower-chassis-91598-2634315-280726113620483.webp",
+        "Compatibility": {
+            "type": "cooling",
+            "socket_support": [],
+            "radiator_size_mm": 240
         }
     },
     {
@@ -2298,7 +2441,7 @@
         "Brand": "ASUS",
         "Price": "31000.00",
         "Product URL": "https://www.gb-tech.pk/prime-a620-m-e",
-        "Image": "https://static3.webx.pk/files/91598/Images/fwebp-91598-0-180726073919128.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/asus-prime-a620-m-e-91598-2640755-200826120332923.webp",
         "Compatibility": {
             "type": "motherboard",
             "socket": "AM5",
@@ -2442,7 +2585,7 @@
         "Brand": "ASUS",
         "Price": "65000.00",
         "Product URL": "https://www.gb-tech.pk/uncategorized/tuf-gaming-b850mplus-wifi7",
-        "Image": "https://static3.webx.pk/files/91598/Images/fwebp-1-91598-0-190726091002193.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/asus-tuf-gaming-b850m-plus-wifi7-91598-2641011-200826122402133.webp",
         "Compatibility": {
             "type": "motherboard",
             "socket": "AM5",
@@ -2532,7 +2675,7 @@
         "Brand": "ASUS",
         "Price": "37500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd-motherboards/prime-b840-m-a-csm-d5-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/fwebp-91598-0-180726081917347.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b840-m-a-csm-d5-wifi-91598-2640772-200826121430611.webp",
         "Compatibility": {
             "type": "motherboard",
             "socket": "AM5",
@@ -2550,7 +2693,7 @@
         "Brand": "ASUS",
         "Price": "48500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd-motherboards/tuf-gaming-b650me-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/fwebp-91598-0-180726074929897.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/tuf-gaming-b650m-e-wifi-91598-2640756-200826120543785.webp",
         "Compatibility": {
             "type": "motherboard",
             "socket": "AM5",
@@ -3036,7 +3179,7 @@
         "Product Name": "ADATA DDR4 3200MHz Laptop RAM (8GB / 16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "ADATA",
-        "Price": "49500.00",
+        "Price": "17500.00",
         "Product URL": "https://www.gb-tech.pk/adata-ddr4-3200mhz-laptop-ram-8gb-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-laptop-ram-neon-samebg-1200x1200-91598-2662284-180826085536544.webp",
         "Compatibility": {
@@ -3052,7 +3195,7 @@
         "Product Name": "ADATA DDR5 5600MHz Desktop RAM (8GB / 16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "ADATA",
-        "Price": "52250.00",
+        "Price": "100000.00",
         "Product URL": "https://www.gb-tech.pk/adata-ddr5-5600mhz-desktop-ram-8gb-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-ddr5-desktop-ram-neon-samebg-1200x1200-91598-2662289-180826090907157.webp",
         "Compatibility": {
@@ -3166,7 +3309,7 @@
         "Brand": "Transcend",
         "Price": "23000.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-16gb-desktop-ddr4-2666mhz-udimm-ram",
-        "Image": "https://static3.webx.pk/files/91598/Images/6ee11635-4b7f-44cb-87e9-ee9151c2a7f5-91598-2647309-250726040707991.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-16gb-desktop-ddr4-2666mhz-u-dimm-ram-neon-1-91598-2647309-190826093149909.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
@@ -3182,7 +3325,7 @@
         "Brand": "Transcend",
         "Price": "71500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-16gb-laptop-ddr5-6400mhz-sodimm-ram",
-        "Image": "https://static3.webx.pk/files/91598/Images/3c8ca6ae-659e-4009-90f7-496e54b16373-91598-2647519-250726093712369.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-16gb-laptop-ddr5-6400mhz-so-dimm-ram-neon-1-91598-2647519-190826092544939.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
@@ -3198,7 +3341,7 @@
         "Brand": "Transcend",
         "Price": "28500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-ddr4-3200mhz-desktop-ram-8gb16gb32gb-udimm",
-        "Image": "https://static3.webx.pk/files/91598/Images/4090272d-25fc-4b58-8613-706898ecf0c7-91598-2646462-240726082751434.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-ddr4-3200mhz-desktop-ram-neon-1200x1200-91598-2646462-190826093318605.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
@@ -3214,7 +3357,7 @@
         "Brand": "Transcend",
         "Price": "30800.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-desktop-ddr5-4800mhz-udimm-ram-8gb-16gb-32gb",
-        "Image": "https://static3.webx.pk/files/91598/Images/c8db1999-65f3-4045-b704-1247c065248f-91598-2647428-250726060005881.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-desktop-ddr5-4800mhz-u-dimm-ram-neon-1200x1-91598-2647428-190826093051521.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
@@ -3230,7 +3373,7 @@
         "Brand": "Transcend",
         "Price": "119000.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-desktop-ddr5-5600mhz-udimm-ram-16gb-32gb",
-        "Image": "https://static3.webx.pk/files/91598/Images/c9528e0c-5539-45b5-80e5-290ff4ec4775-91598-2647502-250726085353507.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-desktop-ddr5-5600mhz-u-dimm-ram-neon-1200x1-91598-2647502-190826092832951.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
@@ -3246,7 +3389,7 @@
         "Brand": "Transcend",
         "Price": "71500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-desktop-ddr5-6400mhz-udimm-ram-16gb-32gb",
-        "Image": "https://static3.webx.pk/files/91598/Images/5ff3fa68-6fe9-4307-aa6a-220049633d5c-91598-2647515-250726092233783.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-desktop-ddr5-6400mhz-u-dimm-ram-neon-1200x1-91598-2647515-190826092634112.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
@@ -3262,7 +3405,7 @@
         "Brand": "Transcend",
         "Price": "17500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-laptop-ddr4-3200mhz-sodimm-ram-8gb-16gb-32gb",
-        "Image": "https://static3.webx.pk/files/91598/Images/d4d24844-8bab-45f9-a063-16cda077d11b-91598-2647301-250726035610622.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-laptop-ddr4-3200mhz-so-dimm-ram-neon-1200x1-91598-2647301-190826093237223.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
@@ -3278,7 +3421,7 @@
         "Brand": "Transcend",
         "Price": "51500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-laptop-ddr5-4800mhz-sodimm-ram-16gb-32gb",
-        "Image": "https://static3.webx.pk/files/91598/Images/a90df65a-ff23-492e-8e57-ab77d31fbd7f-91598-2647429-250726084158755.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-laptop-ddr5-4800mhz-so-dimm-ram-neon-1200x1-91598-2647429-190826092950263.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
@@ -3294,7 +3437,7 @@
         "Brand": "Transcend",
         "Price": "119000.00",
         "Product URL": "https://www.gb-tech.pk/transcend-jetram-laptop-ddr5-5600mhz-sodimm-ram-16gb-32gb",
-        "Image": "https://static3.webx.pk/files/91598/Images/ee47e48d-fa28-4607-8e00-594429699419-91598-2647509-250726090335455.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-laptop-ddr5-5600mhz-so-dimm-ram-neon-1200x1-91598-2647509-190826092751939.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
@@ -3340,7 +3483,7 @@
         "Product Name": "ADATA HD650 External HDD (1TB / 2TB / 4TB)",
         "Category": "Storage > External HDD",
         "Brand": "ADATA",
-        "Price": "59200.00",
+        "Price": "26200.00",
         "Product URL": "https://www.gb-tech.pk/adata-hd650-external-hdd-1tb-2tb-4tb",
         "Image": "https://static3.webx.pk/files/91598/Images/image-dimensions-should-be-1200x1200-4-91598-2660092-150826090620763.webp",
         "Compatibility": {
@@ -3352,7 +3495,7 @@
         "Product Name": "ADATA HD680 External HDD (1TB / 2TB)",
         "Category": "Storage > External HDD",
         "Brand": "ADATA",
-        "Price": "31700.00",
+        "Price": "26200.00",
         "Product URL": "https://www.gb-tech.pk/adata-hd680-external-hdd-1tb-2tb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-hd680-external-hdd-1tb-2tb-4-91598-2660093-150826091834193.webp",
         "Compatibility": {
@@ -3460,7 +3603,7 @@
         "Product Name": "ADATA SE880 External SSD 2000MB/s (500GB / 1TB / 2TB)",
         "Category": "Storage > External SSD",
         "Brand": "ADATA",
-        "Price": "93500.00",
+        "Price": "27000.00",
         "Product URL": "https://www.gb-tech.pk/adata-se880-external-ssd-2000mbs-500gb-1tb-2tb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-se880-external-ssd-2000mbs-500gb-1tb-2tb-4-91598-2660128-150826095541792.webp",
         "Compatibility": {
@@ -3474,7 +3617,7 @@
         "Brand": "Transcend",
         "Price": "19500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-225s-250gb-500gb-1tb-2tb-25-ssd",
-        "Image": "https://static3.webx.pk/files/91598/Images/ad8716a0-8fbb-4eaf-81e8-0a1e24fe5f70-91598-2645521-230726125023697.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-225s-neon-no-reflection-1200x1200-91598-2645521-190826085934231.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3534,7 +3677,7 @@
         "Brand": "Transcend",
         "Price": "41800.00",
         "Product URL": "https://www.gb-tech.pk/transcend-esd360c-1tb-2tb-4tb-ext-ssd-2000-mbs",
-        "Image": "https://static3.webx.pk/files/91598/Images/bc085a41-7922-4680-bb57-1e5ee00124f3-91598-2645499-220726043242627.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-360c-real-bg-1200x1200-91598-2645499-190826085528954.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3546,7 +3689,7 @@
         "Brand": "Transcend",
         "Price": "176000.00",
         "Product URL": "https://www.gb-tech.pk/transcend-esd380c-1tb-2tb-4tb-ext-ssd-2000-mbs",
-        "Image": "https://static3.webx.pk/files/91598/Images/04f3f745-cec7-4331-9518-63b3606bf36e-91598-2645516-220726052810976.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-esd380c-91598-2645516-190826083616125.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3558,7 +3701,7 @@
         "Brand": "Transcend",
         "Price": "96800.00",
         "Product URL": "https://www.gb-tech.pk/transcend-esd410c-portable-ssd-1tb-2tb-4tb",
-        "Image": "https://static3.webx.pk/files/91598/Images/5cdebfd0-587c-4a14-be5d-9bd63b5ae147-91598-2645507-220726045443675.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-esd410c-91598-2645507-190826084012499.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3570,13 +3713,9 @@
         "Brand": "Transcend",
         "Price": "16000.00",
         "Product URL": "https://www.gb-tech.pk/transcend-microsdxc-340s-memory-card-128gb-256gb",
-        "Image": "https://static3.webx.pk/files/91598/Images/af5f992d-b798-44c6-a289-1d9fc851db97-91598-2647520-250726095506550.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-microsdxc-340s-neon-1200x1200-91598-2647520-190826094335298.webp",
         "Compatibility": {
-            "type": "ram",
-            "memory_type": null,
-            "speed": null,
-            "capacity": "256 GB",
-            "form_factor": "microSDXC"
+            "type": "unknown"
         }
     },
     {
@@ -3596,7 +3735,7 @@
         "Product Name": "ADATA LEGEND 860 PCIe Gen4 x4 M.2 2280 SSD (500GB / 1TB / 2TB)",
         "Category": "Storage > NVMe SSD",
         "Brand": "ADATA",
-        "Price": "75000.00",
+        "Price": "24800.00",
         "Product URL": "https://www.gb-tech.pk/adata-legend-860-pcie-gen4-x4-m2-2280-ssd-500gb-1tb-2tb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-legend-860-pcie-gen4-x4-m.2-2280-ssd-500gb-1tb-2tb-2-91598-2660935-160826085604875.webp",
         "Compatibility": {
@@ -3646,7 +3785,7 @@
         "Brand": "Transcend",
         "Price": "71500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-mte115s-250gb500gb1tb2tb-m2-2280-nvme-pcie-gen3x4",
-        "Image": "https://static3.webx.pk/files/91598/Images/00efb0c0-a568-4058-b187-63ab7ed780ed-91598-2645815-230726012009267.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-mte115s-neon-1200x1200-91598-2645815-190826091339368.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3658,7 +3797,7 @@
         "Brand": "Transcend",
         "Price": "75000.00",
         "Product URL": "https://www.gb-tech.pk/transcend-mte255s-1tb2tb-m2-2280-nvme-pcie-gen4-x4",
-        "Image": "https://static3.webx.pk/files/91598/Images/c7996984-1766-4d50-96d9-c585fb868358-91598-2645825-230726013715485.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-mte225s-neon-1200x1200-91598-2645825-190826091253637.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3670,7 +3809,7 @@
         "Brand": "Transcend",
         "Price": "60500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-mte300-512-gb-1tb-m2-2230-nvme-pcie-gen3-x4",
-        "Image": "https://static3.webx.pk/files/91598/Images/06faf2cd-daee-438c-8cf2-6424656a6a46-91598-2645831-230726015406197.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-mte300-neon-1200x1200-91598-2645831-190826091050776.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3682,7 +3821,7 @@
         "Brand": "Transcend",
         "Price": "60500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-mte310-1tb-m2-2230-nvme-pcie-gen4-x4",
-        "Image": "https://static3.webx.pk/files/91598/Images/4afcf0b2-1ca2-49d0-8624-2b89cf01ef6e-91598-2645835-230726020537078.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-mte310-neon-1200x1200-91598-2645835-190826091014695.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3694,7 +3833,7 @@
         "Brand": "Transcend",
         "Price": "60500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-mte400s-m2-2242-nvme-pcie-gen3-x4-ssd-512gb-1tb-2tb",
-        "Image": "https://static3.webx.pk/files/91598/Images/ed86be04-da43-4c2a-8b16-31c46fc1f677-91598-2648190-270726091642959.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-mte400s-neon-1200x1200-91598-2648190-190826090916183.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3706,7 +3845,7 @@
         "Brand": "Transcend",
         "Price": "60500.00",
         "Product URL": "https://www.gb-tech.pk/transcend-mte410s-m2-2242-nvme-pcie-gen4-x4-ssd-1tb-2tb",
-        "Image": "https://static3.webx.pk/files/91598/Images/10e7dc3f-0f1e-4f7a-a685-945a7ff6d492-91598-2648191-270726092731342.webp",
+        "Image": "https://static3.webx.pk/files/91598/Images/transcend-mte410s-neon-1200x1200-91598-2648191-190826090828188.webp",
         "Compatibility": {
             "type": "unknown"
         }
@@ -3740,7 +3879,7 @@
         "Product Name": "ADATA SU650 2.5-inch SATA SSD (256GB / 512GB / 1TB)",
         "Category": "Storage > SATA SSD",
         "Brand": "ADATA",
-        "Price": "13000.00",
+        "Price": "34000.00",
         "Product URL": "https://www.gb-tech.pk/adata-su650-25inch-sata-ssd-256gb-512gb-1tb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-su650-2.5-inch-sata-ssd-256gb-512gb-1tb-2-91598-2660130-150826101216421.webp",
         "Compatibility": {

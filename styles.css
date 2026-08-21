@@ -5,7 +5,6 @@
 
 :root {
   --page-bg: #02060b;
-
   --card: #111317;
   --card-soft: #0d1117;
   --card-hover: #151a21;
@@ -20,12 +19,10 @@
   --white: #ffffff;
   --text: #f1f3f7;
   --muted: #a5adba;
-
   --line: rgba(255, 255, 255, .09);
 
   --green: #55d68b;
   --red: #ff647c;
-
   --whatsapp: #25d366;
 
   --shadow: 0 10px 30px rgba(0, 0, 0, .42);
@@ -36,7 +33,7 @@
    GLOBAL RESET
    ============================================================ */
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -47,10 +44,8 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-
   background: var(--page-bg);
   color: var(--text);
-
   font-family:
     Inter,
     ui-sans-serif,
@@ -59,7 +54,6 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-
   position: relative;
 }
 
@@ -75,15 +69,13 @@ a {
 
 
 /* ============================================================
-   FIXED GB TECH TECH-LINES BACKGROUND
+   BACKGROUNDS & AMBIENT EFFECTS
    ============================================================ */
 
 body::before {
   content: "";
-
   position: fixed;
   inset: 0;
-
   z-index: -1;
   pointer-events: none;
 
@@ -106,9 +98,43 @@ body::before {
     saturate(1.05);
 }
 
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 18% 28%,
+      rgba(61, 123, 255, .08),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 82% 68%,
+      rgba(255, 216, 109, .055),
+      transparent 20%
+    );
+
+  animation: gbAmbient 12s ease-in-out infinite alternate;
+}
+
+@keyframes gbAmbient {
+  0% {
+    transform: translate3d(-1%, -1%, 0) scale(1);
+    opacity: .65;
+  }
+
+  100% {
+    transform: translate3d(1%, 1%, 0) scale(1.04);
+    opacity: 1;
+  }
+}
+
 
 /* ============================================================
-   MAIN CONTAINER
+   CONTAINER & HEADER
    ============================================================ */
 
 .container {
@@ -116,18 +142,10 @@ body::before {
   margin: 0 auto;
 }
 
-
-/* ============================================================
-   HEADER
-   ============================================================ */
-
 .top {
   width: 100%;
-
   background: #111317;
-
   border-bottom: 1px solid var(--line);
-
   position: relative;
   overflow: hidden;
 }
@@ -135,20 +153,17 @@ body::before {
 .header-container {
   width: min(1250px, 92%);
   min-height: 220px;
-
   margin: 0 auto;
 
   display: flex;
   align-items: center;
 
   gap: 55px;
-
   padding: 35px 0;
 }
 
 .header-logo {
   flex: 0 0 230px;
-
   width: 230px;
   max-width: 230px;
 
@@ -159,22 +174,17 @@ body::before {
 
 .gb-tech-logo {
   display: block;
-
   width: 100%;
   max-width: 230px;
-
   height: auto;
 
   object-fit: contain;
-
   flex-shrink: 0;
 }
 
 .header-content {
   flex: 1 1 auto;
-
   min-width: 0;
-
   text-align: left;
 }
 
@@ -185,7 +195,6 @@ body::before {
 
   font-size: 12px;
   font-weight: 750;
-
   letter-spacing: 2.5px;
 }
 
@@ -195,107 +204,75 @@ body::before {
   color: var(--white);
 
   font-size: clamp(36px, 4vw, 56px);
-
   line-height: 1.05;
-
   font-weight: 750;
-
   letter-spacing: -.8px;
 
-  text-shadow:
-    0 2px 8px rgba(0, 0, 0, .9);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .9);
+
+  animation:
+    gbTitleIn .8s cubic-bezier(.2, .75, .25, 1) both;
 }
 
 .subtitle {
   max-width: 760px;
-
   margin: 0;
 
   color: #c3cad5;
 
   font-size: 16px;
-
   line-height: 1.6;
 
-  text-shadow:
-    0 1px 4px rgba(0, 0, 0, .9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .9);
+
+  animation:
+    gbSubtitleIn .9s .08s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+@keyframes gbTitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes gbSubtitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
 /* ============================================================
-   PDF TOOLBAR
+   LAYOUT & PANELS
    ============================================================ */
 
 .toolbar {
   padding: 28px 0 0;
 }
 
-.pdf-download-btn {
-  width: 100%;
-
-  min-height: 50px;
-
-  padding: 12px 18px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-
-  border: 1px solid var(--gold-soft);
-
-  border-radius: 8px;
-
-  background: rgba(17, 19, 24, .88);
-
-  color: var(--white);
-
-  cursor: pointer;
-
-  font-weight: 750;
-
-  transition:
-    background .2s ease,
-    border-color .2s ease,
-    transform .2s ease;
-}
-
-.pdf-download-btn:hover {
-  background: rgba(255, 216, 109, .09);
-
-  border-color: var(--gold);
-
-  transform: translateY(-1px);
-}
-
-.download-icon {
-  font-size: 18px;
-  line-height: 1;
-}
-
-
-/* ============================================================
-   MAIN BUILD LAYOUT
-   ============================================================ */
-
 .build-layout {
   display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr)
-    390px;
+  grid-template-columns: minmax(0, 1fr) 390px;
 
   gap: 24px;
-
   align-items: start;
 
   padding: 24px 0 70px;
 }
-
-
-/* ============================================================
-   BUILDER + SUMMARY PANELS
-   ============================================================ */
 
 .builder-panel,
 .summary-panel {
@@ -305,16 +282,29 @@ body::before {
   background: rgba(17, 19, 24, .94);
 
   border: 1px solid var(--line);
-
   border-radius: 14px;
 
   box-shadow: var(--shadow);
+
+  transition:
+    border-color .35s ease,
+    box-shadow .35s ease,
+    transform .35s ease;
+}
+
+.builder-panel:hover,
+.summary-panel:hover {
+  border-color: rgba(61, 123, 255, .20);
+
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, .48),
+    0 0 0 1px rgba(61, 123, 255, .035),
+    0 0 35px rgba(61, 123, 255, .045);
 }
 
 .builder-panel::before,
 .summary-panel::before {
   content: "";
-
   position: absolute;
   inset: 0;
 
@@ -347,7 +337,6 @@ body::before {
 
 .summary-panel {
   padding: 0 0 24px;
-
   position: sticky;
   top: 20px;
 }
@@ -359,7 +348,6 @@ body::before {
 
 .panel-heading {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
@@ -370,13 +358,17 @@ body::before {
   border-bottom: 1px solid var(--line);
 }
 
+.summary-heading {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 .panel-heading h2 {
   margin: 4px 0 0;
 
   color: var(--white);
 
   font-size: 22px;
-
   line-height: 1.2;
 }
 
@@ -386,9 +378,7 @@ body::before {
   color: var(--gold);
 
   font-size: 10px;
-
   font-weight: 800;
-
   letter-spacing: 1.5px;
 }
 
@@ -398,7 +388,6 @@ body::before {
   padding: 6px 10px;
 
   border: 1px solid rgba(85, 214, 139, .35);
-
   border-radius: 5px;
 
   background: rgba(85, 214, 139, .08);
@@ -406,9 +395,7 @@ body::before {
   color: var(--green);
 
   font-size: 10px;
-
   font-weight: 800;
-
   letter-spacing: 1px;
 }
 
@@ -416,9 +403,7 @@ body::before {
   color: var(--muted);
 
   font-size: 10px;
-
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
@@ -431,29 +416,61 @@ body::before {
   padding: 0 24px 20px;
 }
 
-
-/* ============================================================
-   BUILD STEPS
-   ============================================================ */
-
 .step {
   padding: 20px 4px;
 
   border-bottom: 1px solid var(--line);
+
+  animation:
+    gbStepIn .55s cubic-bezier(.2, .75, .25, 1) both;
 }
 
 .step:last-child {
   border-bottom: 0;
 }
 
+.step:nth-child(2) {
+  animation-delay: .04s;
+}
+
+.step:nth-child(3) {
+  animation-delay: .08s;
+}
+
+.step:nth-child(4) {
+  animation-delay: .12s;
+}
+
+.step:nth-child(5) {
+  animation-delay: .16s;
+}
+
+.step:nth-child(6) {
+  animation-delay: .20s;
+}
+
+.step:nth-child(7) {
+  animation-delay: .24s;
+}
+
+@keyframes gbStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .stephead {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
   gap: 12px;
-
   margin-bottom: 13px;
 }
 
@@ -461,7 +478,6 @@ body::before {
   color: var(--white);
 
   font-size: 17px;
-
   font-weight: 750;
 }
 
@@ -469,7 +485,6 @@ body::before {
   color: var(--blue);
 
   font-size: 11px;
-
   font-weight: 700;
 }
 
@@ -478,7 +493,11 @@ body::before {
    PRODUCT CARDS
    ============================================================ */
 
-.product {
+.product,
+.choice {
+  position: relative;
+  overflow: hidden;
+
   display: grid;
 
   grid-template-columns:
@@ -492,24 +511,64 @@ body::before {
 
   padding: 12px;
 
+  border-radius: 9px;
+}
+
+.product {
+  isolation: isolate;
+
   background: rgba(13, 17, 23, .82);
 
   border: 1px solid rgba(255, 255, 255, .07);
 
-  border-radius: 9px;
-
   transition:
-    border-color .2s ease,
-    background .2s ease;
+    transform .28s cubic-bezier(.2, .75, .25, 1),
+    border-color .28s ease,
+    background .28s ease,
+    box-shadow .28s ease;
+}
+
+.product::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      rgba(61, 123, 255, .08) 45%,
+      rgba(255, 216, 109, .055) 52%,
+      transparent 78%
+    );
+
+  transform: translateX(-110%);
+
+  transition: transform .65s ease;
 }
 
 .product:hover {
   background: rgba(21, 26, 33, .95);
 
-  border-color: rgba(255, 216, 109, .25);
+  border-color: rgba(61, 123, 255, .35);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, .28),
+    0 0 22px rgba(61, 123, 255, .06);
 }
 
-.product img {
+.product:hover::before {
+  transform: translateX(110%);
+}
+
+.product img,
+.choice img {
   display: block;
 
   width: 70px;
@@ -522,6 +581,19 @@ body::before {
   background: #fff;
 }
 
+.product img {
+  transition:
+    transform .35s ease,
+    filter .35s ease;
+}
+
+.product:hover img {
+  transform: scale(1.035);
+
+  filter:
+    drop-shadow(0 0 8px rgba(61, 123, 255, .12));
+}
+
 .product-info {
   min-width: 0;
 }
@@ -530,9 +602,7 @@ body::before {
   color: var(--white);
 
   font-size: 15px;
-
   font-weight: 650;
-
   line-height: 1.4;
 }
 
@@ -542,7 +612,6 @@ body::before {
   color: var(--muted);
 
   font-size: 12px;
-
   line-height: 1.4;
 }
 
@@ -552,8 +621,26 @@ body::before {
   color: var(--gold);
 
   font-size: 14px;
-
   font-weight: 750;
+}
+
+.product-actions {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  flex-wrap: nowrap;
+}
+
+.product-actions > strong {
+  color: var(--gold);
+
+  font-size: 13px;
+
+  white-space: nowrap;
 }
 
 
@@ -562,37 +649,43 @@ body::before {
    ============================================================ */
 
 .btn,
+.learn-more-btn,
+.pdf-download-btn,
+.whatsapp-action-btn,
+.whatsapp-help-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  font-weight: 750;
+  text-decoration: none;
+
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease,
+    box-shadow .25s ease;
+}
+
+.btn,
 .learn-more-btn {
   min-height: 40px;
 
   padding: 9px 14px;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
   border: 1px solid var(--gold-soft);
-
   border-radius: 7px;
 
   background: rgba(17, 19, 24, .9);
 
   color: var(--white);
 
-  cursor: pointer;
-
   font-size: 12px;
 
-  font-weight: 700;
-
-  text-decoration: none;
-
   white-space: nowrap;
-
-  transition:
-    background .2s ease,
-    border-color .2s ease,
-    transform .2s ease;
 }
 
 .btn:hover,
@@ -606,9 +699,42 @@ body::before {
   transform: translateY(-1px);
 }
 
+.pdf-download-btn {
+  width: 100%;
+
+  min-height: 50px;
+
+  padding: 12px 18px;
+
+  gap: 9px;
+
+  border: 1px solid var(--gold-soft);
+  border-radius: 8px;
+
+  background: rgba(17, 19, 24, .88);
+
+  color: var(--white);
+}
+
+.pdf-download-btn:hover {
+  background: rgba(255, 216, 109, .09);
+
+  border-color: var(--gold);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, .25),
+    0 0 18px rgba(255, 216, 109, .05);
+}
+
+.download-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
 .add-product-btn {
   border-color: rgba(61, 123, 255, .65);
-
   background: rgba(61, 123, 255, .08);
 }
 
@@ -616,17 +742,387 @@ body::before {
   border-color: var(--blue);
 
   background: rgba(61, 123, 255, .16);
+
+  box-shadow:
+    0 0 22px rgba(61, 123, 255, .10);
 }
 
 
 /* ============================================================
-   SUMMARY
+   REMOVE PRODUCT — SUBTLE INLINE CROSS
    ============================================================ */
 
-.summary-heading {
-  padding-left: 24px;
-  padding-right: 24px;
+.remove-product-btn {
+  position: relative;
+
+  width: 22px;
+  height: 22px;
+
+  min-width: 22px;
+  min-height: 22px;
+
+  flex: 0 0 22px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0;
+
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 50%;
+
+  background: rgba(17, 19, 23, .45);
+
+  color: rgba(255, 255, 255, .48);
+
+  cursor: pointer;
+
+  font-size: 0;
+  line-height: 1;
+
+  box-shadow: none;
+
+  transform: none;
+
+  transition:
+    color .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    transform .18s ease;
 }
+
+.remove-product-btn::before {
+  content: "×";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  display: block;
+
+  transform:
+    translate(-50%, -52%);
+
+  color: currentColor;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+.remove-product-btn:hover {
+  color: rgba(255, 255, 255, .85);
+
+  border-color: rgba(255, 216, 109, .45);
+
+  background: rgba(255, 216, 109, .06);
+
+  transform: scale(1.06);
+}
+
+.remove-product-btn:active {
+  transform: scale(.92);
+}
+
+
+/* ============================================================
+   BUILD STATUS
+   ============================================================ */
+
+/* Status wrapper / actual status box */
+#status,
+#status.status {
+  position: relative;
+
+  display: flex;
+
+  width: auto;
+
+  min-height: 40px;
+
+  margin: 18px 24px 18px;
+
+  padding: 9px 15px;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 8px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 650;
+
+  line-height: 1.25;
+
+  text-align: left;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    color .25s ease,
+    box-shadow .25s ease;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS ICON
+   ------------------------------------------------------------ */
+
+#status.status.ok::before,
+#status .status.ok::before {
+  content: "✓";
+
+  position: relative;
+
+  display: inline-flex;
+
+  width: 17px;
+  height: 17px;
+
+  flex: 0 0 17px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(85, 214, 139, .38);
+
+  border-radius: 50%;
+
+  background: rgba(85, 214, 139, .10);
+
+  color: #55d68b;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+
+/* ------------------------------------------------------------
+   PASS / OK
+   ------------------------------------------------------------ */
+
+#status.status.ok,
+#status .status.ok {
+  color: #55d68b;
+
+  background:
+    rgba(85, 214, 139, .065);
+
+  border:
+    1px solid rgba(85, 214, 139, .25);
+
+  box-shadow:
+    0 0 0 1px rgba(85, 214, 139, .015),
+    0 0 18px rgba(85, 214, 139, .025);
+}
+
+
+/* ------------------------------------------------------------
+   WARNING
+   ------------------------------------------------------------ */
+
+#status.status.warn,
+#status .status.warn {
+  color: var(--gold);
+
+  background:
+    rgba(255, 216, 109, .065);
+
+  border:
+    1px solid rgba(255, 216, 109, .25);
+
+  box-shadow:
+    0 0 18px rgba(255, 216, 109, .025);
+}
+
+#status.status.warn::before,
+#status .status.warn::before {
+  content: "!";
+
+  position: relative;
+
+  display: inline-flex;
+
+  width: 17px;
+  height: 17px;
+
+  flex: 0 0 17px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 216, 109, .35);
+
+  border-radius: 50%;
+
+  background: rgba(255, 216, 109, .08);
+
+  color: var(--gold);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+
+/* ------------------------------------------------------------
+   ERROR / BAD
+   ------------------------------------------------------------ */
+
+#status.status.bad,
+#status .status.bad {
+  color: var(--red);
+
+  background:
+    rgba(255, 100, 124, .065);
+
+  border:
+    1px solid rgba(255, 100, 124, .25);
+
+  box-shadow:
+    0 0 18px rgba(255, 100, 124, .025);
+}
+
+#status.status.bad::before,
+#status .status.bad::before {
+  content: "×";
+
+  position: relative;
+
+  display: inline-flex;
+
+  width: 17px;
+  height: 17px;
+
+  flex: 0 0 17px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 100, 124, .35);
+
+  border-radius: 50%;
+
+  background: rgba(255, 100, 124, .08);
+
+  color: var(--red);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS SWEEP
+   ------------------------------------------------------------ */
+
+#status.status::after,
+#status .status::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  left: -120%;
+
+  width: 60%;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, .035),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  animation:
+    gbStatusSweep 5s ease-in-out infinite;
+}
+
+@keyframes gbStatusSweep {
+  0%,
+  68% {
+    left: -120%;
+  }
+
+  85%,
+  100% {
+    left: 140%;
+  }
+}
+
+
+/* ============================================================
+   LIGHT SWEEP EFFECT
+   ============================================================ */
+
+.btn,
+.pdf-download-btn,
+.whatsapp-help-btn,
+.close-btn,
+.chip {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after,
+.pdf-download-btn::after,
+.whatsapp-help-btn::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  transform: skewX(-20deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, .08),
+      transparent
+    );
+
+  transition: left .55s ease;
+
+  pointer-events: none;
+}
+
+.btn:hover::after,
+.pdf-download-btn:hover::after,
+.whatsapp-help-btn:hover::after {
+  left: 140%;
+}
+
+
+/* ============================================================
+   SUMMARY & TOTAL
+   ============================================================ */
 
 .total {
   padding: 28px 24px 18px;
@@ -634,10 +1130,35 @@ body::before {
   color: var(--gold);
 
   font-size: 34px;
-
   font-weight: 800;
-
   line-height: 1;
+
+  text-shadow:
+    0 0 22px rgba(255, 216, 109, .08);
+
+  transition: transform .3s ease;
+}
+
+.total.gb-total-updated {
+  animation:
+    gbTotalPulse .45s cubic-bezier(.2, .75, .25, 1);
+}
+
+@keyframes gbTotalPulse {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 0 rgba(255, 216, 109, 0);
+  }
+
+  45% {
+    transform: scale(1.035);
+    text-shadow: 0 0 24px rgba(255, 216, 109, .24);
+  }
+
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 22px rgba(255, 216, 109, .08);
+  }
 }
 
 
@@ -647,6 +1168,9 @@ body::before {
 
 #compat {
   padding: 0 24px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .compat {
@@ -663,7 +1187,6 @@ body::before {
   color: var(--muted);
 
   font-size: 12px;
-
   line-height: 1.5;
 }
 
@@ -673,7 +1196,6 @@ body::before {
 
 .compat b {
   color: var(--text);
-
   font-weight: 700;
 }
 
@@ -690,6 +1212,9 @@ body::before {
 
 .compat.ok .dot {
   background: var(--green);
+
+  animation:
+    gbDotPulse 2.4s ease-in-out infinite;
 }
 
 .compat.bad .dot {
@@ -700,66 +1225,22 @@ body::before {
   background: var(--gold);
 }
 
+@keyframes gbDotPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(85, 214, 139, .18);
+  }
 
-/* ============================================================
-   STATUS
-   ============================================================ */
-
-#status {
-  padding: 0 24px;
-}
-
-.status {
-  width: 100%;
-
-  margin-top: 18px;
-
-  padding: 14px 16px;
-
-  border-radius: 10px;
-
-  font-size: 12px;
-
-  font-weight: 750;
-
-  line-height: 1.45;
-
-  box-sizing: border-box;
-}
-
-.status.ok {
-  background: rgba(85, 214, 139, .09);
-
-  border: 1px solid rgba(85, 214, 139, .14);
-
-  color: var(--green);
-}
-
-.status.bad {
-  background: rgba(255, 100, 124, .09);
-
-  border: 1px solid rgba(255, 100, 124, .14);
-
-  color: var(--red);
-}
-
-/*
-   IMPORTANT:
-   Warning status is deliberately NOT gold.
-   This keeps it visually separate from the gold total.
-*/
-
-.status.warn {
-  background: rgba(61, 123, 255, .08);
-
-  border: 1px solid rgba(61, 123, 255, .16);
-
-  color: #b9c9ed;
+  50% {
+    box-shadow:
+      0 0 0 5px rgba(85, 214, 139, 0);
+  }
 }
 
 
 /* ============================================================
-   WHATSAPP QUOTATION BUTTON
+   WHATSAPP
    ============================================================ */
 
 .whatsapp-action-btn {
@@ -771,37 +1252,27 @@ body::before {
 
   padding: 12px 16px;
 
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
   gap: 10px;
 
-  border: 1px solid rgba(37, 211, 102, .48);
+  border:
+    1px solid rgba(37, 211, 102, .48);
 
   border-radius: 9px;
 
-  background: rgba(37, 211, 102, .08);
+  background:
+    rgba(37, 211, 102, .08);
 
   color: #eafff1;
 
-  cursor: pointer;
-
   font-size: 13px;
-
-  font-weight: 750;
-
-  transition:
-    background .2s ease,
-    border-color .2s ease,
-    transform .2s ease;
 }
 
 .whatsapp-action-btn:hover {
-  background: rgba(37, 211, 102, .15);
+  background:
+    rgba(37, 211, 102, .15);
 
-  border-color: rgba(37, 211, 102, .8);
+  border-color:
+    rgba(37, 211, 102, .8);
 
   transform: translateY(-1px);
 }
@@ -821,20 +1292,21 @@ body::before {
    ============================================================ */
 
 .compatibility-disclaimer {
-  margin: 20px 24px 0;
+  margin: 0 24px;
 
   padding: 16px 17px;
 
-  background: rgba(2, 6, 11, .72);
+  background:
+    rgba(2, 6, 11, .72);
 
-  border: 1px solid rgba(255, 216, 109, .18);
+  border:
+    1px solid rgba(255, 216, 109, .18);
 
   border-radius: 9px;
 
   color: var(--muted);
 
   font-size: 11px;
-
   line-height: 1.6;
 }
 
@@ -869,7 +1341,8 @@ body::before {
       rgba(17, 19, 24, .75)
     );
 
-  border: 1px solid rgba(61, 123, 255, .22);
+  border:
+    1px solid rgba(61, 123, 255, .22);
 
   border-radius: 10px;
 }
@@ -882,7 +1355,6 @@ body::before {
   color: var(--blue);
 
   font-size: 10px;
-
   font-weight: 800;
 
   letter-spacing: 1.6px;
@@ -902,7 +1374,6 @@ body::before {
   color: var(--muted);
 
   font-size: 12px;
-
   line-height: 1.55;
 }
 
@@ -913,41 +1384,32 @@ body::before {
 
   padding: 10px 14px;
 
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
   gap: 9px;
 
-  border: 1px solid rgba(37, 211, 102, .45);
+  border:
+    1px solid rgba(37, 211, 102, .45);
 
   border-radius: 8px;
 
-  background: rgba(37, 211, 102, .07);
+  background:
+    rgba(37, 211, 102, .07);
 
   color: #eafff1;
 
-  cursor: pointer;
-
   font-size: 12px;
-
-  font-weight: 750;
-
-  transition:
-    background .2s ease,
-    border-color .2s ease;
 }
 
 .whatsapp-help-btn:hover {
-  background: rgba(37, 211, 102, .14);
+  background:
+    rgba(37, 211, 102, .14);
 
-  border-color: rgba(37, 211, 102, .75);
+  border-color:
+    rgba(37, 211, 102, .75);
 }
 
 
 /* ============================================================
-   LOADING
+   LOADING / EMPTY STATES
    ============================================================ */
 
 .loading {
@@ -986,40 +1448,63 @@ body::before {
 
   padding: 4vh 4%;
 
-  background: rgba(0, 0, 0, .78);
+  background:
+    rgba(0, 0, 0, .78);
 
   backdrop-filter: blur(6px);
 }
 
 .modal.open {
   display: flex;
+
+  animation:
+    gbModalFade .22s ease both;
 }
 
 .modal-box {
   width: min(1050px, 100%);
-
   height: 90vh;
 
   display: flex;
-
   flex-direction: column;
 
   overflow: hidden;
 
   background: #111317;
 
-  border: 1px solid var(--gold-soft);
+  border:
+    1px solid var(--gold-soft);
 
   border-radius: 12px;
 
   box-shadow:
     0 20px 70px rgba(0, 0, 0, .7);
+
+  animation:
+    gbModalBox .32s cubic-bezier(.2, .75, .25, 1) both;
 }
 
+@keyframes gbModalFade {
+  from {
+    opacity: 0;
+  }
 
-/* ============================================================
-   MODAL HEADER
-   ============================================================ */
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gbModalBox {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
 .modal-header {
   display: flex;
@@ -1046,7 +1531,8 @@ body::before {
   width: 38px;
   height: 38px;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 7px;
 
@@ -1057,20 +1543,25 @@ body::before {
   cursor: pointer;
 
   font-size: 24px;
-
   line-height: 1;
+
+  transition:
+    border-color .2s ease,
+    color .2s ease,
+    background .2s ease,
+    transform .2s ease;
 }
 
 .close-btn:hover {
   border-color: var(--gold-soft);
 
+  background:
+    rgba(255, 216, 109, .05);
+
   color: var(--gold);
+
+  transform: rotate(90deg);
 }
-
-
-/* ============================================================
-   MODAL TOOLS
-   ============================================================ */
 
 .modal-tools {
   display: flex;
@@ -1095,17 +1586,26 @@ body::before {
 
   background: #0d1117;
 
-  border: 1px solid rgba(255, 255, 255, .1);
+  border:
+    1px solid rgba(255, 255, 255, .1);
 
   border-radius: 7px;
 
   color: var(--white);
 
   outline: none;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease;
 }
 
 .search-input:focus {
   border-color: var(--gold-soft);
+
+  box-shadow:
+    0 0 0 3px rgba(61, 123, 255, .08),
+    0 0 20px rgba(61, 123, 255, .06);
 }
 
 .filters {
@@ -1131,7 +1631,8 @@ body::before {
 
   padding: 8px 13px;
 
-  border: 1px solid rgba(255, 255, 255, .12);
+  border:
+    1px solid rgba(255, 255, 255, .12);
 
   border-radius: 999px;
 
@@ -1142,7 +1643,6 @@ body::before {
   cursor: pointer;
 
   font-size: 11px;
-
   font-weight: 700;
 
   white-space: nowrap;
@@ -1154,7 +1654,8 @@ body::before {
 }
 
 .chip:hover {
-  border-color: rgba(61, 123, 255, .55);
+  border-color:
+    rgba(61, 123, 255, .55);
 
   color: var(--white);
 }
@@ -1162,15 +1663,11 @@ body::before {
 .chip.active {
   border-color: var(--blue);
 
-  background: rgba(61, 123, 255, .12);
+  background:
+    rgba(61, 123, 255, .12);
 
   color: var(--white);
 }
-
-
-/* ============================================================
-   PRODUCT MODAL LIST
-   ============================================================ */
 
 .product-list {
   flex: 1;
@@ -1181,47 +1678,45 @@ body::before {
 }
 
 .choice {
-  display: grid;
-
-  grid-template-columns:
-    70px
-    minmax(0, 1fr)
-    auto;
-
-  align-items: center;
-
-  gap: 15px;
-
-  padding: 12px;
-
   margin-bottom: 10px;
 
   background: #0d1117;
 
-  border: 1px solid rgba(255, 255, 255, .07);
-
-  border-radius: 8px;
+  border:
+    1px solid rgba(255, 255, 255, .07);
 
   transition:
-    background .2s ease,
-    border-color .2s ease;
+    transform .22s ease,
+    background .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
+
+  animation:
+    gbChoiceIn .3s cubic-bezier(.2, .75, .25, 1) both;
 }
 
 .choice:hover {
   background: #151a21;
 
-  border-color: rgba(255, 216, 109, .25);
+  border-color:
+    rgba(255, 216, 109, .25);
+
+  transform: translateX(2px);
+
+  box-shadow:
+    0 7px 20px rgba(0, 0, 0, .18);
 }
 
-.choice img {
-  width: 70px;
-  height: 70px;
+@keyframes gbChoiceIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
 
-  object-fit: contain;
-
-  background: #fff;
-
-  border-radius: 6px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .choice .pname {
@@ -1230,31 +1725,6 @@ body::before {
 
 .choice .meta {
   text-transform: uppercase;
-}
-
-
-/* ============================================================
-   MODAL PRODUCT ACTIONS
-   ============================================================ */
-
-.product-actions {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: flex-end;
-
-  gap: 8px;
-
-  flex-wrap: wrap;
-}
-
-.product-actions > strong {
-  color: var(--gold);
-
-  font-size: 13px;
-
-  white-space: nowrap;
 }
 
 
@@ -1289,18 +1759,13 @@ body::before {
 
   .header-container {
     width: min(900px, 92%);
-
     gap: 35px;
   }
 
-  .header-logo {
-    flex-basis: 190px;
-
-    width: 190px;
-    max-width: 190px;
-  }
-
+  .header-logo,
   .gb-tech-logo {
+    flex-basis: 190px;
+    width: 190px;
     max-width: 190px;
   }
 
@@ -1316,9 +1781,9 @@ body::before {
     order: -1;
 
     position: relative;
+
     top: auto;
   }
-
 }
 
 
@@ -1332,9 +1797,6 @@ body::before {
     width: 94%;
   }
 
-
-  /* HEADER */
-
   .header-container {
     width: 92%;
 
@@ -1342,32 +1804,23 @@ body::before {
 
     padding: 30px 0 32px;
 
-    display: flex;
-
     flex-direction: column;
-
-    align-items: center;
 
     gap: 20px;
 
     text-align: center;
   }
 
-  .header-logo {
+  .header-logo,
+  .gb-tech-logo {
     flex: 0 0 auto;
 
     width: 150px;
     max-width: 150px;
   }
 
-  .gb-tech-logo {
-    width: 150px;
-    max-width: 150px;
-  }
-
   .header-content {
     width: 100%;
-
     text-align: center;
   }
 
@@ -1391,12 +1844,7 @@ body::before {
     max-width: 100%;
 
     font-size: 14px;
-
-    line-height: 1.6;
   }
-
-
-  /* MAIN */
 
   .toolbar {
     padding-top: 18px;
@@ -1405,9 +1853,6 @@ body::before {
   .build-layout {
     padding: 18px 0 45px;
   }
-
-
-  /* PANELS */
 
   .builder-panel,
   .summary-panel {
@@ -1430,28 +1875,34 @@ body::before {
     padding: 0 18px 15px;
   }
 
-
-  /* PRODUCTS */
-
-  .product {
+  .product,
+  .choice {
     grid-template-columns:
       52px
       minmax(0, 1fr);
 
     gap: 10px;
+  }
 
+  .product {
     padding: 9px;
   }
 
-  .product img {
+  .product img,
+  .choice img {
     width: 52px;
     height: 52px;
   }
 
-  .product-actions {
+  .product-actions,
+  .choice .product-actions {
     grid-column: 2;
 
     justify-content: flex-start;
+  }
+
+  .product-actions {
+    gap: 7px;
   }
 
   .btn,
@@ -1461,8 +1912,20 @@ body::before {
     padding: 8px 11px;
   }
 
+  /* Keep the cross small even on mobile */
+  .remove-product-btn {
+    width: 21px;
+    height: 21px;
 
-  /* SUMMARY */
+    min-width: 21px;
+    min-height: 21px;
+
+    flex-basis: 21px;
+  }
+
+  .remove-product-btn::before {
+    font-size: 14px;
+  }
 
   .total {
     padding: 24px 18px 15px;
@@ -1470,10 +1933,31 @@ body::before {
     font-size: 29px;
   }
 
-  #compat,
-  #status {
+  #compat {
     padding-left: 18px;
     padding-right: 18px;
+  }
+
+  /*
+   * Mobile status now uses the exact same
+   * 18px side spacing as the other summary boxes.
+   */
+  #status {
+   margin: 16px 18px 18px;
+  }
+
+  #status.status,
+  #status .status {
+    min-height: 39px;
+
+    padding:
+      8px 12px;
+
+    justify-content: flex-start;
+
+    text-align: left;
+
+    font-size: 12.5px;
   }
 
   .whatsapp-action-btn {
@@ -1488,9 +1972,6 @@ body::before {
     margin-left: 18px;
     margin-right: 18px;
   }
-
-
-  /* MODAL */
 
   .modal {
     padding: 2vh 2.5%;
@@ -1518,40 +1999,17 @@ body::before {
 
   .filters {
     max-width: 100%;
-
     width: 100%;
-
-    overflow-x: auto;
   }
 
   .product-list {
     padding: 15px 17px;
   }
-
-  .choice {
-    grid-template-columns:
-      52px
-      minmax(0, 1fr);
-
-    gap: 10px;
-  }
-
-  .choice img {
-    width: 52px;
-    height: 52px;
-  }
-
-  .choice .product-actions {
-    grid-column: 2;
-
-    justify-content: flex-start;
-  }
-
 }
 
 
 /* ============================================================
-   VERY SMALL PHONES
+   SMALL MOBILE
    ============================================================ */
 
 @media (max-width: 400px) {
@@ -1584,4 +2042,42 @@ body::before {
     padding-right: 15px;
   }
 
+  .remove-product-btn {
+    width: 20px;
+    height: 20px;
+
+    min-width: 20px;
+    min-height: 20px;
+
+    flex-basis: 20px;
+  }
+
+  .remove-product-btn::before {
+    font-size: 13px;
+  }
+
+  #status {
+  margin:
+    16px 15px 18px;
+}
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: .01ms !important;
+
+    scroll-behavior: auto !important;
+  }
 }
