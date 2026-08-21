@@ -53,11 +53,184 @@ const image = (product) => {
 };
 
 
+/* ============================================================
+   PRODUCT CATEGORY RESOLVER
+
+   Compatibility.type is useful for compatibility checks,
+   but it should NOT be the only way we decide where a product
+   appears in the builder.
+
+   GB Tech's actual Category path is the fallback.
+
+   This means products will not disappear simply because
+   their compatibility data is incomplete.
+   ============================================================ */
+
+const getProductCategory = (product) => {
+  return String(
+    product?.Category || ""
+  )
+    .trim()
+    .toLowerCase();
+};
+
+
+const getProductCompatibilityType = (product) => {
+  return String(
+    product?.Compatibility?.type || ""
+  )
+    .trim()
+    .toLowerCase();
+};
+
+
+/* ============================================================
+   DETERMINE BUILDER TYPE
+   ============================================================ */
+
+const resolveProductType = (product) => {
+
+  const compatibilityType =
+    getProductCompatibilityType(product);
+
+  const category =
+    getProductCategory(product);
+
+
+  /* ----------------------------------------------------------
+     FIRST:
+     Trust an explicit compatibility type when it is one of
+     our known builder types.
+     ---------------------------------------------------------- */
+
+  const validTypes = [
+    "motherboard",
+    "graphics_card",
+    "ram",
+    "case",
+    "cooling",
+    "power_supply",
+    "fan"
+  ];
+
+
+  if (
+    validTypes.includes(
+      compatibilityType
+    )
+  ) {
+    return compatibilityType;
+  }
+
+
+  /* ----------------------------------------------------------
+     CATEGORY FALLBACK
+     ---------------------------------------------------------- */
+
+  if (
+    category.includes("motherboard")
+  ) {
+    return "motherboard";
+  }
+
+
+  if (
+    category.includes("graphics card") ||
+    category.includes("graphics cards") ||
+    category.includes("gpu") ||
+    category.includes("video card")
+  ) {
+    return "graphics_card";
+  }
+
+
+  if (
+    category.includes("ram") ||
+    category.includes("memory")
+  ) {
+    return "ram";
+  }
+
+
+  if (
+    category.includes("power supply") ||
+    category.includes("power supplies") ||
+    category.includes("psu")
+  ) {
+    return "power_supply";
+  }
+
+
+  if (
+    category.includes("case") ||
+    category.includes("chassis")
+  ) {
+    return "case";
+  }
+
+
+  /* ----------------------------------------------------------
+     CASE FANS
+
+     These must be checked BEFORE generic cooling.
+     ---------------------------------------------------------- */
+
+  if (
+    category.includes("case fan") ||
+    category.includes("case fans") ||
+    category.includes("fans") ||
+    category.includes("fan")
+  ) {
+    return "fan";
+  }
+
+
+  /* ----------------------------------------------------------
+     CPU COOLING / LIQUID COOLING
+
+     This catches:
+
+       PC Components > Cooling
+       PC Components > Liquid Cooling
+       PC Components > CPU Cooler
+       PC Components > CPU Coolers
+       etc.
+     ---------------------------------------------------------- */
+
+  if (
+    category.includes("cooling") ||
+    category.includes("cooler") ||
+    category.includes("liquid") ||
+    category.includes("aio") ||
+    category.includes("radiator")
+  ) {
+    return "cooling";
+  }
+
+
+  return "";
+};
+
+
+/* ============================================================
+   PRODUCTS BY BUILDER TYPE
+
+   IMPORTANT:
+   We now resolve the product from BOTH:
+
+   1. Compatibility.type
+   2. GB Tech Category
+
+   Therefore products don't silently disappear.
+   ============================================================ */
+
 const productsBy = (type) => {
-  return PRODUCTS.filter(product =>
-    String(product?.Compatibility?.type || "")
-      .toLowerCase() === type
+
+  return PRODUCTS.filter(
+    product =>
+      resolveProductType(product) === type
   );
+
 };
 
 

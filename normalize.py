@@ -1,6 +1,7 @@
 import json
 import re
 
+
 # ============================================================
 # SETTINGS
 # ============================================================
@@ -10,69 +11,456 @@ OUTPUT_FILE = "pc_components_normalized.json"
 
 
 # ============================================================
-# HELPERS
+# BASIC HELPERS
 # ============================================================
 
-def clean(value):
+def clean_text(value):
     if value is None:
-        return ""
+        return None
 
-    return str(value).strip()
+    value = str(value).strip()
+
+    if not value:
+        return None
+
+    return re.sub(r"\s+", " ", value)
 
 
 def get_specs(product):
-    specs = product.get("Specifications", {})
-
-    if isinstance(specs, dict):
-        return specs
-
-    return {}
+    return product.get("Specifications") or {}
 
 
-def get_spec(product, *names):
-    """
-    Look for an exact specification name.
-    """
+def get_overview(product):
+    return clean_text(product.get("Overview")) or ""
 
-    specs = get_specs(product)
 
-    for name in names:
-
-        for key, value in specs.items():
-
-            if clean(key).lower() == name.lower():
-                return clean(value)
-
-    return ""
+def get_name(product):
+    return clean_text(product.get("Product Name")) or ""
 
 
 def combined_text(product):
-    parts = [
-        clean(product.get("Product Name"))
+    specs = get_specs(product)
+
+    parts = []
+
+    for key, value in specs.items():
+        if value:
+            parts.append(f"{key}: {value}")
+
+    overview = get_overview(product)
+    name = get_name(product)
+
+    if overview:
+        parts.append(overview)
+
+    if name:
+        parts.append(name)
+
+    return "\n".join(parts)
+
+
+def find_spec(specs, names):
+    """
+    Find a specification using generic label matching.
+
+    Exact labels are preferred, but we do not depend on
+    one retailer's exact wording.
+    """
+
+    if not specs:
+        return None
+
+    normalized = {
+        re.sub(r"\s+", " ", str(k).strip()).lower(): clean_text(v)
+        for k, v in specs.items()
+    }
+
+    # Exact label
+    for name in names:
+        value = normalized.get(
+            re.sub(r"\s+", " ", name.strip()).lower()
+        )
+
+        if value:
+            return value
+
+    # Partial label
+    for key, value in normalized.items():
+
+        if not value:
+            continue
+
+        for name in names:
+
+            target = name.lower().strip()
+
+            if target in key:
+                return value
+
+    return None
+
+
+def first_number(text, minimum=None, maximum=None):
+    if not text:
+        return None
+
+    matches = re.findall(
+        r"\b\d+(?:\.\d+)?\b",
+        text
+    )
+
+    for value in matches:
+
+        number = float(value)
+
+        if minimum is not None and number < minimum:
+            continue
+
+        if maximum is not None and number > maximum:
+            continue
+
+        return int(number) if number.is_integer() else number
+
+    return None
+
+
+# ============================================================
+# GENERIC PATTERN EXTRACTORS
+# ============================================================
+
+def extract_socket(text):
+    if not text:
+        return None
+
+    # Generic socket forms:
+    # LGA 1700
+    # LGA1700
+    # AM5
+    # AM4
+    # sTRX4
+    # TR4
+    # SP5
+    # SP6
+
+    patterns = [
+        r"\bLGA\s*\d{3,5}\b",
+        r"\bsTRX\d+\b",
+        r"\bSTRX\d+\b",
+        r"\bTR\d+\b",
+        r"\bSP\d+\b",
+        r"\bAM\d+\+?\b",
     ]
 
-    for value in get_specs(product).values():
-        parts.append(clean(value))
+    for pattern in patterns:
 
-    return " ".join(parts)
+        match = re.search(
+            pattern,
+            text,
+            re.IGNORECASE
+        )
+
+        if match:
+            return re.sub(
+                r"\s+",
+                "",
+                match.group(0)
+            ).upper()
+
+    return None
 
 
-def number_from_text(text):
+def extract_all_sockets(text):
+    if not text:
+        return []
+
+    patterns = [
+        r"\bLGA\s*\d{3,5}\b",
+        r"\bsTRX\d+\b",
+        r"\bSTRX\d+\b",
+        r"\bTR\d+\b",
+        r"\bSP\d+\b",
+        r"\bAM\d+\+?\b",
+    ]
+
+    found = []
+
+    for pattern in patterns:
+
+        for match in re.findall(
+            pattern,
+            text,
+            re.IGNORECASE
+        ):
+
+            value = re.sub(
+                r"\s+",
+                "",
+                match
+            ).upper()
+
+            if value not in found:
+                found.append(value)
+
+    return found
+
+
+def extract_memory_type(text):
     if not text:
         return None
 
     match = re.search(
-        r"(\d+(?:\.\d+)?)",
-        text
+        r"\bDDR\s*([2-6])\b",
+        text,
+        re.IGNORECASE
     )
 
     if match:
-        try:
-            return float(match.group(1))
-        except ValueError:
-            pass
+        return f"DDR{match.group(1)}"
 
     return None
+
+
+def extract_memory_speed(text):
+    if not text:
+        return None
+
+    # DDR5-6000
+    match = re.search(
+        r"\bDDR[2-6]\s*[- ]\s*(\d{3,5})\b",
+        text,
+        re.IGNORECASE
+    )
+
+    if match:
+        return f"{match.group(1)} MT/s"
+
+    # 6000 MT/s
+    match = re.search(
+        r"\b(\d{3,6})\s*MT/s\b",
+        text,
+        re.IGNORECASE
+    )
+
+    if match:
+        return f"{match.group(1)} MT/s"
+
+    # 3200 MHz
+    match = re.search(
+        r"\b(\d{3,6})\s*MHz\b",
+        text,
+        re.IGNORECASE
+    )
+
+    if match:
+        return f"{match.group(1)} MHz"
+
+    return None
+
+
+def extract_capacity(text):
+    if not text:
+        return None
+
+    matches = re.findall(
+        r"\b(\d+(?:\.\d+)?)\s*(GB|TB)\b",
+        text,
+        re.IGNORECASE
+    )
+
+    if not matches:
+        return None
+
+    values = []
+
+    for number, unit in matches:
+
+        value = float(number)
+
+        if unit.upper() == "TB":
+            value *= 1024
+
+        values.append(value)
+
+    if not values:
+        return None
+
+    value = max(values)
+
+    return (
+        f"{int(value)} GB"
+        if value.is_integer()
+        else f"{value} GB"
+    )
+
+
+def extract_form_factor(text):
+    if not text:
+        return None
+
+    patterns = [
+        (r"\bE[-\s]?ATX\b", "E-ATX"),
+        (r"\bMicro[-\s]?ATX\b", "Micro-ATX"),
+        (r"\bM[-\s]?ATX\b", "Micro-ATX"),
+        (r"\bMATX\b", "Micro-ATX"),
+        (r"\bMini[-\s]?ITX\b", "Mini-ITX"),
+        (r"\bM[-\s]?ITX\b", "Mini-ITX"),
+        (r"\bATX\b", "ATX"),
+    ]
+
+    for pattern, value in patterns:
+
+        if re.search(
+            pattern,
+            text,
+            re.IGNORECASE
+        ):
+            return value
+
+    return None
+
+
+def extract_all_form_factors(text):
+    if not text:
+        return []
+
+    found = []
+
+    patterns = [
+        (r"\bE[-\s]?ATX\b", "E-ATX"),
+        (r"\bMicro[-\s]?ATX\b", "Micro-ATX"),
+        (r"\bM[-\s]?ATX\b", "Micro-ATX"),
+        (r"\bMATX\b", "Micro-ATX"),
+        (r"\bMini[-\s]?ITX\b", "Mini-ITX"),
+        (r"\bM[-\s]?ITX\b", "Mini-ITX"),
+        (r"\bATX\b", "ATX"),
+    ]
+
+    for pattern, value in patterns:
+
+        if re.search(
+            pattern,
+            text,
+            re.IGNORECASE
+        ):
+
+            if value not in found:
+                found.append(value)
+
+    return found
+
+
+def extract_wattage(text):
+    if not text:
+        return None
+
+    matches = re.findall(
+        r"\b(\d{3,4})\s*W\b",
+        text,
+        re.IGNORECASE
+    )
+
+    valid = []
+
+    for value in matches:
+
+        wattage = int(value)
+
+        if 200 <= wattage <= 3000:
+            valid.append(wattage)
+
+    if valid:
+        return max(valid)
+
+    return None
+
+
+def extract_mm(text):
+    if not text:
+        return None
+
+    match = re.search(
+        r"\b(\d+(?:\.\d+)?)\s*mm\b",
+        text,
+        re.IGNORECASE
+    )
+
+    if match:
+        value = float(match.group(1))
+        return int(value) if value.is_integer() else value
+
+    return None
+
+
+def extract_dimensions_first_value(text):
+    if not text:
+        return None
+
+    match = re.search(
+        r"\b(\d+(?:\.\d+)?)\s*[x×]\s*"
+        r"(\d+(?:\.\d+)?)\s*[x×]\s*"
+        r"(\d+(?:\.\d+)?)\s*mm\b",
+        text,
+        re.IGNORECASE
+    )
+
+    if match:
+        value = float(match.group(1))
+        return int(value) if value.is_integer() else value
+
+    return None
+
+
+# ============================================================
+# CATEGORY DETECTION
+# ============================================================
+
+def detect_component_type(category):
+
+    category = clean_text(category) or ""
+    value = category.lower()
+
+    if "motherboard" in value:
+        return "motherboard"
+
+    if (
+        "graphics card" in value
+        or "graphic card" in value
+        or "gpu" in value
+    ):
+        return "graphics_card"
+
+    if (
+        "ram" in value
+        or "memory" in value
+    ):
+        return "ram"
+
+    if (
+        "power supply" in value
+        or "power supplies" in value
+        or re.search(r"\bpsu\b", value)
+    ):
+        return "power_supply"
+
+    if (
+        "fan" in value
+    ):
+        return "fan"
+
+    if (
+        "cooling" in value
+        or "cooler" in value
+        or "aio" in value
+    ):
+        return "cooling"
+
+    if (
+        "case" in value
+        or "chassis" in value
+    ):
+        return "case"
+
+    return "unknown"
 
 
 # ============================================================
@@ -81,192 +469,109 @@ def number_from_text(text):
 
 def normalize_motherboard(product):
 
+    specs = get_specs(product)
+    overview = get_overview(product)
+    name = get_name(product)
+
     text = combined_text(product)
 
-    # --------------------------------------------------------
-    # MEMORY
-    # --------------------------------------------------------
+    cpu = find_spec(
+        specs,
+        [
+            "CPU Support",
+            "CPU",
+            "Processor",
+            "CPU Socket",
+            "Socket"
+        ]
+    ) or ""
 
-    if re.search(r"\bDDR5\b", text, re.I):
-        memory_type = "DDR5"
+    memory = find_spec(
+        specs,
+        [
+            "Memory",
+            "Memory Support",
+            "Memory Type",
+            "RAM",
+            "RAM Type"
+        ]
+    ) or ""
 
-    elif re.search(r"\bDDR4\b", text, re.I):
-        memory_type = "DDR4"
+    form_factor = find_spec(
+        specs,
+        [
+            "Form Factor",
+            "Motherboard Form Factor"
+        ]
+    ) or ""
 
-    else:
-        memory_type = None
+    socket = extract_socket(cpu)
 
-    # --------------------------------------------------------
-    # FORM FACTOR
-    # --------------------------------------------------------
+    if not socket:
+        socket = extract_socket(text)
 
-    form_factor_text = get_spec(
-        product,
-        "Form Factor",
-        "Form factor"
+    memory_type = extract_memory_type(memory)
+
+    if not memory_type:
+        memory_type = extract_memory_type(text)
+
+    form = extract_form_factor(form_factor)
+
+    if not form:
+        form = extract_form_factor(text)
+
+    # Only extract memory slots when the text explicitly
+    # associates the number with slots/DIMM.
+    memory_slots = None
+
+    slot_match = re.search(
+        r"\b(\d+)\s*(?:x\s*)?"
+        r"(?:DDR[2-6]\s*)?"
+        r"(?:DIMM|memory)\s*slots?\b",
+        text,
+        re.IGNORECASE
     )
 
-    form_factor_search = (
-        form_factor_text
-        if form_factor_text
-        else text
+    if slot_match:
+        memory_slots = int(slot_match.group(1))
+
+    # Maximum supported RAM
+    max_memory_gb = None
+
+    max_match = re.search(
+        r"(?:maximum|max\.?|max)\s*"
+        r"(?:memory|ram|capacity)"
+        r".{0,50}?"
+        r"(\d+(?:\.\d+)?)\s*(GB|TB)",
+        text,
+        re.IGNORECASE
     )
 
-    form_factor = None
+    if max_match:
 
-    if re.search(
-        r"Micro[\s-]?ATX|mATX",
-        form_factor_search,
-        re.I
-    ):
-        form_factor = "Micro-ATX"
+        value = float(max_match.group(1))
 
-    elif re.search(
-        r"Mini[\s-]?ITX",
-        form_factor_search,
-        re.I
-    ):
-        form_factor = "Mini-ITX"
+        if max_match.group(2).upper() == "TB":
+            value *= 1024
 
-    elif re.search(
-        r"E[\s-]?ATX",
-        form_factor_search,
-        re.I
-    ):
-        form_factor = "E-ATX"
+        max_memory_gb = int(value)
 
-    elif re.search(
-        r"\bATX\b",
-        form_factor_search,
-        re.I
-    ):
-        form_factor = "ATX"
-
-    # --------------------------------------------------------
-    # SOCKET
-    # --------------------------------------------------------
-
-    socket = None
-
-    socket_patterns = [
-        (r"\bLGA\s*1851\b", "LGA1851"),
-        (r"\bLGA\s*1700\b", "LGA1700"),
-        (r"\bLGA\s*1200\b", "LGA1200"),
-        (r"\bAM5\b", "AM5"),
-        (r"\bAM4\b", "AM4"),
-    ]
-
-    for pattern, value in socket_patterns:
-
-        if re.search(pattern, text, re.I):
-            socket = value
-            break
-
-    # --------------------------------------------------------
-    # PLATFORM
-    # --------------------------------------------------------
-
-    if socket in ["AM4", "AM5"]:
-        platform = "AMD"
-
-    elif socket in ["LGA1200", "LGA1700", "LGA1851"]:
-        platform = "Intel"
-
-    else:
-        platform = None
+    chipset = find_spec(
+        specs,
+        [
+            "Chipset",
+            "Chipset Type"
+        ]
+    )
 
     return {
         "type": "motherboard",
-        "memory_type": memory_type,
-        "form_factor": form_factor,
         "socket": socket,
-        "platform": platform
-    }
-
-
-# ============================================================
-# GRAPHICS CARD
-# ============================================================
-
-def normalize_graphics_card(product):
-
-    # --------------------------------------------------------
-    # DIMENSIONS
-    # --------------------------------------------------------
-
-    dimensions = get_spec(
-        product,
-        "Dimensions"
-    )
-
-    length_mm = None
-
-    if dimensions:
-
-        # Example:
-        # 228 x 123 x 50mm
-
-        match = re.search(
-            r"(\d+(?:\.\d+)?)\s*x\s*"
-            r"(\d+(?:\.\d+)?)\s*x\s*"
-            r"(\d+(?:\.\d+)?)\s*mm",
-            dimensions,
-            re.I
-        )
-
-        if match:
-            length_mm = float(match.group(1))
-
-    # --------------------------------------------------------
-    # PSU
-    # --------------------------------------------------------
-
-    recommended_psu = get_spec(
-        product,
-        "Recommended PSU",
-        "Recommended Power Supply",
-        "Recommended System Power Supply"
-    )
-
-    recommended_psu_wattage = None
-
-    if recommended_psu:
-
-        value = number_from_text(
-            recommended_psu
-        )
-
-        if value is not None:
-            recommended_psu_wattage = int(value)
-
-    # --------------------------------------------------------
-    # GPU BRAND
-    # --------------------------------------------------------
-
-    text = combined_text(product)
-
-    if re.search(
-        r"\bGeForce\b|\bRTX\b",
-        text,
-        re.I
-    ):
-        gpu_brand = "NVIDIA"
-
-    elif re.search(
-        r"\bRadeon\b|\bRX\s*\d",
-        text,
-        re.I
-    ):
-        gpu_brand = "AMD"
-
-    else:
-        gpu_brand = None
-
-    return {
-        "type": "graphics_card",
-        "length_mm": length_mm,
-        "recommended_psu_wattage": recommended_psu_wattage,
-        "brand": gpu_brand
+        "memory_type": memory_type,
+        "memory_slots": memory_slots,
+        "max_memory_gb": max_memory_gb,
+        "form_factor": form,
+        "chipset": chipset
     }
 
 
@@ -276,111 +581,161 @@ def normalize_graphics_card(product):
 
 def normalize_ram(product):
 
+    specs = get_specs(product)
+    overview = get_overview(product)
+    name = get_name(product)
+
     text = combined_text(product)
 
-    # --------------------------------------------------------
-    # MEMORY TYPE
-    # --------------------------------------------------------
+    memory = find_spec(
+        specs,
+        [
+            "Memory Type",
+            "Memory",
+            "Type",
+            "RAM Type"
+        ]
+    ) or ""
 
-    if re.search(r"\bDDR5\b", text, re.I):
-        memory_type = "DDR5"
+    speed = find_spec(
+        specs,
+        [
+            "Speed",
+            "Memory Speed",
+            "Frequency",
+            "Memory Frequency"
+        ]
+    ) or ""
 
-    elif re.search(r"\bDDR4\b", text, re.I):
-        memory_type = "DDR4"
+    capacity = find_spec(
+        specs,
+        [
+            "Capacity",
+            "Memory Capacity",
+            "Size",
+            "Total Capacity"
+        ]
+    ) or ""
 
-    else:
-        memory_type = None
-
-    # --------------------------------------------------------
-    # FORM FACTOR
-    # --------------------------------------------------------
-
-    form_factor_text = get_spec(
-        product,
-        "Form Factor"
+    form_factor = find_spec(
+        specs,
+        [
+            "Form Factor",
+            "Memory Form Factor"
+        ]
     )
 
-    search_text = (
-        form_factor_text
-        if form_factor_text
-        else text
-    )
+    memory_type = extract_memory_type(memory)
 
-    if re.search(
-        r"SO[-\s]?DIMM",
-        search_text,
-        re.I
-    ):
-        form_factor = "SO-DIMM"
+    if not memory_type:
+        memory_type = extract_memory_type(text)
 
-    elif re.search(
-        r"U[-\s]?DIMM",
-        search_text,
-        re.I
-    ):
-        form_factor = "DIMM"
+    speed_value = extract_memory_speed(speed)
 
-    elif re.search(
-        r"\bDIMM\b",
-        search_text,
-        re.I
-    ):
-        form_factor = "DIMM"
+    if not speed_value:
+        speed_value = extract_memory_speed(text)
 
-    else:
-        form_factor = None
+    capacity_value = extract_capacity(capacity)
 
-    # --------------------------------------------------------
-    # CAPACITY
-    # --------------------------------------------------------
-
-    capacity_text = get_spec(
-        product,
-        "Capacity"
-    )
-
-    if not capacity_text:
-        capacity_text = clean(
-            product.get("Product Name")
-        )
-
-    capacity_gb = None
-
-    # 32GB (2x16GB)
-    kit_match = re.search(
-        r"(\d+)\s*GB\s*\(\s*(\d+)\s*x\s*(\d+)\s*GB",
-        capacity_text,
-        re.I
-    )
-
-    if kit_match:
-
-        capacity_gb = int(
-            kit_match.group(1)
-        )
-
-    else:
-
-        values = re.findall(
-            r"(\d+)\s*GB",
-            capacity_text,
-            re.I
-        )
-
-        if values:
-
-            numbers = [
-                int(x)
-                for x in values
-            ]
-
-            capacity_gb = max(numbers)
+    if not capacity_value:
+        capacity_value = extract_capacity(text)
 
     return {
         "type": "ram",
         "memory_type": memory_type,
-        "form_factor": form_factor,
-        "capacity_gb": capacity_gb
+        "speed": speed_value,
+        "capacity": capacity_value,
+        "form_factor": form_factor
+    }
+
+
+# ============================================================
+# GRAPHICS CARD
+# ============================================================
+
+def normalize_graphics_card(product):
+
+    specs = get_specs(product)
+    text = combined_text(product)
+
+    interface = find_spec(
+        specs,
+        [
+            "Interface",
+            "Bus Interface",
+            "Bus",
+            "Interface Type"
+        ]
+    )
+
+    length_text = find_spec(
+        specs,
+        [
+            "Card Length",
+            "Length",
+            "GPU Length",
+            "Graphics Card Length",
+            "Dimensions",
+            "Card Dimensions",
+            "Product Dimensions"
+        ]
+    )
+
+    length_mm = extract_dimensions_first_value(
+        length_text
+    )
+
+    if length_mm is None:
+        length_mm = extract_mm(length_text)
+
+    if length_mm is None:
+
+        match = re.search(
+            r"(?:card|gpu|graphics card)"
+            r".{0,60}?"
+            r"(\d+(?:\.\d+)?)\s*mm",
+            text,
+            re.IGNORECASE
+        )
+
+        if match:
+            length_mm = float(match.group(1))
+
+    recommended = find_spec(
+        specs,
+        [
+            "Recommended PSU",
+            "Recommended Power Supply",
+            "Power Supply Recommendation",
+            "Recommended Power"
+        ]
+    )
+
+    recommended_psu_wattage = extract_wattage(
+        recommended
+    )
+
+    if recommended_psu_wattage is None:
+
+        match = re.search(
+            r"(?:recommended|suggested)"
+            r".{0,80}?"
+            r"(\d{3,4})\s*W",
+            text,
+            re.IGNORECASE
+        )
+
+        if match:
+            recommended_psu_wattage = int(
+                match.group(1)
+            )
+
+    return {
+        "type": "graphics_card",
+        "interface": interface,
+        "length_mm": length_mm,
+        "recommended_psu_wattage":
+            recommended_psu_wattage
     }
 
 
@@ -390,138 +745,69 @@ def normalize_ram(product):
 
 def normalize_case(product):
 
-    form_factor_text = get_spec(
-        product,
-        "Motherboard Support",
-        "Motherboard Compatibility",
-        "Supported Motherboards",
-        "Form Factor"
+    specs = get_specs(product)
+    text = combined_text(product)
+
+    motherboard = find_spec(
+        specs,
+        [
+            "Motherboard Support",
+            "Motherboard Compatibility",
+            "Supported Motherboards",
+            "Motherboard Form Factor"
+        ]
     )
 
-    if not form_factor_text:
-        form_factor_text = combined_text(product)
-
-    supported_form_factors = []
-
-    if re.search(
-        r"E[\s-]?ATX",
-        form_factor_text,
-        re.I
-    ):
-        supported_form_factors.append(
-            "E-ATX"
-        )
-
-    if re.search(
-        r"\bATX\b",
-        form_factor_text,
-        re.I
-    ):
-        supported_form_factors.append(
-            "ATX"
-        )
-
-    if re.search(
-        r"Micro[\s-]?ATX|mATX",
-        form_factor_text,
-        re.I
-    ):
-        supported_form_factors.append(
-            "Micro-ATX"
-        )
-
-    if re.search(
-        r"Mini[\s-]?ITX",
-        form_factor_text,
-        re.I
-    ):
-        supported_form_factors.append(
-            "Mini-ITX"
-        )
-
-    supported_form_factors = list(
-        dict.fromkeys(
-            supported_form_factors
-        )
+    gpu = find_spec(
+        specs,
+        [
+            "GPU Clearance",
+            "Graphics Card Length",
+            "Maximum GPU Length",
+            "Maximum Graphics Card Length"
+        ]
     )
 
-    if not supported_form_factors:
-        supported_form_factors = None
-
-    # --------------------------------------------------------
-    # GPU CLEARANCE
-    # --------------------------------------------------------
-
-    gpu_clearance_text = get_spec(
-        product,
-        "GPU Length",
-        "Maximum GPU Length",
-        "Graphics Card Length",
-        "VGA Length"
+    fan = find_spec(
+        specs,
+        [
+            "Fan Support",
+            "Cooling Support",
+            "Fan Compatibility"
+        ]
     )
 
-    max_gpu_length_mm = None
+    motherboard_support = extract_all_form_factors(
+        motherboard or ""
+    )
 
-    if gpu_clearance_text:
-
-        value = number_from_text(
-            gpu_clearance_text
+    if not motherboard_support:
+        motherboard_support = extract_all_form_factors(
+            text
         )
 
-        if value:
-            max_gpu_length_mm = value
+    gpu_clearance_mm = None
+
+    gpu_match = re.search(
+        r"(?:GPU|graphics card|video card|VGA)"
+        r".{0,100}?"
+        r"(\d+(?:\.\d+)?)\s*mm",
+        text,
+        re.IGNORECASE
+    )
+
+    if gpu_match:
+        gpu_clearance_mm = float(
+            gpu_match.group(1)
+        )
+
+    fan_support = fan
 
     return {
         "type": "case",
-        "supported_form_factors":
-            supported_form_factors,
-        "max_gpu_length_mm":
-            max_gpu_length_mm
-    }
-
-
-# ============================================================
-# COOLING
-# ============================================================
-
-def normalize_cooling(product):
-
-    text = combined_text(product)
-
-    supported_sockets = []
-
-    socket_patterns = [
-        (r"\bAM4\b", "AM4"),
-        (r"\bAM5\b", "AM5"),
-        (r"\bLGA\s*1700\b", "LGA1700"),
-        (r"\bLGA\s*1851\b", "LGA1851"),
-        (r"\bLGA\s*1200\b", "LGA1200"),
-    ]
-
-    for pattern, socket in socket_patterns:
-
-        if re.search(
-            pattern,
-            text,
-            re.I
-        ):
-            supported_sockets.append(
-                socket
-            )
-
-    supported_sockets = list(
-        dict.fromkeys(
-            supported_sockets
-        )
-    )
-
-    if not supported_sockets:
-        supported_sockets = None
-
-    return {
-        "type": "cooling",
-        "supported_sockets":
-            supported_sockets
+        "motherboard_support": motherboard_support,
+        "gpu_clearance_mm": gpu_clearance_mm,
+        "fan_support": fan_support
     }
 
 
@@ -531,69 +817,88 @@ def normalize_cooling(product):
 
 def normalize_power_supply(product):
 
-    # IMPORTANT:
-    # Do NOT scan the entire specification text first.
-    # Read explicitly labelled power fields.
+    specs = get_specs(product)
 
-    wattage_text = get_spec(
-        product,
-        "Wattage",
-        "Power Output",
-        "Power Output (W)",
-        "Total Power",
-        "Maximum Power"
-    )
+    name = get_name(product)
+    overview = get_overview(product)
 
-    wattage = None
-
-    if wattage_text:
-
-        # Example:
-        # 1650W
-        # 850W / 1000W
-
-        values = re.findall(
-            r"(\d{3,4})\s*W",
-            wattage_text,
-            re.I
-        )
-
-        if values:
-
-            numbers = [
-                int(x)
-                for x in values
-            ]
-
-            # If multiple variants are listed,
-            # we use the highest available wattage.
-            wattage = max(numbers)
-
-    # --------------------------------------------------------
-    # FALLBACK TO PRODUCT NAME ONLY
-    # --------------------------------------------------------
+    wattage = extract_wattage(name)
 
     if wattage is None:
 
-        product_name = clean(
-            product.get("Product Name")
+        power_spec = find_spec(
+            specs,
+            [
+                "Total Power",
+                "Maximum Power",
+                "Power Output",
+                "Rated Power",
+                "Wattage",
+                "Total Wattage"
+            ]
         )
 
-        match = re.search(
-            r"\b(\d{3,4})\s*W\b",
-            product_name,
-            re.I
+        wattage = extract_wattage(
+            power_spec
         )
 
-        if match:
-
-            wattage = int(
-                match.group(1)
-            )
+    if wattage is None:
+        wattage = extract_wattage(
+            overview
+        )
 
     return {
         "type": "power_supply",
         "wattage": wattage
+    }
+
+
+# ============================================================
+# COOLING
+# ============================================================
+
+def normalize_cooling(product):
+
+    specs = get_specs(product)
+    text = combined_text(product)
+
+    socket_text = find_spec(
+        specs,
+        [
+            "Socket Support",
+            "CPU Socket",
+            "Supported Sockets",
+            "Compatibility",
+            "CPU Compatibility"
+        ]
+    )
+
+    sockets = extract_all_sockets(
+        socket_text or ""
+    )
+
+    if not sockets:
+        sockets = extract_all_sockets(text)
+
+    radiator_size = None
+
+    match = re.search(
+        r"(?:radiator|rad)"
+        r".{0,50}?"
+        r"(\d{2,4})\s*mm",
+        text,
+        re.IGNORECASE
+    )
+
+    if match:
+        radiator_size = int(
+            match.group(1)
+        )
+
+    return {
+        "type": "cooling",
+        "socket_support": sockets,
+        "radiator_size_mm": radiator_size
     }
 
 
@@ -603,137 +908,93 @@ def normalize_power_supply(product):
 
 def normalize_fan(product):
 
+    specs = get_specs(product)
     text = combined_text(product)
 
-    # --------------------------------------------------------
-    # INDIVIDUAL FAN SIZE
-    # --------------------------------------------------------
-
-    size_mm = None
-
-    match = re.search(
-        r"\b(80|92|120|140|200)\s*mm\b",
-        text,
-        re.I
+    size = find_spec(
+        specs,
+        [
+            "Size",
+            "Fan Size",
+            "Dimensions",
+            "Fan Dimensions"
+        ]
     )
 
-    if match:
-        size_mm = int(
-            match.group(1)
+    size_mm = extract_mm(
+        size or ""
+    )
+
+    if size_mm is None:
+
+        match = re.search(
+            r"\b(\d{2,3})\s*mm\b",
+            text,
+            re.IGNORECASE
         )
+
+        if match:
+            size_mm = int(
+                match.group(1)
+            )
 
     return {
         "type": "fan",
+        "size": size,
         "size_mm": size_mm
     }
 
 
 # ============================================================
-# PRODUCT TYPE
-# ============================================================
-
-def determine_type(product):
-
-    category = clean(
-        product.get("Category")
-    ).lower()
-
-    if "motherboard" in category:
-        return "motherboard"
-
-    if "graphics card" in category:
-        return "graphics_card"
-
-    if "ram" in category:
-        return "ram"
-
-    if "power supplies" in category:
-        return "power_supply"
-
-    if "cooling" in category:
-        return "cooling"
-
-    if "fans" in category or "fan" in category:
-        return "fan"
-
-    if "cases" in category or "case" in category:
-        return "case"
-
-    return None
-
-
-# ============================================================
-# NORMALIZE ONE PRODUCT
+# NORMALIZE PRODUCT
 # ============================================================
 
 def normalize_product(product):
 
-    product_type = determine_type(
-        product
+    category = product.get(
+        "Category",
+        ""
     )
 
-    if product_type == "motherboard":
-        compatibility = normalize_motherboard(
-            product
-        )
+    component_type = detect_component_type(
+        category
+    )
 
-    elif product_type == "graphics_card":
-        compatibility = normalize_graphics_card(
-            product
-        )
+    if component_type == "motherboard":
+        compatibility = normalize_motherboard(product)
 
-    elif product_type == "ram":
-        compatibility = normalize_ram(
-            product
-        )
+    elif component_type == "ram":
+        compatibility = normalize_ram(product)
 
-    elif product_type == "case":
-        compatibility = normalize_case(
-            product
-        )
+    elif component_type == "graphics_card":
+        compatibility = normalize_graphics_card(product)
 
-    elif product_type == "cooling":
-        compatibility = normalize_cooling(
-            product
-        )
+    elif component_type == "case":
+        compatibility = normalize_case(product)
 
-    elif product_type == "power_supply":
-        compatibility = normalize_power_supply(
-            product
-        )
+    elif component_type == "power_supply":
+        compatibility = normalize_power_supply(product)
 
-    elif product_type == "fan":
-        compatibility = normalize_fan(
-            product
-        )
+    elif component_type == "cooling":
+        compatibility = normalize_cooling(product)
+
+    elif component_type == "fan":
+        compatibility = normalize_fan(product)
 
     else:
-        return None
+        compatibility = {
+            "type": "unknown"
+        }
 
     return {
-        "Product ID":
-            product.get("Product ID"),
-
-        "Product Name":
-            product.get("Product Name"),
-
-        "Category":
-            product.get("Category"),
-
-        "Brand":
-            product.get("Brand"),
-
-        "Price":
-            product.get("Price"),
-
-        "Product URL":
-            product.get("Product URL"),
-
-        "Image":
-            product.get("Image"),
-
-        "Compatibility":
-            compatibility
+        "Product ID": product.get("Product ID"),
+        "Product Name": product.get("Product Name"),
+        "Category": category,
+        "Brand": product.get("Brand"),
+        "Price": product.get("Price"),
+        "Product URL": product.get("Product URL"),
+        "Image": product.get("Image"),
+        "Compatibility": compatibility
     }
 
 
@@ -755,31 +1016,10 @@ def main():
         f"Products loaded: {len(products)}"
     )
 
-    normalized_products = []
-    counts = {}
-
-    for product in products:
-
-        normalized = normalize_product(
-            product
-        )
-
-        if normalized is None:
-            continue
-
-        normalized_products.append(
-            normalized
-        )
-
-        product_type = (
-            normalized[
-                "Compatibility"
-            ]["type"]
-        )
-
-        counts[product_type] = (
-            counts.get(product_type, 0) + 1
-        )
+    normalized_products = [
+        normalize_product(product)
+        for product in products
+    ]
 
     with open(
         OUTPUT_FILE,
@@ -794,26 +1034,69 @@ def main():
             ensure_ascii=False
         )
 
-    print()
-    print("=" * 60)
-    print("NORMALIZATION COMPLETE")
-    print("=" * 60)
+    # --------------------------------------------------------
+    # SUMMARY
+    # --------------------------------------------------------
 
-    for product_type, count in counts.items():
+    counts = {}
+    useful_counts = {}
+
+    for product in normalized_products:
+
+        compatibility = product.get(
+            "Compatibility",
+            {}
+        )
+
+        component_type = compatibility.get(
+            "type",
+            "unknown"
+        )
+
+        counts[component_type] = (
+            counts.get(component_type, 0) + 1
+        )
+
+        useful = any(
+            value not in (None, "", [], {})
+            for key, value
+            in compatibility.items()
+            if key != "type"
+        )
+
+        if useful:
+            useful_counts[component_type] = (
+                useful_counts.get(
+                    component_type,
+                    0
+                ) + 1
+            )
+
+    print()
+    print("=" * 65)
+    print("NORMALIZATION COMPLETE")
+    print("=" * 65)
+
+    for component_type, count in counts.items():
 
         print(
-            f"{product_type}: {count}"
+            f"{component_type}: "
+            f"{count} "
+            f"({useful_counts.get(component_type, 0)} "
+            f"with useful compatibility data)"
         )
+
+    print()
+    print(
+        "Products with useful compatibility data: "
+        f"{sum(useful_counts.values())}"
+    )
 
     print()
     print(
         f"Output file: {OUTPUT_FILE}"
     )
 
-
-# ============================================================
-# RUN
-# ============================================================
 
 if __name__ == "__main__":
     main()

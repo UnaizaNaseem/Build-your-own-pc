@@ -1,14 +1,14 @@
 import csv
 import json
 import os
+import shutil
+import glob
+from datetime import datetime
+
 from playwright.sync_api import sync_playwright
 
 
-# ============================================================
-# SETTINGS
-# ============================================================
-
-CSV_FILE = "Products-Data-14-08-2026.csv"
+CSV_PREFIX = "Products-Data"
 
 OUTPUT_FILE = "pc_components_data.json"
 FAILED_FILE = "scraping_failed.json"
@@ -16,64 +16,197 @@ FAILED_FILE = "scraping_failed.json"
 BASE_URL = "https://www.gb-tech.pk"
 
 
-# ============================================================
-# LOAD EXISTING SCRAPED DATA
-# ============================================================
+def find_csv_file():
+    # Pick the newest Products-Data CSV automatically.
+    files = glob.glob(f"{CSV_PREFIX}*.csv")
 
-if os.path.exists(OUTPUT_FILE):
+    if not files:
+        raise FileNotFoundError(
+            f"No CSV file starting with '{CSV_PREFIX}' was found."
+        )
 
-    with open(
+    files.sort(
+        key=os.path.getmtime,
+        reverse=True
+    )
+
+    selected_file = files[0]
+
+    print(f"Using CSV file: {selected_file}")
+
+    return selected_file
+
+
+CSV_FILE = find_csv_file()
+
+
+def clean_value(value):
+    if value is None:
+        return ""
+
+    return str(value).strip()
+
+
+def product_id(value):
+    return clean_value(value)
+
+
+def backup_existing_json():
+    # Keep a copy of the previous catalogue before updating it.
+    if not os.path.exists(OUTPUT_FILE):
+        return None
+
+    timestamp = datetime.now().strftime(
+        "%Y%m%d_%H%M%S"
+    )
+
+    backup_file = (
+        f"{OUTPUT_FILE}.backup_{timestamp}"
+    )
+
+    shutil.copy2(
         OUTPUT_FILE,
-        "r",
-        encoding="utf-8"
-    ) as file:
+        backup_file
+    )
 
-        scraped_products = json.load(file)
+    print(f"Backup created: {backup_file}")
 
-else:
-
-    scraped_products = []
+    return backup_file
 
 
-# Create a set of IDs that have already been scraped
+def load_existing_products():
 
-scraped_ids = {
-    str(product["Product ID"])
-    for product in scraped_products
-}
+    if not os.path.exists(OUTPUT_FILE):
+        return []
+
+    try:
+
+        with open(
+            OUTPUT_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            data = json.load(file)
+
+        if not isinstance(data, list):
+            return []
+
+        return data
+
+    except Exception as error:
+
+        print(
+            f"Could not read existing JSON: {error}"
+        )
+
+        return []
 
 
-# ============================================================
-# SCRAPE ONE PRODUCT
-# ============================================================
+def build_existing_product_map(products):
 
-def scrape_product(page, product):
+    product_map = {}
 
-    product_name = product["Product Name"]
-    product_url = product["Product URL"]
+    for product in products:
 
-    print(f"    Opening: {product_url}")
+        if not isinstance(product, dict):
+            continue
 
-    # --------------------------------------------------------
-    # Check URL
-    # --------------------------------------------------------
+        pid = product_id(
+            product.get("Product ID")
+        )
+
+        if pid:
+            product_map[pid] = product
+
+    return product_map
+
+
+def merge_product_data(
+    old_product,
+    new_product
+):
+
+    merged = dict(
+        old_product or {}
+    )
+
+    basic_fields = [
+        "Product ID",
+        "Product Name",
+        "Category",
+        "Brand",
+        "Price",
+        "Product URL",
+        "Image"
+    ]
+
+    for field in basic_fields:
+
+        value = clean_value(
+            new_product.get(field)
+        )
+
+        if value:
+            merged[field] = value
+
+    old_specs = (
+        old_product.get(
+            "Specifications",
+            {}
+        )
+        if isinstance(old_product, dict)
+        else {}
+    )
+
+    new_specs = new_product.get(
+        "Specifications",
+        {}
+    )
+
+    if not isinstance(old_specs, dict):
+        old_specs = {}
+
+    if not isinstance(new_specs, dict):
+        new_specs = {}
+
+    merged_specs = dict(old_specs)
+
+    for name, value in new_specs.items():
+
+        name = clean_value(name)
+        value = clean_value(value)
+
+        if not name or not value:
+            continue
+
+        merged_specs[name] = value
+
+    merged["Specifications"] = merged_specs
+
+    return merged
+
+
+def scrape_product(
+    page,
+    product
+):
+
+    product_url = clean_value(
+        product.get("Product URL")
+    )
 
     if not product_url:
-
         raise Exception(
             "Product has no URL"
         )
 
-    # Convert relative URL into full URL
-
     if product_url.startswith("/"):
-
         product_url = BASE_URL + product_url
 
-
-    # --------------------------------------------------------
-    # OPEN PRODUCT PAGE
-    # --------------------------------------------------------
+    print(
+        f"    Opening: {product_url}"
+    )
 
     page.goto(
         product_url,
@@ -85,243 +218,214 @@ def scrape_product(page, product):
         f"    Page loaded: {page.title()}"
     )
 
-
-    # --------------------------------------------------------
-    # FIND SPECIFICATIONS TAB
-    # --------------------------------------------------------
-
     specifications_tab = page.get_by_text(
         "Specifications",
         exact=True
     )
 
-    if specifications_tab.count() == 0:
-
-        raise Exception(
-            "Specifications tab not found"
-        )
-
-
-    # --------------------------------------------------------
-    # CLICK SPECIFICATIONS
-    # --------------------------------------------------------
-
-    specifications_tab.first.click()
-
-    # Give the page time to render the second tab
-
-    page.wait_for_timeout(1000)
-
-
-    # --------------------------------------------------------
-    # FIND SPECIFICATION ROWS
-    # --------------------------------------------------------
-
-    rows = page.locator(
-        "div.grid.grid-cols-12"
-    )
-
     specifications = {}
 
+    if specifications_tab.count() > 0:
 
-    for i in range(rows.count()):
+        specifications_tab.first.click()
 
-        row = rows.nth(i)
+        page.wait_for_timeout(1000)
 
-
-        # Specification name
-
-        name_column = row.locator(
-            "div.col-span-3"
+        rows = page.locator(
+            "div.grid.grid-cols-12"
         )
 
+        for i in range(rows.count()):
 
-        # Specification value
+            row = rows.nth(i)
 
-        value_column = row.locator(
-            "div.col-span-9"
-        )
+            try:
 
+                name_column = row.locator(
+                    ":scope > div.col-span-3"
+                )
 
-        if name_column.count() == 0:
-            continue
+                value_column = row.locator(
+                    ":scope > div.col-span-9"
+                )
 
-        if value_column.count() == 0:
-            continue
+                if name_column.count() != 1:
+                    continue
 
+                if value_column.count() != 1:
+                    continue
 
-        name = name_column.inner_text().strip()
+                name = clean_value(
+                    name_column.inner_text()
+                )
 
-        value = value_column.inner_text().strip()
+                value = clean_value(
+                    value_column.inner_text()
+                )
 
+                if not name or not value:
+                    continue
 
-        if not name:
-            continue
+                specifications[name] = value
 
-        if not value:
-            continue
-
-
-        specifications[name] = value
-
-
-    # --------------------------------------------------------
-    # MAKE SURE WE ACTUALLY FOUND DATA
-    # --------------------------------------------------------
-
-    if not specifications:
-
-        raise Exception(
-            "Specifications tab opened but no specifications were found"
-        )
-
-
-    # --------------------------------------------------------
-    # BUILD PRODUCT DATA
-    # --------------------------------------------------------
+            except Exception:
+                continue
 
     product_data = {
 
         "Product ID":
-            product["Product ID"],
+            clean_value(
+                product.get("Product ID")
+            ),
 
         "Product Name":
-            product["Product Name"],
+            clean_value(
+                product.get("Product Name")
+            ),
 
         "Category":
-            product["Category"],
+            clean_value(
+                product.get("Category")
+            ),
 
         "Brand":
-            product["Brand"],
+            clean_value(
+                product.get("Brand")
+            ),
 
         "Price":
-            product["Price"],
+            clean_value(
+                product.get("Price")
+            ),
 
         "Product URL":
             product_url,
 
         "Image":
-            product["Image"],
+            clean_value(
+                product.get("Image")
+            ),
 
         "Specifications":
             specifications
     }
 
-
     return product_data
 
 
-# ============================================================
-# MAIN
-# ============================================================
+def load_csv_products():
 
-def main():
-
-
-    # ========================================================
-    # READ CSV
-    # ========================================================
-
-    pc_components = []
-
+    products = []
 
     with open(
         CSV_FILE,
         "r",
-        encoding="utf-8-sig"
+        encoding="utf-8-sig",
+        newline=""
     ) as file:
 
         reader = csv.DictReader(file)
 
+        for row_number, product in enumerate(
+            reader,
+            start=2
+        ):
 
-        for product in reader:
+            cleaned = {}
 
-            category = product["Category"].strip()
+            for key, value in product.items():
+
+                if key is None:
+                    continue
+
+                key = str(key).strip()
+
+                value = (
+                    str(value).strip()
+                    if value is not None
+                    else ""
+                )
+
+                cleaned[key] = value
+
+            pid = clean_value(
+                cleaned.get("Product ID")
+            )
+
+            url = clean_value(
+                cleaned.get("Product URL")
+            )
+
+            # Empty rows sometimes end up in exports.
+            # They don't need to be processed.
+            if not pid and not url:
+                continue
+
+            # No URL means there is nothing for Playwright to open.
+            # Keep these out of the scrape rather than treating them
+            # like actual products.
+            if not url:
+                continue
+
+            products.append(cleaned)
+
+    return products
 
 
-            # ------------------------------------------------
-            # ANY PC COMPONENT CATEGORY
-            # ------------------------------------------------
+def main():
 
-            if category.startswith(
-                "PC Components"
-            ):
+    print()
+    print("=" * 65)
+    print("GB TECH — PRODUCT DATA UPDATE")
+    print("=" * 65)
+    print()
 
-                pc_components.append(product)
+    existing_products_list = (
+        load_existing_products()
+    )
 
-
-    # ========================================================
-    # DETERMINE NEW PRODUCTS
-    # ========================================================
-
-    new_products = []
-
-
-    for product in pc_components:
-
-        product_id = str(
-            product["Product ID"]
+    existing_products = (
+        build_existing_product_map(
+            existing_products_list
         )
-
-
-        if product_id not in scraped_ids:
-
-            new_products.append(product)
-
-
-    # ========================================================
-    # HEADER
-    # ========================================================
-
-    print()
-
-    print("=" * 60)
-    print("PC COMPONENT SCRAPER")
-    print("=" * 60)
-
-    print(
-        f"Total PC Components in CSV: "
-        f"{len(pc_components)}"
     )
 
     print(
-        f"Previously scraped: "
-        f"{len(scraped_products)}"
+        f"Existing products: "
+        f"{len(existing_products)}"
     )
 
+    all_products = load_csv_products()
+
     print(
-        f"New products found: "
-        f"{len(new_products)}"
+        f"Products in CSV: "
+        f"{len(all_products)}"
+    )
+
+    # Process the complete catalogue.
+    # Nothing is limited to a particular category.
+    products_to_scrape = all_products
+
+    print(
+        f"Products to process: "
+        f"{len(products_to_scrape)}"
     )
 
     print()
 
-
-    # ========================================================
-    # IF NOTHING NEW
-    # ========================================================
-
-    if not new_products:
+    if not products_to_scrape:
 
         print(
-            "No new products need to be scraped."
+            "Nothing to scrape."
         )
 
         return
 
-
-    # ========================================================
-    # STORAGE
-    # ========================================================
+    if existing_products_list:
+        backup_existing_json()
 
     successful_products = []
-
     failed_products = []
-
-
-    # ========================================================
-    # START PLAYWRIGHT
-    # ========================================================
 
     with sync_playwright() as p:
 
@@ -329,102 +433,143 @@ def main():
             headless=True
         )
 
-
         page = browser.new_page()
 
-
-        # ====================================================
-        # SCRAPE NEW PRODUCTS
-        # ====================================================
-
-        total = len(new_products)
-
+        total = len(
+            products_to_scrape
+        )
 
         for index, product in enumerate(
-            new_products,
+            products_to_scrape,
             start=1
         ):
 
+            pid = product_id(
+                product.get("Product ID")
+            )
+
+            name = clean_value(
+                product.get("Product Name")
+            )
+
+            print()
+            print("-" * 65)
 
             print(
-                f"[{index}/{total}] "
-                f"{product['Product Name']}"
+                f"[{index}/{total}] {name}"
+            )
+
+            print(
+                f"    Product ID: {pid}"
             )
 
             print(
                 f"    Category: "
-                f"{product['Category']}"
+                f"{product.get('Category', '')}"
             )
-
 
             try:
 
-                product_data = scrape_product(
+                scraped_product = scrape_product(
                     page,
                     product
                 )
 
+                if pid in existing_products:
+
+                    final_product = merge_product_data(
+                        existing_products[pid],
+                        scraped_product
+                    )
+
+                    print(
+                        "    Updated existing product"
+                    )
+
+                else:
+
+                    final_product = scraped_product
+
+                    print(
+                        "    Added new product"
+                    )
 
                 successful_products.append(
-                    product_data
+                    final_product
                 )
-
 
                 print(
-                    f"    ✓ Success "
-                    f"({len(product_data['Specifications'])} specifications)"
+                    f"    Specifications: "
+                    f"{len(final_product.get('Specifications', {}))}"
                 )
-
 
             except Exception as error:
 
-
                 print(
-                    f"    ✗ Failed: {error}"
+                    f"    Failed: {error}"
                 )
-
 
                 failed_products.append(
-
                     {
-                        "Product ID":
-                            product["Product ID"],
-
-                        "Product Name":
-                            product["Product Name"],
-
-                        "Category":
-                            product["Category"],
-
-                        "Product URL":
-                            product["Product URL"],
-
-                        "Error":
-                            str(error)
+                        "Product ID": pid,
+                        "Product Name": name,
+                        "Category": clean_value(
+                            product.get("Category")
+                        ),
+                        "Product URL": clean_value(
+                            product.get("Product URL")
+                        ),
+                        "Error": str(error),
+                        "Existing Product":
+                            pid in existing_products
                     }
-
                 )
 
+                # If the product already has good data,
+                # don't replace it with an empty result.
+                if pid in existing_products:
 
-            print()
-
+                    print(
+                        "    Keeping previous product data."
+                    )
 
         browser.close()
 
-
-    # ========================================================
-    # ADD NEW PRODUCTS TO EXISTING DATA
-    # ========================================================
-
-    all_products = (
-        scraped_products
-        + successful_products
+    # Start with the existing catalogue.
+    # Successful updates will replace their old versions.
+    final_products = dict(
+        existing_products
     )
 
+    for product in successful_products:
 
-    # ========================================================
-    # SAVE JSON
-    # ========================================================
+        pid = product_id(
+            product.get("Product ID")
+        )
+
+        if pid:
+            final_products[pid] = product
+
+    final_product_list = list(
+        final_products.values()
+    )
+
+    # Keep the final JSON neatly organised.
+    final_product_list.sort(
+        key=lambda item: (
+            clean_value(
+                item.get("Category")
+            ).lower(),
+
+            clean_value(
+                item.get("Brand")
+            ).lower(),
+
+            clean_value(
+                item.get("Product Name")
+            ).lower()
+        )
+    )
 
     with open(
         OUTPUT_FILE,
@@ -433,16 +578,11 @@ def main():
     ) as file:
 
         json.dump(
-            all_products,
+            final_product_list,
             file,
             indent=4,
             ensure_ascii=False
         )
-
-
-    # ========================================================
-    # SAVE FAILED PRODUCTS
-    # ========================================================
 
     with open(
         FAILED_FILE,
@@ -457,59 +597,55 @@ def main():
             ensure_ascii=False
         )
 
-
-    # ========================================================
-    # FINAL SUMMARY
-    # ========================================================
-
-    print("=" * 60)
-    print("SCRAPING COMPLETE")
-    print("=" * 60)
+    print()
+    print("=" * 65)
+    print("UPDATE COMPLETE")
+    print("=" * 65)
+    print()
 
     print(
-        f"Total PC Components in CSV: "
-        f"{len(pc_components)}"
+        f"Products in CSV: "
+        f"{len(all_products)}"
     )
 
     print(
-        f"Previously scraped: "
-        f"{len(scraped_products)}"
-    )
-
-    print(
-        f"New products found: "
-        f"{len(new_products)}"
-    )
-
-    print(
-        f"Successfully scraped: "
+        f"Successfully processed: "
         f"{len(successful_products)}"
     )
 
     print(
-        f"Failed: "
+        f"Could not update: "
         f"{len(failed_products)}"
     )
 
     print(
-        f"Total products in JSON: "
-        f"{len(all_products)}"
+        f"Products in final JSON: "
+        f"{len(final_product_list)}"
     )
 
     print()
 
     print(
-        f"Output file: {OUTPUT_FILE}"
+        f"Product data saved to: "
+        f"{OUTPUT_FILE}"
     )
+
+    if failed_products:
+
+        print(
+            f"Failed products saved to: "
+            f"{FAILED_FILE}"
+        )
+
+    print()
 
     print(
-        f"Failed file: {FAILED_FILE}"
+        "Existing product data was kept where an update failed."
     )
 
+    print()
+    print("=" * 65)
 
-# ============================================================
-# RUN
-# ============================================================
 
 if __name__ == "__main__":
     main()
