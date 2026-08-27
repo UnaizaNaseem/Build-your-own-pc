@@ -1069,7 +1069,6 @@ function updateSummary() {
                     : "ok"
         );
 
-
     status.textContent =
         hasBad
 

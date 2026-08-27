@@ -805,6 +805,7 @@ def check_build(
     # --------------------------------------------------------
 
     print()
+    #TODO: Add a summary of the compatibility check results.
 
     if problems:
 
