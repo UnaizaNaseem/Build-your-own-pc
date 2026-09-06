@@ -1761,48 +1761,82 @@ body::after {
   background: #414852;
 }
 
+/* ============================================================
+   RESPONSIVE OVERRIDES — PRODUCT / POPUP ACTION BUTTONS
+   ============================================================ */
+
+/* Prevent long product names, prices and action controls from
+   forcing cards wider than their container. */
+.product,
+.choice,
+.product-info,
+.product-actions {
+  min-width: 0;
+}
+
+.pname,
+.meta {
+  overflow-wrap: anywhere;
+}
+
+/* Desktop/tablet: actions stay compact and on one line. */
+.product-actions {
+  min-width: 0;
+}
+
+.product-actions .btn,
+.product-actions .learn-more-btn,
+.product-actions .add-product-btn {
+  min-width: 0;
+}
 
 /* ============================================================
    TABLET
    ============================================================ */
 
 @media (max-width: 1000px) {
-
-  .header-container {
-    width: min(900px, 92%);
-    gap: 35px;
-  }
-
-  .header-logo,
-  .gb-tech-logo {
-    flex-basis: 190px;
-    width: 190px;
-    max-width: 190px;
-  }
-
-  .title {
-    font-size: 42px;
-  }
-
   .build-layout {
     grid-template-columns: 1fr;
   }
 
   .summary-panel {
-    order: -1;
-
     position: relative;
-
     top: auto;
+  }
+
+  .modal-box {
+    width: min(96vw, 1050px);
+    height: 92vh;
+  }
+
+  .choice {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+  }
+
+  .choice img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .choice .product-actions {
+    flex-wrap: wrap;
+    max-width: 230px;
+  }
+
+  .choice .product-actions .btn,
+  .choice .product-actions .learn-more-btn {
+    white-space: normal;
+    text-align: center;
   }
 }
 
-
 /* ============================================================
-   MOBILE
+   MOBILE — 650PX AND BELOW
    ============================================================ */
 
 @media (max-width: 650px) {
+
+  /* ---------- Global ---------- */
 
   .container {
     width: 94%;
@@ -1810,22 +1844,16 @@ body::after {
 
   .header-container {
     width: 92%;
-
     min-height: auto;
-
     padding: 30px 0 32px;
-
     flex-direction: column;
-
     gap: 20px;
-
     text-align: center;
   }
 
   .header-logo,
   .gb-tech-logo {
     flex: 0 0 auto;
-
     width: 150px;
     max-width: 150px;
   }
@@ -1835,25 +1863,13 @@ body::after {
     text-align: center;
   }
 
-  .brand {
-    margin-bottom: 8px;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-  }
-
   .title {
-    margin-bottom: 12px;
-
     font-size: 32px;
-
     line-height: 1.08;
   }
 
   .subtitle {
     max-width: 100%;
-
     font-size: 14px;
   }
 
@@ -1861,7 +1877,15 @@ body::after {
     padding-top: 18px;
   }
 
+  .pdf-download-btn {
+    min-height: 48px;
+    padding: 11px 14px;
+    font-size: 12px;
+  }
+
   .build-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
     padding: 18px 0 45px;
   }
 
@@ -1874,74 +1898,199 @@ body::after {
     padding: 0;
   }
 
+  .summary-panel {
+    position: relative;
+    top: auto;
+  }
+
+  /* ---------- Panel headings ---------- */
+
   .panel-heading {
     padding: 18px;
+    gap: 10px;
   }
 
   .panel-heading h2 {
     font-size: 19px;
   }
 
+  .summary-heading {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
   .builder-list {
     padding: 0 18px 15px;
   }
 
-  .product,
-  .choice {
-    grid-template-columns:
-      52px
-      minmax(0, 1fr);
+  /* ---------- Builder cards ---------- */
 
+  .product {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 10px;
+    padding: 9px;
+    align-items: center;
+  }
+
+  .product img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .product .product-info {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  /* Put ALL action controls below the product information.
+     This is the important fix for mobile responsiveness. */
+  .product .product-actions {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+
+  .product .product-actions .btn,
+  .product .product-actions .learn-more-btn,
+  .product .product-actions .add-product-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+    min-height: 38px;
+    padding: 8px 10px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .product .product-actions > strong {
+    flex: 0 1 auto;
+    align-self: center;
+    min-width: max-content;
+  }
+
+  /* ---------- Popup product cards ---------- */
+
+  .modal {
+    padding: 2vh 2.5%;
+  }
+
+  .modal-box {
+    width: 100%;
+    max-width: none;
+    height: 96vh;
+    max-height: 96vh;
+    border-radius: 10px;
+  }
+
+  .modal-header {
+    padding: 17px;
+    gap: 12px;
+  }
+
+  .modal-header > div {
+    min-width: 0;
+  }
+
+  .modal-header h2 {
+    font-size: 20px;
+    overflow-wrap: anywhere;
+  }
+
+  .close-btn {
+    flex: 0 0 38px;
+  }
+
+  .modal-tools {
+    padding: 13px 17px;
+    flex-direction: column;
+    align-items: stretch;
     gap: 10px;
   }
 
-  .product {
-    padding: 9px;
+  .search-input {
+    min-height: 44px;
   }
 
-  .product img,
+  .filters {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 3px;
+  }
+
+  .product-list {
+    padding: 15px 17px;
+  }
+
+  /* Popup choices use the same two-row layout:
+     image + details on row one,
+     Add/View controls on row two. */
+  .choice {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+  }
+
   .choice img {
     width: 52px;
     height: 52px;
   }
 
-  .product-actions,
-  .choice .product-actions {
+  .choice .product-info {
     grid-column: 2;
-
-    justify-content: flex-start;
+    min-width: 0;
   }
 
-  .product-actions {
+  .choice .product-actions {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 7px;
+    align-items: stretch;
   }
 
-  .btn,
-  .learn-more-btn {
-    min-height: 36px;
-
-    padding: 8px 11px;
+  /* Add Product + View Product become equal-width,
+     touch-friendly buttons instead of overflowing. */
+  .choice .product-actions .add-product-btn,
+  .choice .product-actions .learn-more-btn,
+  .choice .product-actions .btn {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    min-height: 40px;
+    margin: 0;
+    padding: 8px 9px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
   }
 
-  /* Keep the cross small even on mobile */
-  .remove-product-btn {
-    width: 21px;
-    height: 21px;
-
-    min-width: 21px;
-    min-height: 21px;
-
-    flex-basis: 21px;
+  .choice .product-actions > strong {
+    grid-column: 1 / -1;
+    justify-self: start;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
-  .remove-product-btn::before {
-    font-size: 14px;
-  }
+  /* ---------- Summary ---------- */
 
   .total {
     padding: 24px 18px 15px;
-
     font-size: 29px;
+    overflow-wrap: anywhere;
   }
 
   #compat {
@@ -1949,31 +2098,21 @@ body::after {
     padding-right: 18px;
   }
 
-  /*
-   * Mobile status now uses the exact same
-   * 18px side spacing as the other summary boxes.
-   */
   #status {
-   margin: 16px 18px 18px;
+    margin: 16px 18px 18px;
   }
 
   #status.status,
   #status .status {
     min-height: 39px;
-
-    padding:
-      8px 12px;
-
+    padding: 8px 12px;
     justify-content: flex-start;
-
     text-align: left;
-
     font-size: 12.5px;
   }
 
   .whatsapp-action-btn {
     width: calc(100% - 36px);
-
     margin-left: 18px;
     margin-right: 18px;
   }
@@ -1984,60 +2123,31 @@ body::after {
     margin-right: 18px;
   }
 
-  .modal {
-    padding: 2vh 2.5%;
+  .help-card {
+    padding: 16px;
   }
 
-  .modal-box {
-    width: 100%;
-
-    height: 96vh;
-
-    border-radius: 10px;
-  }
-
-  .modal-header {
-    padding: 17px;
-  }
-
-  .modal-tools {
-    padding: 13px 17px;
-
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
-  .filters {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .product-list {
-    padding: 15px 17px;
+  .whatsapp-help-btn {
+    min-height: 46px;
+    padding: 10px 12px;
+    white-space: normal;
+    text-align: center;
   }
 }
 
-
 /* ============================================================
-   SMALL MOBILE
+   SMALL MOBILE — 480PX AND BELOW
    ============================================================ */
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
 
   .header-container {
-    padding-top: 25px;
-    padding-bottom: 27px;
-  }
-
-  .header-logo,
-  .gb-tech-logo {
-    width: 125px;
-    max-width: 125px;
+    padding-top: 26px;
+    padding-bottom: 28px;
   }
 
   .title {
-    font-size: 28px;
+    font-size: clamp(27px, 8vw, 31px);
   }
 
   .subtitle {
@@ -2053,13 +2163,77 @@ body::after {
     padding-right: 15px;
   }
 
+  .step {
+    padding: 17px 2px;
+  }
+
+  .stephead {
+    align-items: flex-start;
+  }
+
+  .stepname {
+    font-size: 15px;
+  }
+
+  .selected {
+    font-size: 10px;
+    text-align: right;
+  }
+
+  .product,
+  .choice {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .product img,
+  .choice img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .pname {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .choice .pname {
+    font-size: 13px;
+  }
+
+  .meta {
+    font-size: 11px;
+  }
+
+  .price {
+    font-size: 13px;
+  }
+
+  .product .product-actions,
+  .choice .product-actions {
+    gap: 6px;
+  }
+
+  .product .product-actions .btn,
+  .product .product-actions .learn-more-btn,
+  .product .product-actions .add-product-btn,
+  .choice .product-actions .btn,
+  .choice .product-actions .learn-more-btn,
+  .choice .product-actions .add-product-btn {
+    min-height: 38px;
+    padding: 8px 7px;
+    font-size: 11px;
+  }
+
+  .choice .product-actions {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
   .remove-product-btn {
     width: 20px;
     height: 20px;
-
     min-width: 20px;
     min-height: 20px;
-
     flex-basis: 20px;
   }
 
@@ -2067,12 +2241,167 @@ body::after {
     font-size: 13px;
   }
 
-  #status {
-  margin:
-    16px 15px 18px;
-}
+  .modal {
+    padding: 1vh 1.5%;
+  }
+
+  .modal-box {
+    height: 98vh;
+    max-height: 98vh;
+    border-radius: 9px;
+  }
+
+  .modal-header {
+    padding: 14px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .modal-tools {
+    padding: 11px 14px;
+  }
+
+  .product-list {
+    padding: 12px 14px;
+  }
+
+  .chip {
+    min-height: 34px;
+    padding: 7px 11px;
+    font-size: 10px;
+  }
+
+  .close-btn {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    font-size: 22px;
+  }
+
+  .total {
+    font-size: 27px;
+  }
 }
 
+/* ============================================================
+   VERY SMALL PHONES — 360PX AND BELOW
+   ============================================================ */
+
+@media (max-width: 360px) {
+
+  .container {
+    width: 95%;
+  }
+
+  .header-logo,
+  .gb-tech-logo {
+    width: 115px;
+    max-width: 115px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .panel-heading {
+    padding: 14px;
+  }
+
+  .builder-list {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .product,
+  .choice {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .product img,
+  .choice img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pname,
+  .choice .pname {
+    font-size: 12px;
+  }
+
+  .meta {
+    font-size: 10px;
+  }
+
+  .price {
+    font-size: 12px;
+  }
+
+  .product .product-actions,
+  .choice .product-actions {
+    gap: 5px;
+  }
+
+  .product .product-actions .btn,
+  .product .product-actions .learn-more-btn,
+  .product .product-actions .add-product-btn,
+  .choice .product-actions .btn,
+  .choice .product-actions .learn-more-btn,
+  .choice .product-actions .add-product-btn {
+    min-height: 36px;
+    padding: 7px 5px;
+    font-size: 10px;
+  }
+
+  .choice .product-actions {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .modal-header {
+    padding: 12px;
+  }
+
+  .modal-tools {
+    padding: 10px 12px;
+  }
+
+  .product-list {
+    padding: 10px 12px;
+  }
+}
+
+/* ============================================================
+   TOUCH DEVICES
+   ============================================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  .product:hover,
+  .choice:hover {
+    transform: none;
+  }
+
+  .btn,
+  .learn-more-btn,
+  .add-product-btn,
+  .pdf-download-btn,
+  .whatsapp-help-btn,
+  .close-btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn:active,
+  .learn-more-btn:active,
+  .add-product-btn:active {
+    transform: scale(.98);
+  }
+}
 
 /* ============================================================
    REDUCED MOTION
@@ -2090,5 +2419,90 @@ body::after {
     transition-duration: .01ms !important;
 
     scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   MOBILE — KEEP CHANGE / VIEW / REMOVE ON ONE ROW
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+  .product .product-actions {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  /* Change + View Product share the available space */
+  .product .product-actions .btn:not(.remove-product-btn),
+  .product .product-actions .learn-more-btn:not(.remove-product-btn) {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+  }
+
+  /* Remove stays small and sits on the SAME ROW */
+  .product .product-actions .remove-product-btn {
+    flex: 0 0 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 50% !important;
+    font-size: 0 !important;
+    line-height: 1 !important;
+  }
+
+  .product .product-actions .remove-product-btn::before {
+    font-size: 15px !important;
+    line-height: 1 !important;
+  }
+}
+
+
+/* ============================================================
+   VERY SMALL PHONES
+   ============================================================ */
+
+@media (max-width: 400px) {
+
+  .product .product-actions {
+    gap: 6px !important;
+  }
+
+  .product .product-actions .btn:not(.remove-product-btn),
+  .product .product-actions .learn-more-btn:not(.remove-product-btn) {
+    font-size: 11px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+
+  .product .product-actions .remove-product-btn {
+    flex-basis: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+  }
+
+  .product .product-actions .remove-product-btn::before {
+    font-size: 13px !important;
   }
 }

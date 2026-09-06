@@ -2195,10 +2195,6 @@ function productChoiceHTML(
                 </div>
 
 
-                <div class="price">
-                    PKR ${price}
-                </div>
-
             </div>
 
 
