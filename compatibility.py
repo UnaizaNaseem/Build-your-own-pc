@@ -160,6 +160,37 @@ def memory_generation(value):
     return None
 
 
+
+def memory_generations(value):
+
+    if not value:
+        return []
+
+    values = value if isinstance(
+        value,
+        (list, tuple, set)
+    ) else [value]
+
+    found = []
+
+    for item in values:
+
+        generation = memory_generation(
+            item
+        )
+
+        if (
+            generation
+            and generation not in found
+        ):
+
+            found.append(
+                generation
+            )
+
+    return found
+
+
 def memory_form_factor(value):
 
     if not value:
@@ -201,33 +232,47 @@ def check_motherboard_ram(
     ram
 ):
 
-    mb_memory = get_value(
-        motherboard,
-        "memory_type"
+    mb_generations = memory_generations(
+        get_value(
+            motherboard,
+            "memory_types"
+        )
     )
 
-    ram_memory = get_value(
-        ram,
-        "memory_type"
+    if not mb_generations:
+
+        mb_generations = memory_generations(
+            get_value(
+                motherboard,
+                "memory_type"
+            )
+        )
+
+    ram_generations = memory_generations(
+        get_value(
+            ram,
+            "memory_types"
+        )
     )
 
-    mb_generation = memory_generation(
-        mb_memory
-    )
+    if not ram_generations:
 
-    ram_generation = memory_generation(
-        ram_memory
-    )
+        ram_generations = memory_generations(
+            get_value(
+                ram,
+                "memory_type"
+            )
+        )
 
     incompatible = False
 
     # --------------------------------------------------------
-    # Generation
+    # Memory generation
     # --------------------------------------------------------
 
     if (
-        not mb_generation
-        or not ram_generation
+        not mb_generations
+        or not ram_generations
     ):
 
         print(
@@ -235,28 +280,47 @@ def check_motherboard_ram(
             "could not be verified."
         )
 
-    elif mb_generation != ram_generation:
+    elif not (
+        set(mb_generations)
+        & set(ram_generations)
+    ):
 
         print(
-            f"✗ Motherboard uses {mb_generation}, "
-            f"RAM is {ram_generation}."
+            f"✗ Motherboard supports "
+            f"{', '.join(mb_generations)}, "
+            f"but RAM is "
+            f"{', '.join(ram_generations)}."
         )
 
         incompatible = True
 
     else:
 
+        common = [
+            item
+            for item in mb_generations
+            if item in ram_generations
+        ]
+
         print(
-            f"✓ Motherboard uses {mb_generation} "
-            f"and RAM is {ram_generation}."
+            f"✓ Motherboard supports "
+            f"{', '.join(mb_generations)} "
+            f"and RAM is "
+            f"{', '.join(ram_generations)} "
+            f"(compatible: {', '.join(common)})."
         )
 
     # --------------------------------------------------------
     # Desktop vs laptop memory
     # --------------------------------------------------------
 
+    ram_form_value = get_value(
+        ram,
+        "form_factor"
+    )
+
     ram_form = memory_form_factor(
-        ram_memory
+        ram_form_value
     )
 
     if ram_form == "SO-DIMM":
@@ -283,16 +347,12 @@ def check_motherboard_ram(
     return not incompatible
 
 
-# ============================================================
-# SOCKET NORMALIZATION
-# ============================================================
-
 def normalize_socket(socket):
 
     if not socket:
         return None
 
-    text = str(socket).upper()
+    text = str(socket).strip().upper()
 
     text = re.sub(
         r"[\s\-]",
@@ -300,17 +360,175 @@ def normalize_socket(socket):
         text
     )
 
+    # Intel often publishes FCLGA1700/FCLGA1851.
+    # Canonicalize these to LGA1700/LGA1851 so they
+    # compare correctly with motherboard socket data.
+    text = re.sub(
+        r"^FCLGA",
+        "LGA",
+        text
+    )
+
     return text
 
 
-def check_motherboard_cooling(
-    motherboard,
-    cooling
+def check_processor_motherboard(
+    processor,
+    motherboard
 ):
+
+    processor_socket = normalize_socket(
+        get_value(
+            processor,
+            "socket"
+        )
+    )
 
     motherboard_socket = normalize_socket(
         get_value(
             motherboard,
+            "socket"
+        )
+    )
+
+    # --------------------------------------------------------
+    # Missing CPU socket
+    # --------------------------------------------------------
+
+    if not processor_socket:
+
+        print(
+            "⚠ Processor socket could not be verified."
+        )
+
+        return None
+
+    # --------------------------------------------------------
+    # Missing motherboard socket
+    # --------------------------------------------------------
+
+    if not motherboard_socket:
+
+        print(
+            "⚠ Motherboard socket could not be verified."
+        )
+
+        return None
+
+    # --------------------------------------------------------
+    # Socket comparison
+    # --------------------------------------------------------
+
+    if processor_socket == motherboard_socket:
+
+        print(
+            f"✓ Processor socket ({processor_socket}) "
+            f"matches motherboard socket "
+            f"({motherboard_socket})."
+        )
+
+        return True
+
+    print(
+        f"✗ Processor socket ({processor_socket}) "
+        f"does not match motherboard socket "
+        f"({motherboard_socket})."
+    )
+
+    return False
+
+
+def check_processor_ram(
+    processor,
+    ram
+):
+
+    processor_generations = memory_generations(
+        get_value(
+            processor,
+            "memory_types"
+        )
+    )
+
+    if not processor_generations:
+
+        processor_generations = memory_generations(
+            get_value(
+                processor,
+                "memory_type"
+            )
+        )
+
+    ram_generations = memory_generations(
+        get_value(
+            ram,
+            "memory_types"
+        )
+    )
+
+    if not ram_generations:
+
+        ram_generations = memory_generations(
+            get_value(
+                ram,
+                "memory_type"
+            )
+        )
+
+    if (
+        not processor_generations
+        or not ram_generations
+    ):
+
+        print(
+            "⚠ Processor/RAM memory generation "
+            "could not be verified."
+        )
+
+        return None
+
+    common = set(
+        processor_generations
+    ) & set(
+        ram_generations
+    )
+
+    if common:
+
+        common_ordered = [
+            item
+            for item in processor_generations
+            if item in common
+        ]
+
+        print(
+            f"✓ Processor supports "
+            f"{', '.join(processor_generations)} "
+            f"and RAM is "
+            f"{', '.join(ram_generations)} "
+            f"(compatible: {', '.join(common_ordered)})."
+        )
+
+        return True
+
+    print(
+        f"✗ Processor supports "
+        f"{', '.join(processor_generations)}, "
+        f"but RAM is "
+        f"{', '.join(ram_generations)}."
+    )
+
+    return False
+
+
+def check_processor_cooling(
+    processor,
+    cooling
+):
+
+    processor_socket = normalize_socket(
+        get_value(
+            processor,
             "socket"
         )
     )
@@ -320,10 +538,11 @@ def check_motherboard_cooling(
         "socket_support"
     )
 
-    if not motherboard_socket:
+    if not processor_socket:
 
         print(
-            "⚠ Motherboard socket could not be verified."
+            "⚠ Processor socket could not be verified "
+            "for cooling compatibility."
         )
 
         return None
@@ -345,34 +564,48 @@ def check_motherboard_cooling(
             supported_sockets
         ]
 
-    normalized_supported = [
+    normalized_supported = []
 
-        normalize_socket(socket)
+    for socket in supported_sockets:
 
-        for socket in supported_sockets
+        normalized = normalize_socket(
+            socket
+        )
 
-        if socket
-    ]
+        if (
+            normalized
+            and normalized not in normalized_supported
+        ):
 
-    if motherboard_socket in normalized_supported:
+            normalized_supported.append(
+                normalized
+            )
+
+    if not normalized_supported:
 
         print(
-            f"✓ Cooling supports {motherboard_socket}."
+            "⚠ Cooling socket support could not be "
+            "normalized reliably."
+        )
+
+        return None
+
+    if processor_socket in normalized_supported:
+
+        print(
+            f"✓ Cooling supports processor socket "
+            f"{processor_socket}."
         )
 
         return True
 
     print(
         f"✗ Cooling does not list support for "
-        f"{motherboard_socket}."
+        f"processor socket {processor_socket}."
     )
 
     return False
 
-
-# ============================================================
-# FORM FACTOR
-# ============================================================
 
 def normalize_form_factor(value):
 
@@ -706,6 +939,7 @@ def check_gpu_psu(
 # ============================================================
 
 def check_build(
+    processor,
     motherboard,
     ram,
     gpu,
@@ -719,6 +953,38 @@ def check_build(
     )
 
     problems = 0
+
+    # --------------------------------------------------------
+    # Processor ↔ Motherboard
+    # --------------------------------------------------------
+
+    print()
+    print("Processor ↔ Motherboard")
+
+    result = check_processor_motherboard(
+        processor,
+        motherboard
+    )
+
+    if result is False:
+
+        problems += 1
+
+    # --------------------------------------------------------
+    # Processor ↔ RAM
+    # --------------------------------------------------------
+
+    print()
+    print("Processor ↔ RAM")
+
+    result = check_processor_ram(
+        processor,
+        ram
+    )
+
+    if result is False:
+
+        problems += 1
 
     # --------------------------------------------------------
     # Motherboard ↔ RAM
@@ -785,14 +1051,14 @@ def check_build(
         problems += 1
 
     # --------------------------------------------------------
-    # Motherboard ↔ Cooling
+    # Processor ↔ Cooling
     # --------------------------------------------------------
 
     print()
-    print("Motherboard ↔ Cooling")
+    print("Processor ↔ Cooling")
 
-    result = check_motherboard_cooling(
-        motherboard,
+    result = check_processor_cooling(
+        processor,
         cooling
     )
 
@@ -805,7 +1071,6 @@ def check_build(
     # --------------------------------------------------------
 
     print()
-    #TODO: Add a summary of the compatibility check results.
 
     if problems:
 
@@ -876,6 +1141,7 @@ def run_interactive_builder():
     except FileNotFoundError:
 
         print()
+
         print(
             f"ERROR: Could not find '{INPUT_FILE}'."
         )
@@ -885,6 +1151,7 @@ def run_interactive_builder():
     except json.JSONDecodeError as error:
 
         print()
+
         print(
             f"ERROR: Invalid JSON in '{INPUT_FILE}'."
         )
@@ -934,6 +1201,17 @@ def run_interactive_builder():
     # --------------------------------------------------------
     # COMPONENT SELECTION
     # --------------------------------------------------------
+
+    processor = choose_product(
+        get_components(
+            products,
+            "processor"
+        ),
+        "processor"
+    )
+
+    if processor is None:
+        return
 
     motherboard = choose_product(
         get_components(
@@ -1010,6 +1288,13 @@ def run_interactive_builder():
     )
 
     print(
+        "Processor:",
+        processor.get(
+            "Product Name"
+        )
+    )
+
+    print(
         "Motherboard:",
         motherboard.get(
             "Product Name"
@@ -1056,6 +1341,7 @@ def run_interactive_builder():
     # --------------------------------------------------------
 
     check_build(
+        processor,
         motherboard,
         ram,
         gpu,

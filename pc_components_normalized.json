@@ -352,7 +352,7 @@
         "Product Name": "PXN-P5 Wireless Gaming Controller (OSD / 8K)",
         "Category": "Gaming Gear > Controllers",
         "Brand": "PXN",
-        "Price": "13500.00",
+        "Price": "12000.00",
         "Product URL": "https://www.gb-tech.pk/gaming-gear/controllers/pxnp5-wireless-gaming-controller-osd-8k",
         "Image": "https://static3.webx.pk/files/91598/Images/pxn-p5-8k-osd-5-91598-2651154-310726092921258.webp",
         "Compatibility": {
@@ -892,7 +892,7 @@
         "Product Name": "PXN Direct Drive Bundle Series – VD4 & VD6 Sim Racing Bundles for PC",
         "Category": "Gaming Gear > Racing Wheels",
         "Brand": "PXN",
-        "Price": "95000.00",
+        "Price": "122000.00",
         "Product URL": "https://www.gb-tech.pk/gaming-gear/racing-wheels/pxn-direct-drive-bundle-series-vd4-vd6-sim-racing-bundles-for-pc",
         "Image": "https://static3.webx.pk/files/91598/Images/pxn-vd6-91598-2649587-290726103724116.webp",
         "Compatibility": {
@@ -1943,7 +1943,11 @@
         "Image": "https://static3.webx.pk/files/91598/Images/asus-ayw-gaming-lc-360-argb-lcd-cooler-91598-2653331-040826061933574.webp",
         "Compatibility": {
             "type": "cooling",
-            "socket_support": [],
+            "socket_support": [
+                "LGA1851",
+                "AM5",
+                "AM4"
+            ],
             "radiator_size_mm": null
         }
     },
@@ -2193,7 +2197,7 @@
         "Product Name": "Thermalright TR 240 FROZEN INFINITY ARGB 240mm AIO Liquid CPU Cooler (Black / White)",
         "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
-        "Price": "14950.00",
+        "Price": "15500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/cooling/thermalright-tr-240-frozen-infinity-argb-240mm-aio-liquid-cpu-cooler-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-240-frozen-infinity-argb-240mm-4-91598-2653480-040826093624432.webp",
         "Compatibility": {
@@ -2299,12 +2303,13 @@
         "Product Name": "Thermalright TR 360 GRAND VISION ARGB (Black / White)",
         "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
-        "Price": "47000.00",
+        "Price": "45000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/cooling/thermalright-tr-360-grand-vision-argb-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-grand-vision-argb-4-91598-2654729-060826080920174.webp",
         "Compatibility": {
             "type": "cooling",
             "socket_support": [
+                "TR360",
                 "AM5",
                 "AM4"
             ],
@@ -2358,6 +2363,7 @@
         "Compatibility": {
             "type": "cooling",
             "socket_support": [
+                "TR360",
                 "AM5",
                 "AM4"
             ],
@@ -2375,6 +2381,7 @@
         "Compatibility": {
             "type": "cooling",
             "socket_support": [
+                "TR360",
                 "AM5",
                 "AM4"
             ],
@@ -2392,6 +2399,7 @@
         "Compatibility": {
             "type": "cooling",
             "socket_support": [
+                "TR360",
                 "AM5",
                 "AM4"
             ],
@@ -2403,12 +2411,13 @@
         "Product Name": "Thermalright TR 360 WONDER VISION UB LCD ARGB (Black / White)",
         "Category": "PC Components > Cooling",
         "Brand": "Thermalright",
-        "Price": "82000.00",
+        "Price": "90000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/cooling/thermalright-tr-360-wonder-vision-ub-lcd-argb-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tr-360-wonder-vision-ub-lcd-argb-4-91598-2654730-060826082010023.webp",
         "Compatibility": {
             "type": "cooling",
             "socket_support": [
+                "TR360",
                 "AM5",
                 "AM4"
             ],
@@ -2424,7 +2433,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/amd/asus-dual-amd-radeon-rx-9060-xt-16gb-gddr6",
         "Image": "https://static3.webx.pk/files/91598/Images/600d3df1-d3b1-485e-9e12-71cfb5a115dd-91598-2643842-210726102620994.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": 550
         }
     },
     {
@@ -2436,7 +2448,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/amd/asus-prime-radeon-rx-9070-16gb-gddr6-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/4dedc114-d59c-4bee-ad35-5b67633e2628-91598-2646384-240726060102186.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": 650
         }
     },
     {
@@ -2448,7 +2463,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/amd/asus-tuf-gaming-radeon-rx-9060-xt-16gb-gddr6-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/8dc3c153-6497-4014-ad87-5fb07ebdf73e-91598-2644873-240726104936499.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": 550
         }
     },
     {
@@ -2460,7 +2478,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/amd/asus-tuf-gaming-radeon-rx-9070-xt-16gb-gddr6-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/df01feee-26a2-4e05-8788-74daaac70324-91598-2646531-240726104312463.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": 850
         }
     },
     {
@@ -2472,7 +2493,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/nvidia/asus-dual-geforce-rtx-5050-8gb-gddr6-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/a836e265-1cd1-4aa0-b75a-8f0e1a212bc3-91598-2641105-210726055840533.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": 550
         }
     },
     {
@@ -2484,7 +2508,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/nvidia/asus-dual-geforce-rtx-5060-oc-edition-8gb-gddr7",
         "Image": "https://static3.webx.pk/files/91598/Images/c6ac5dbd-277b-4ddb-9a01-fca017daad97-1-91598-0-210726052417387.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": null
         }
     },
     {
@@ -2496,7 +2523,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/nvidia/asus-dual-geforce-rtx-5060-ti-8gb-gddr7-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/415a9156-dbf8-45ec-9e85-444db315d122-91598-2643744-210726060444626.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": 550
         }
     },
     {
@@ -2508,7 +2538,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/nvidia/asus-dual-geforce-rtx-5070-12gb-gddr7-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/2383c0eb-b710-4417-a154-ed9d2a7a05df-91598-0-210726063124424.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": null,
+            "length_mm": null,
+            "recommended_psu_wattage": null
         }
     },
     {
@@ -2520,7 +2553,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/nvidia/asus-prime-geforce-rtx-5080-16gb-gddr7-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/fd2bef2e-51a7-4549-82bc-468c3a03733e-91598-0-210726073226694.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0",
+            "length_mm": null,
+            "recommended_psu_wattage": 850
         }
     },
     {
@@ -2532,7 +2568,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/nvidia/asus-rog-astral-geforce-rtx-5080-16gb-gddr7-oc-edition-gaming",
         "Image": "https://static3.webx.pk/files/91598/Images/64d8ffdd-23ed-4ec8-87cd-8063b8627b07-91598-2643831-210726090832819.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": "PCI Express 5.0 x16",
+            "length_mm": null,
+            "recommended_psu_wattage": 850
         }
     },
     {
@@ -2544,7 +2583,31 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/graphics-cards/nvidia/asus-tuf-gaming-geforce-rtx-5070-ti-16gb-gddr7-white-oc-edition",
         "Image": "https://static3.webx.pk/files/91598/Images/f3d815bd-b49f-473c-8278-42384f7c6011-91598-2643751-210726065216000.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "graphics_card",
+            "interface": null,
+            "length_mm": null,
+            "recommended_psu_wattage": null
+        }
+    },
+    {
+        "Product ID": "2638484",
+        "Product Name": "ASUS PRIME A520M - K",
+        "Category": "PC Components > Motherboards > AMD",
+        "Brand": "ASUS",
+        "Price": "20800.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-prime-a520m-k",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-a520m-k-91598-2638484-190826081445094.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "AM4",
+            "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
+            "memory_slots": null,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "AMD A520"
         }
     },
     {
@@ -2556,7 +2619,58 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-prime-a620-m-e",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-prime-a620-m-e-91598-2640755-200826120332923.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 2,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "AMD A620 Chipset"
+        }
+    },
+    {
+        "Product ID": "2638515",
+        "Product Name": "ASUS PRIME B550M-A WIFI II",
+        "Category": "PC Components > Motherboards > AMD",
+        "Brand": "ASUS",
+        "Price": "39800.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-prime-b550ma-wifi-ii",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b550m-a-wifi-ii-91598-2638515-190826082111252.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "AM4",
+            "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
+            "memory_slots": null,
+            "max_memory_gb": null,
+            "form_factor": null,
+            "chipset": null
+        }
+    },
+    {
+        "Product ID": "2640772",
+        "Product Name": "ASUS PRIME B840 M - A CSM D5 WIFI",
+        "Category": "PC Components > Motherboards > AMD",
+        "Brand": "ASUS",
+        "Price": "37500.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-prime-b840-m-a-csm-d5-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b840-m-a-csm-d5-wifi-91598-2640772-200826121430611.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "AMD B840 Chipset"
         }
     },
     {
@@ -2568,43 +2682,79 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-prime-x870-p-csm-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-prime-x870-p-csm-wifi-91598-2641060-250826110706646.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870 Chipset"
         }
     },
     {
         "Product ID": "2641104",
-        "Product Name": "Asus ROG CROSSHAIR X870 E HERO",
+        "Product Name": "ASUS ROG CROSSHAIR X870 E HERO",
         "Category": "PC Components > Motherboards > AMD",
         "Brand": "ASUS",
         "Price": "235000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-rog-crosshair-x870-e-hero",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-crosshair-x870-e-hero-91598-2641104-270826102216669.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870E"
         }
     },
     {
         "Product ID": "2641098",
-        "Product Name": "Asus ROG STRIX X870 - A GAMING WIFI",
+        "Product Name": "ASUS ROG STRIX X870 - A GAMING WIFI",
         "Category": "PC Components > Motherboards > AMD",
         "Brand": "ASUS",
         "Price": "125000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-rog-strix-x870-a-gaming-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-strix-x870-a-gaming-wifi-91598-2641098-270826102307398.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870"
         }
     },
     {
         "Product ID": "2641102",
-        "Product Name": "Asus ROG STRIX X870 - F GAMING WIFI",
+        "Product Name": "ASUS ROG STRIX X870 - F GAMING WIFI",
         "Category": "PC Components > Motherboards > AMD",
         "Brand": "ASUS",
         "Price": "125000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-rog-strix-x870-f-gaming-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/9877f44d-d370-4596-b0b0-692d72a9a577-91598-2641102-270826101818353.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870"
         }
     },
     {
@@ -2616,19 +2766,58 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-rog-strix-x870ee-gaming-wifi-amd-am5-ddr5-motherboard",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-strix-x870e-e-gaming-wifi-amd-am5-ddr5-motherboard-91598-2641103-270826102022656.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870E"
         }
     },
     {
         "Product ID": "2641101",
-        "Product Name": "Asus ROG STRIX X870E-H GAMING WIFI7",
+        "Product Name": "ASUS ROG STRIX X870E-H GAMING WIFI7",
         "Category": "PC Components > Motherboards > AMD",
         "Brand": "ASUS",
         "Price": "120000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-rog-strix-x870eh-gaming-wifi7",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-strix-x870e-h-gaming-wifi7-91598-2641101-270826101414526.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870E"
+        }
+    },
+    {
+        "Product ID": "2640756",
+        "Product Name": "ASUS TUF GAMING B650M-E WIFI",
+        "Category": "PC Components > Motherboards > AMD",
+        "Brand": "ASUS",
+        "Price": "48500.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-tuf-gaming-b650me-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/tuf-gaming-b650m-e-wifi-91598-2640756-200826120543785.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "AMD B650"
         }
     },
     {
@@ -2640,7 +2829,16 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-tuf-gaming-b850-e-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-tuf-gaming-b850-e-wifi-91598-2641013-250826105739566.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD B850 Chipset"
         }
     },
     {
@@ -2652,7 +2850,16 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-tuf-gaming-b850mplus-wifi7",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-tuf-gaming-b850m-plus-wifi7-91598-2641011-200826122402133.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "AMD B850 Chipset"
         }
     },
     {
@@ -2664,7 +2871,16 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-tuf-gaming-x870-plus-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-tuf-gaming-x870-plus-wifi-91598-2641097-250826111525770.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870 Chipset"
         }
     },
     {
@@ -2676,55 +2892,159 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/asus-x870-max-gaming-wifi7",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-x870-max-gaming-wifi7-91598-2641095-250826111105863.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "AMD X870 Chipset"
         }
     },
     {
-        "Product ID": "2638484",
-        "Product Name": "PRIME A520M - K",
-        "Category": "PC Components > Motherboards > AMD",
+        "Product ID": "2634260",
+        "Product Name": "ASUS PRIME B760M - A",
+        "Category": "PC Components > Motherboards > Intel",
         "Brand": "ASUS",
-        "Price": "20800.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/prime-a520m-k",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-a520m-k-91598-2638484-190826081445094.webp",
+        "Price": "36000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-b760m-a",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-a-91598-2634260-170826073854112.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1700",
+            "memory_type": null,
+            "memory_types": [],
+            "memory_slots": null,
+            "max_memory_gb": null,
+            "form_factor": null,
+            "chipset": null
         }
     },
     {
-        "Product ID": "2638515",
-        "Product Name": "PRIME B550M-A WIFI II",
-        "Category": "PC Components > Motherboards > AMD",
+        "Product ID": "2634154",
+        "Product Name": "ASUS PRIME B760M - A D4",
+        "Category": "PC Components > Motherboards > Intel",
         "Brand": "ASUS",
-        "Price": "39800.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/prime-b550ma-wifi-ii",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-b550m-a-wifi-ii-91598-2638515-190826082111252.webp",
+        "Price": "36000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-b760m-a-d4",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-a-d4-91598-2634154-170826072155323.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1700",
+            "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
+            "memory_slots": null,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "Intel® B760 Chipset"
         }
     },
     {
-        "Product ID": "2640772",
-        "Product Name": "PRIME B840 M - A CSM D5 WIFI",
-        "Category": "PC Components > Motherboards > AMD",
+        "Product ID": "2634281",
+        "Product Name": "ASUS PRIME B760M - A WIFI",
+        "Category": "PC Components > Motherboards > Intel",
         "Brand": "ASUS",
-        "Price": "37500.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/prime-b840-m-a-csm-d5-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-b840-m-a-csm-d5-wifi-91598-2640772-200826121430611.webp",
+        "Price": "45000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-b760m-a-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-a-wifi-91598-2634281-170826074329144.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "Intel® B760 Chipset"
         }
     },
     {
-        "Product ID": "2640756",
-        "Product Name": "TUF GAMING B650M-E WIFI",
-        "Category": "PC Components > Motherboards > AMD",
+        "Product ID": "2634233",
+        "Product Name": "ASUS PRIME B760M - K",
+        "Category": "PC Components > Motherboards > Intel",
+        "Brand": "ASUS",
+        "Price": "29500.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-b760m-k",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-k-91598-2634233-170826073439124.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 2,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "Intel® B760 Chipset"
+        }
+    },
+    {
+        "Product ID": "2634358",
+        "Product Name": "ASUS PRIME B860M - A CSM D5 WIFI",
+        "Category": "PC Components > Motherboards > Intel",
         "Brand": "ASUS",
         "Price": "48500.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/amd/tuf-gaming-b650me-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/tuf-gaming-b650m-e-wifi-91598-2640756-200826120543785.webp",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-b860m-a-csm-d5-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-b860m-a-csm-d5-wifi-91598-2634358-170826074553992.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": null,
+            "memory_types": [],
+            "memory_slots": null,
+            "max_memory_gb": null,
+            "form_factor": null,
+            "chipset": null
+        }
+    },
+    {
+        "Product ID": "2633386",
+        "Product Name": "ASUS PRIME H510M-F",
+        "Category": "PC Components > Motherboards > Intel",
+        "Brand": "ASUS",
+        "Price": "25000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-h510mf",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-h510m-f-91598-2633386-170826064136342.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "LGA1200",
+            "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
+            "memory_slots": null,
+            "max_memory_gb": 64,
+            "form_factor": "Micro-ATX",
+            "chipset": "Intel® H510"
+        }
+    },
+    {
+        "Product ID": "2634153",
+        "Product Name": "ASUS PRIME H610M - K ARGB D5",
+        "Category": "PC Components > Motherboards > Intel",
+        "Brand": "ASUS",
+        "Price": "25000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-h610m-k-argb-d5",
+        "Image": "https://static3.webx.pk/files/91598/Images/prime-h610m-k-argb-d5-91598-2634153-170826072227743.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 2,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "Intel® H610 Chipset"
         }
     },
     {
@@ -2736,7 +3056,16 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-h610mk-d4",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-prime-h610m-k-d4-91598-2633396-170826064739535.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1700",
+            "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
+            "memory_slots": null,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "Intel® H610 Chipset"
         }
     },
     {
@@ -2748,7 +3077,100 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-prime-z790-p-csm-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-prime-z790-p-csm-wifi-91598-2637599-170826080833367.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": null,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "Intel® Z790 Chipset"
+        }
+    },
+    {
+        "Product ID": "2637663",
+        "Product Name": "ASUS PROART Z890 CREATOR (WIFI)",
+        "Category": "PC Components > Motherboards > Intel",
+        "Brand": "ASUS",
+        "Price": "180000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-proart-z890-creator-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/proart-z890-creator-wifi-91598-2637663-170826083225209.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "Intel® Z890 Chipset"
+        }
+    },
+    {
+        "Product ID": "2637401",
+        "Product Name": "ASUS ROG STRIX B860 - A GAMING WIFI",
+        "Category": "PC Components > Motherboards > Intel",
+        "Brand": "ASUS",
+        "Price": "78500.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-rog-strix-b860-a-gaming-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/rog-strix-b860-a-gaming-wifi-91598-2637401-170826080100428.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "Intel® B860 Chipset"
+        }
+    },
+    {
+        "Product ID": "2637655",
+        "Product Name": "ASUS ROG STRIX Z890 - F GAMING WIFI",
+        "Category": "PC Components > Motherboards > Intel",
+        "Brand": "ASUS",
+        "Price": "145000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-rog-strix-z890-f-gaming-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/rog-strix-z890-f-gaming-wifi-91598-2637655-170826083127120.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "Intel® Z890 Chipset"
+        }
+    },
+    {
+        "Product ID": "2637647",
+        "Product Name": "ASUS ROG STRIX Z890 - H GAMING WIFI",
+        "Category": "PC Components > Motherboards > Intel",
+        "Brand": "ASUS",
+        "Price": "135000.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-rog-strix-z890-h-gaming-wifi",
+        "Image": "https://static3.webx.pk/files/91598/Images/rog-strix-z890-h-gaming-wifi-91598-2637647-170826081404804.webp",
+        "Compatibility": {
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "Intel® Z890 Chipset"
         }
     },
     {
@@ -2760,7 +3182,16 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-tuf-gaming-b860-plus-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/94810a66-2391-4c40-ba18-d45e671593f1-91598-2637380-170826075453781.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "Intel® B860 Chipset"
         }
     },
     {
@@ -2772,151 +3203,37 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-tuf-gaming-b860m-plus-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-tuf-gaming-b860m-plus-wifi-91598-2637345-170826075048963.webp",
         "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2634260",
-        "Product Name": "PRIME B760M - A",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "36000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/prime-b760m-a",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-a-91598-2634260-170826073854112.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2634154",
-        "Product Name": "PRIME B760M - A D4",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "36000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/prime-b760m-a-d4",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-a-d4-91598-2634154-170826072155323.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2634281",
-        "Product Name": "PRIME B760M - A WIFI",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "45000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/prime-b760m-a-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-a-wifi-91598-2634281-170826074329144.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2634233",
-        "Product Name": "PRIME B760M - K",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "29500.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/prime-b760m-k",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-b760m-k-91598-2634233-170826073439124.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2634358",
-        "Product Name": "PRIME B860M - A CSM D5 WIFI",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "48500.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/prime-b860m-a-csm-d5-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-b860m-a-csm-d5-wifi-91598-2634358-170826074553992.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2633386",
-        "Product Name": "PRIME H510M-F",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "25000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/prime-h510mf",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-h510m-f-91598-2633386-170826064136342.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2634153",
-        "Product Name": "PRIME H610M - K ARGB D5",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "25000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/prime-h610m-k-argb-d5",
-        "Image": "https://static3.webx.pk/files/91598/Images/prime-h610m-k-argb-d5-91598-2634153-170826072227743.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2637663",
-        "Product Name": "PROART Z890 CREATOR (WIFI)",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "180000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/proart-z890-creator-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/proart-z890-creator-wifi-91598-2637663-170826083225209.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2637401",
-        "Product Name": "ROG STRIX B860 - A GAMING WIFI",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "78500.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/rog-strix-b860-a-gaming-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/rog-strix-b860-a-gaming-wifi-91598-2637401-170826080100428.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2637655",
-        "Product Name": "ROG STRIX Z890 - F GAMING WIFI",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "145000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/rog-strix-z890-f-gaming-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/rog-strix-z890-f-gaming-wifi-91598-2637655-170826083127120.webp",
-        "Compatibility": {
-            "type": "unknown"
-        }
-    },
-    {
-        "Product ID": "2637647",
-        "Product Name": "ROG STRIX Z890 - H GAMING WIFI",
-        "Category": "PC Components > Motherboards > Intel",
-        "Brand": "ASUS",
-        "Price": "135000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/rog-strix-z890-h-gaming-wifi",
-        "Image": "https://static3.webx.pk/files/91598/Images/rog-strix-z890-h-gaming-wifi-91598-2637647-170826081404804.webp",
-        "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "Micro-ATX",
+            "chipset": "Intel® B860 Chipset"
         }
     },
     {
         "Product ID": "2637612",
-        "Product Name": "TUF GAMING Z890 - PLUS (WIFI)",
+        "Product Name": "ASUS TUF GAMING Z890 - PLUS (WIFI)",
         "Category": "PC Components > Motherboards > Intel",
         "Brand": "ASUS",
         "Price": "112000.00",
-        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/tuf-gaming-z890-plus-wifi",
+        "Product URL": "https://www.gb-tech.pk/pc-components/motherboards/intel/asus-tuf-gaming-z890-plus-wifi",
         "Image": "https://static3.webx.pk/files/91598/Images/tuf-gaming-z890-plus-wifi-91598-2637612-170826081225716.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "motherboard",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
+            "memory_slots": 4,
+            "max_memory_gb": null,
+            "form_factor": "ATX",
+            "chipset": "Intel® Z890 Chipset"
         }
     },
     {
@@ -2928,7 +3245,12 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/asus-a32-plus-tg-argb-white-atx-midtower-pc-case",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-a32-plus-tg-argb-white-atx-case-91598-2653366-040826070135863.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "ATX"
+            ],
+            "gpu_clearance_mm": null,
+            "fan_support": null
         }
     },
     {
@@ -2940,7 +3262,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/asus-proart-pa401-wood-edition-metal-panel-black",
         "Image": "https://static3.webx.pk/files/91598/Images/991927cb-7dae-4b0f-bb2f-5fdb4e11236f-91598-2654073-050826073657428.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [],
+            "gpu_clearance_mm": null,
+            "fan_support": null
         }
     },
     {
@@ -2952,7 +3277,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/asus-rog-strix-helios-gx601-white-edition-rgb-midtower-case",
         "Image": "https://static3.webx.pk/files/91598/Images/aad04146-a605-47d9-9d34-317d6c116c6e-91598-2653367-040826070421961.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [],
+            "gpu_clearance_mm": null,
+            "fan_support": null
         }
     },
     {
@@ -2964,7 +3292,12 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/asus-rog-strix-helios-ii-white-edition-gx601s-eatx-midtower-case",
         "Image": "https://static3.webx.pk/files/91598/Images/96c7641d-29e2-43fa-8bbb-6409a98c5477-91598-2654072-050826073307294.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "E-ATX"
+            ],
+            "gpu_clearance_mm": null,
+            "fan_support": null
         }
     },
     {
@@ -2976,7 +3309,14 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/thermalright-a70-argb-atx-gaming-case-black-white-5-fans",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-a70-argb-atx-gaming-case-7-91598-2657183-100826090713665.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": 420.0,
+            "fan_support": null
         }
     },
     {
@@ -2988,7 +3328,14 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/thermalright-tlm10-argb-microatx-gaming-case-black-white-4-fans",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m10-argb-micro-atx-gaming-case-3-91598-2657178-100826082815662.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": 360.0,
+            "fan_support": "120 mm / 140 mm"
         }
     },
     {
@@ -2996,11 +3343,18 @@
         "Product Name": "Thermalright TL-M10 VISION LCD Micro-ATX Gaming Case (Black / White) – 4 Fans",
         "Category": "PC Components > PC Cases",
         "Brand": "Thermalright",
-        "Price": "27800.00",
+        "Price": "28800.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/thermalright-tlm10-vision-lcd-microatx-gaming-case-black-white-4-fans",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-tl-m10-vision-lcd-micro-atx-gaming-case-4-91598-2657182-100826085210568.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": 360.0,
+            "fan_support": null
         }
     },
     {
@@ -3008,11 +3362,18 @@
         "Product Name": "Thermalright TR A70 VISION LCD ATX Gaming Case (Black / White)",
         "Category": "PC Components > PC Cases",
         "Brand": "Thermalright",
-        "Price": "38000.00",
+        "Price": "39000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/thermalright-tr-a70-vision-lcd-atx-gaming-case-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-a70-argb-atx-gaming-case-7-91598-2657184-100826091816893.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": 420.0,
+            "fan_support": "Up to 8 × 120 mm"
         }
     },
     {
@@ -3024,7 +3385,14 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/xpg-invader-x-midtower-pc-chassis",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-invader-x-mid-tower-pc-chassis-91598-2640580-280726112044059.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": 400.0,
+            "fan_support": "REAR :120mm x 1 / 140mm x 1 TOP:120mm x 3 / 140mm x 2 Side:120mm x 3 Bottom: 120mm x 1 / 140mm x 1 PSU shroud :120mm x 2"
         }
     },
     {
@@ -3036,7 +3404,14 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/xpg-lander-500-midtower-chassis",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-lander-500-mid-tower-chassis-91598-2640506-280726113331740.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": 340.0,
+            "fan_support": "Front: 120mm x3 / 140mm x2 Top: 120 mm x2 Rear: 120 mm x1"
         }
     },
     {
@@ -3048,7 +3423,15 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/xpg-starker-air-btf-midtower-chassis",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-starker-air-btf-mid-tower-chassis-91598-2640575-280726112931341.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "E-ATX",
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": 390.0,
+            "fan_support": "Front: 120mm x 3 / 140mm x 3 Top: 120mm x 3 / 140mm x 2 Rear: 120mm x 1 / 140mm x 1 PSU Shroud: 120mm x 3 Side: 120mm x 2 (with E-ATX bracket removed)"
         }
     },
     {
@@ -3060,7 +3443,14 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/xpg-valor-air-mt",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-air-mt-91598-2634256-280726113931457.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": null,
+            "fan_support": "Front: 120mm x3, 140mm x2 Top: 120mm x2, 140mm x2 Rear: 120mm x1"
         }
     },
     {
@@ -3072,7 +3462,10 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/xpg-valor-air-plus-midtower-chassis",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-air-plus-mid-tower-chassis-91598-2634351-280726113508467.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [],
+            "gpu_clearance_mm": null,
+            "fan_support": null
         }
     },
     {
@@ -3084,7 +3477,14 @@
         "Product URL": "https://www.gb-tech.pk/pc-components/pc-cases/xpg-valor-mesh-compact-midtower-chassis",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-valor-mesh-compact-mid-tower-chassis-91598-2634315-280726113620483.webp",
         "Compatibility": {
-            "type": "unknown"
+            "type": "case",
+            "motherboard_support": [
+                "Micro-ATX",
+                "Mini-ITX",
+                "ATX"
+            ],
+            "gpu_clearance_mm": null,
+            "fan_support": "Front: 120mm x3, 140mm x2 Top: 120mm x2, 140mm x2 Rear: 120mm x1"
         }
     },
     {
@@ -3105,7 +3505,7 @@
         "Product Name": "ASUS ROG Thor 1200W Platinum III Power Supply Gaming Edition (ROG-THOR-1200P3-GAMING)",
         "Category": "PC Components > Power Supplies",
         "Brand": "ASUS",
-        "Price": "0.00",
+        "Price": "130000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/power-supplies/asus-rog-thor-1200w-platinum-iii-power-supply-gaming-edition-rogthor1200p3gaming",
         "Image": "https://static3.webx.pk/files/91598/Images/asus-rog-thor-1200w-platinum-iii-psu-91598-2653365-040826065818829.webp",
         "Compatibility": {
@@ -3170,7 +3570,7 @@
         "Product Name": "Thermalright SP Platinum PSU (850W / 1000W, Black / White)",
         "Category": "PC Components > Power Supplies",
         "Brand": "Thermalright",
-        "Price": "26500.00",
+        "Price": "36000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/power-supplies/thermalright-sp-platinum-psu-850w-1000w-black-white",
         "Image": "https://static3.webx.pk/files/91598/Images/thermalright-sp-platinum-psu-850w-1000w-9-91598-2659067-130826100354218.webp",
         "Compatibility": {
@@ -3248,7 +3648,7 @@
         "Product Name": "XPG PROBE Bronze 80 PLUS Power Supply",
         "Category": "PC Components > Power Supplies",
         "Brand": "XPG",
-        "Price": "12000.00",
+        "Price": "14000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/power-supplies/xpg-probe-bronze-80-plus-power-supply",
         "Image": "https://static3.webx.pk/files/91598/Images/xpg-probe-bronze-80-plus-power-supply-91598-2641001-280726104111863.webp",
         "Compatibility": {
@@ -3270,16 +3670,193 @@
         }
     },
     {
+        "Product ID": "2676360",
+        "Product Name": "AMD Ryzen 5 7500F 6-Core 12-Thread Desktop Processor",
+        "Category": "PC Components > Processors / CPUs > AMD Processors",
+        "Brand": "AMD",
+        "Price": "34999.00",
+        "Product URL": "https://www.gb-tech.pk/amd-ryzen-5-7500f-6core-12thread-desktop-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/amd-ryzen-5-7500f-6-core-12-thread-desktop-processor-91598-2676360-110926110236013.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676362",
+        "Product Name": "AMD Ryzen 5 8500G 6-Core 12-Thread Desktop Processor",
+        "Category": "PC Components > Processors / CPUs > AMD Processors",
+        "Brand": "AMD",
+        "Price": "64999.00",
+        "Product URL": "https://www.gb-tech.pk/amd-ryzen-5-8500g-6core-12thread-desktop-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/amd-ryzen-5-8500g-6-core-12-thread-desktop-processor-1-91598-2676362-110926112411574.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676365",
+        "Product Name": "AMD Ryzen 7 7800X3D 8-Core 16-Thread Desktop Processor",
+        "Category": "PC Components > Processors / CPUs > AMD Processors",
+        "Brand": "AMD",
+        "Price": "97999.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/processors-cpus/amd-processors/amd-ryzen-7-7800x3d-8core-16thread-desktop-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/amd-ryzen-7-7800x3d-8-core-16-thread-desktop-processor-91598-2676365-110926114250004.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676337",
+        "Product Name": "AMD Ryzen 9 7900X 12-Core 24-Thread Desktop Processor",
+        "Category": "PC Components > Processors / CPUs > AMD Processors",
+        "Brand": "AMD",
+        "Price": "86999.00",
+        "Product URL": "https://www.gb-tech.pk/amd-ryzen-9-7900x-12core-24thread-desktop-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/amd-ryzen-9-7900x-12-core-24-thread-desktop-processor-2-91598-2676337-110926103835471.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676297",
+        "Product Name": "AMD Ryzen 9 9900X 12-Core Processor",
+        "Category": "PC Components > Processors / CPUs > AMD Processors",
+        "Brand": "AMD",
+        "Price": "109999.00",
+        "Product URL": "https://www.gb-tech.pk/amd-ryzen-9-9900x-12core-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/amd-ryzen-9-9900x-12-core-processor-1-91598-2676297-110926100524793.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "AM5",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676368",
+        "Product Name": "Intel Core i3-12100F 12th Gen Processor",
+        "Category": "PC Components > Processors / CPUs > Intel Processors",
+        "Brand": "Intel",
+        "Price": "38999.00",
+        "Product URL": "https://www.gb-tech.pk/intel-core-i312100f-12th-gen-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/intel-core-i3-12100f-12th-gen-processor-2-91598-2676368-110926121025696.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5",
+                "DDR4"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676384",
+        "Product Name": "Intel Core i5-14400F 14th Gen Processor",
+        "Category": "PC Components > Processors / CPUs > Intel Processors",
+        "Brand": "Intel",
+        "Price": "45999.00",
+        "Product URL": "https://www.gb-tech.pk/intel-core-i514400f-14th-gen-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/intel-core-i5-14400f-14th-gen-processor-2-91598-2676384-110926121506479.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5",
+                "DDR4"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676300",
+        "Product Name": "Intel Core i7-13700KF 13th Gen Processor",
+        "Category": "PC Components > Processors / CPUs > Intel Processors",
+        "Brand": "Intel",
+        "Price": "88999.00",
+        "Product URL": "https://www.gb-tech.pk/intel-core-i713700kf-13th-gen-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/intel-core-i7-13700kf-processor-91598-2676300-110926101654169.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5",
+                "DDR4"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676293",
+        "Product Name": "Intel Core i7-14700F 14th Gen Processor",
+        "Category": "PC Components > Processors / CPUs > Intel Processors",
+        "Brand": "Intel",
+        "Price": "94499.00",
+        "Product URL": "https://www.gb-tech.pk/intel-core-i714700f-14th-gen-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/intel-core-i7-14700f-14th-gen-processor-1-91598-2676293-110926122356356.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "LGA1700",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5",
+                "DDR4"
+            ]
+        }
+    },
+    {
+        "Product ID": "2676385",
+        "Product Name": "Intel Core Ultra 5 245K Processor",
+        "Category": "PC Components > Processors / CPUs > Intel Processors",
+        "Brand": "Intel",
+        "Price": "79499.00",
+        "Product URL": "https://www.gb-tech.pk/pc-components/processors-cpus/intel-processors/intel-core-ultra-5-245k-processor",
+        "Image": "https://static3.webx.pk/files/91598/Images/intel-core-ultra-5-245k-processor-1-91598-2676385-110926122043394.webp",
+        "Compatibility": {
+            "type": "processor",
+            "socket": "LGA1851",
+            "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ]
+        }
+    },
+    {
         "Product ID": "2662284",
         "Product Name": "ADATA DDR4 3200MHz Laptop RAM (8GB / 16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "ADATA",
-        "Price": "49500.00",
+        "Price": "17500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/adata-ddr4-3200mhz-laptop-ram-8gb-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-laptop-ram-neon-samebg-1200x1200-91598-2662284-180826085536544.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
             "speed": "3200 MHz",
             "capacity": "32 GB",
             "form_factor": "SO-DIMM"
@@ -3290,15 +3867,18 @@
         "Product Name": "ADATA DDR5 5600MHz Desktop RAM (8GB / 16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "ADATA",
-        "Price": "32800.00",
+        "Price": "100000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/adata-ddr5-5600mhz-desktop-ram-8gb-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-ddr5-desktop-ram-neon-samebg-1200x1200-91598-2662289-180826090907157.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "5600 MHz",
             "capacity": "32 GB",
-            "form_factor": "U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3312,6 +3892,9 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "5600 MHz",
             "capacity": "32 GB",
             "form_factor": "SO-DIMM"
@@ -3322,15 +3905,18 @@
         "Product Name": "ADATA Premier DDR4 3200MHz Desktop RAM (8GB / 16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "ADATA",
-        "Price": "68000.00",
+        "Price": "28500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/adata-premier-ddr4-3200mhz-desktop-ram-8gb-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-premier-ddr4-3200mhz-desktop-ram-8gb-16gb-32gb-2-91598-2662283-180826083009995.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
             "speed": "3200 MHz",
             "capacity": "32 GB",
-            "form_factor": "U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3344,9 +3930,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "6000 MT/s",
             "capacity": "32 GB",
-            "form_factor": "288-pin U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3360,9 +3949,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "6000 MT/s",
             "capacity": "32 GB",
-            "form_factor": "288-pin U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3376,9 +3968,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "6000 MT/s",
             "capacity": "32 GB",
-            "form_factor": "288-pin U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3392,9 +3987,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "6400 MT/s",
             "capacity": "32 GB",
-            "form_factor": "288-pin U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3408,9 +4006,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
             "speed": "2666 MT/s",
             "capacity": "16 GB",
-            "form_factor": "U-DIMM (Desktop Memory)"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3424,6 +4025,9 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "6400 MT/s",
             "capacity": "16 GB",
             "form_factor": "SO-DIMM"
@@ -3434,15 +4038,18 @@
         "Product Name": "Transcend JetRam DDR4 3200MHz Desktop RAM (8GB/16GB/32GB) U-DIMM",
         "Category": "PC Components > RAM",
         "Brand": "Transcend",
-        "Price": "17500.00",
+        "Price": "28500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/transcend-jetram-ddr4-3200mhz-desktop-ram-8gb16gb32gb-udimm",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-ddr4-3200mhz-desktop-ram-neon-1200x1200-91598-2646462-190826093318605.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
             "speed": "3200 MT/s",
             "capacity": "32 GB",
-            "form_factor": "U-DIMM (Desktop)"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3456,9 +4063,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "4800 MT/s",
             "capacity": "32 GB",
-            "form_factor": "U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3472,9 +4082,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "5600 MT/s",
             "capacity": "32 GB",
-            "form_factor": "U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3482,15 +4095,18 @@
         "Product Name": "Transcend JetRam Desktop DDR5 6400MHz U-DIMM RAM (16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "Transcend",
-        "Price": "71500.00",
+        "Price": "119000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/transcend-jetram-desktop-ddr5-6400mhz-udimm-ram-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-desktop-ddr5-6400mhz-u-dimm-ram-neon-1200x1-91598-2647515-190826092634112.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "6400 MT/s",
             "capacity": "32 GB",
-            "form_factor": "U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3498,15 +4114,18 @@
         "Product Name": "Transcend JetRam Laptop DDR4 3200MHz SO-DIMM RAM (8GB / 16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "Transcend",
-        "Price": "49500.00",
+        "Price": "17500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/transcend-jetram-laptop-ddr4-3200mhz-sodimm-ram-8gb-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-laptop-ddr4-3200mhz-so-dimm-ram-neon-1200x1-91598-2647301-190826093237223.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
             "speed": "3200 MT/s",
             "capacity": "32 GB",
-            "form_factor": "SO-DIMM (Laptop Memory)"
+            "form_factor": "SO-DIMM"
         }
     },
     {
@@ -3514,12 +4133,15 @@
         "Product Name": "Transcend JetRam Laptop DDR5 4800MHz SO-DIMM RAM (16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "Transcend",
-        "Price": "51500.00",
+        "Price": "97500.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/transcend-jetram-laptop-ddr5-4800mhz-sodimm-ram-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-laptop-ddr5-4800mhz-so-dimm-ram-neon-1200x1-91598-2647429-190826092950263.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "4800 MT/s",
             "capacity": "32 GB",
             "form_factor": "SO-DIMM"
@@ -3530,12 +4152,15 @@
         "Product Name": "Transcend JetRam Laptop DDR5 5600MHz SO-DIMM RAM (16GB / 32GB)",
         "Category": "PC Components > RAM",
         "Brand": "Transcend",
-        "Price": "71500.00",
+        "Price": "119000.00",
         "Product URL": "https://www.gb-tech.pk/pc-components/ram/transcend-jetram-laptop-ddr5-5600mhz-sodimm-ram-16gb-32gb",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-jetram-laptop-ddr5-5600mhz-so-dimm-ram-neon-1200x1-91598-2647509-190826092751939.webp",
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "5600 MT/s",
             "capacity": "32 GB",
             "form_factor": "SO-DIMM"
@@ -3552,9 +4177,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR4",
+            "memory_types": [
+                "DDR4"
+            ],
             "speed": "2666 MT/s",
             "capacity": "32 GB",
-            "form_factor": "U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3568,9 +4196,12 @@
         "Compatibility": {
             "type": "ram",
             "memory_type": "DDR5",
+            "memory_types": [
+                "DDR5"
+            ],
             "speed": "8000 MT/s",
             "capacity": "48 GB",
-            "form_factor": "U-DIMM"
+            "form_factor": "DIMM"
         }
     },
     {
@@ -3614,7 +4245,7 @@
         "Product Name": "ADATA HD650 External HDD (1TB / 2TB / 4TB)",
         "Category": "Storage > External HDD",
         "Brand": "ADATA",
-        "Price": "26200.00",
+        "Price": "31700.00",
         "Product URL": "https://www.gb-tech.pk/storage/external-hdd/adata-hd650-external-hdd-1tb-2tb-4tb",
         "Image": "https://static3.webx.pk/files/91598/Images/image-dimensions-should-be-1200x1200-4-91598-2660092-150826090620763.webp",
         "Compatibility": {
@@ -3638,7 +4269,7 @@
         "Product Name": "ADATA HD710 Pro External HDD (1TB / 2TB / 4TB)",
         "Category": "Storage > External HDD",
         "Brand": "ADATA",
-        "Price": "60300.00",
+        "Price": "27300.00",
         "Product URL": "https://www.gb-tech.pk/storage/external-hdd/adata-hd710-pro-external-hdd-1tb-2tb-4tb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-hd710-pro-external-hdd-1tb-2tb-4tb-5-91598-2660095-150826093254749.webp",
         "Compatibility": {
@@ -3746,7 +4377,7 @@
         "Product Name": "Transcend ESD265C Portable SSD USB-C 10Gbps – 500GB / 1TB / 2TB",
         "Category": "Storage > External SSD",
         "Brand": "Transcend",
-        "Price": "38500.00",
+        "Price": "24000.00",
         "Product URL": "https://www.gb-tech.pk/storage/external-ssd/transcend-esd265c-portable-ssd-usbc-10gbps-500gb-1tb-2tb",
         "Image": "https://static3.webx.pk/files/91598/Images/16e0bd02-83f7-4558-ba7a-492f39997455-91598-2641487-210726081510343.webp",
         "Compatibility": {
@@ -3806,7 +4437,7 @@
         "Product Name": "Transcend ESD380C 1TB / 2TB / 4TB EXT SSD 2000 MB/s",
         "Category": "Storage > External SSD",
         "Brand": "Transcend",
-        "Price": "97000.00",
+        "Price": "176000.00",
         "Product URL": "https://www.gb-tech.pk/storage/external-ssd/transcend-esd380c-1tb-2tb-4tb-ext-ssd-2000-mbs",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-esd380c-91598-2645516-190826083616125.webp",
         "Compatibility": {
@@ -3818,7 +4449,7 @@
         "Product Name": "Transcend ESD410C Portable SSD (1TB / 2TB / 4TB)",
         "Category": "Storage > External SSD",
         "Brand": "Transcend",
-        "Price": "53000.00",
+        "Price": "176000.00",
         "Product URL": "https://www.gb-tech.pk/storage/external-ssd/transcend-esd410c-portable-ssd-1tb-2tb-4tb",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-esd410c-91598-2645507-190826084012499.webp",
         "Compatibility": {
@@ -3866,7 +4497,7 @@
         "Product Name": "ADATA LEGEND 970 PCIe Gen5 x4 M.2 2280 SSD (1TB / 2TB / 4TB)",
         "Category": "Storage > NVMe SSD",
         "Brand": "ADATA",
-        "Price": "52000.00",
+        "Price": "99500.00",
         "Product URL": "https://www.gb-tech.pk/storage/nvme-ssd/adata-legend-970-pcie-gen5-x4-m2-2280-ssd-1tb-2tb-4tb",
         "Image": "https://static3.webx.pk/files/91598/Images/adata-legend-970-pcie-gen5-x4-m.2-2280-ssd-1tb-2tb-4tb-2-91598-2660937-160826091731972.webp",
         "Compatibility": {
@@ -3878,7 +4509,7 @@
         "Product Name": "Transcend MTE115S 250GB/500GB/1TB/2TB M.2 2280 NVMe PCIe Gen3x4",
         "Category": "Storage > NVMe SSD",
         "Brand": "Transcend",
-        "Price": "20350.00",
+        "Price": "71500.00",
         "Product URL": "https://www.gb-tech.pk/storage/nvme-ssd/transcend-mte115s-250gb500gb1tb2tb-m2-2280-nvme-pcie-gen3x4",
         "Image": "https://static3.webx.pk/files/91598/Images/transcend-mte115s-neon-1200x1200-91598-2645815-190826091339368.webp",
         "Compatibility": {

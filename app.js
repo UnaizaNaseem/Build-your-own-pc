@@ -44,6 +44,21 @@ const WHATSAPP_NUMBER = "923055183777";
 
 const BUILDER_CONFIG = {
 
+    processor: {
+        enabled: true,
+
+        label: "Processor",
+
+        aliases: [
+            "processor",
+            "processors",
+            "cpu",
+            "cpus",
+            "central processing unit"
+        ]
+    },
+
+
     motherboard: {
         enabled: true,
 
@@ -167,6 +182,18 @@ const BUILDER_CONFIG = {
 const COMPATIBILITY_RELATIONS = [
 
     {
+        a: "processor",
+        b: "motherboard",
+        title: "Processor ↔ Motherboard"
+    },
+
+    {
+        a: "processor",
+        b: "ram",
+        title: "Processor ↔ RAM"
+    },
+
+    {
         a: "motherboard",
         b: "ram",
         title: "Motherboard ↔ RAM"
@@ -185,9 +212,9 @@ const COMPATIBILITY_RELATIONS = [
     },
 
     {
-        a: "motherboard",
+        a: "processor",
         b: "cooling",
-        title: "Motherboard ↔ Cooling"
+        title: "Processor ↔ Cooling"
     },
 
     {
@@ -1118,95 +1145,161 @@ function cleanArray(
 
 
 /* ============================================================
-   CHECK MOTHERBOARD ↔ RAM
+   SOCKET NORMALIZATION
    ============================================================ */
 
-function checkMotherboardRAM() {
+function normalizeSocket(value) {
+
+    const text = String(
+        value ?? ""
+    )
+        .trim()
+        .toUpperCase()
+        .replace(
+            /[\s-]/g,
+            ""
+        );
+
+    if (!text) {
+        return "";
+    }
+
+    return text.replace(
+        /^FCLGA/,
+        "LGA"
+    );
+}
+
+
+/* ============================================================
+   MEMORY GENERATION HELPERS
+   ============================================================ */
+
+function memoryGeneration(value) {
+
+    const text = normalizeText(value).toUpperCase();
+
+    if (text.includes("DDR5")) return "DDR5";
+    if (text.includes("DDR4")) return "DDR4";
+    if (text.includes("DDR3")) return "DDR3";
+    if (text.includes("DDR2")) return "DDR2";
+
+    return "";
+}
+
+function memoryGenerations(value) {
+
+    const values = Array.isArray(value)
+        ? value
+        : [value];
+
+    return [
+        ...new Set(
+            values
+                .flatMap(item => {
+                    if (item == null) return [];
+
+                    return String(item)
+                        .split(/[,;|\/]+/)
+                        .map(part => memoryGeneration(part))
+                        .filter(Boolean);
+                })
+        )
+    ];
+}
+
+function getMemoryGenerations(compatibility) {
+
+    if (!compatibility) return [];
+
+    const values = [];
+
+    if (Array.isArray(compatibility.memory_types)) {
+        values.push(...compatibility.memory_types);
+    }
+
+    values.push(
+        compatibility.memory_type,
+        compatibility.memory_support,
+        compatibility.system_memory_type,
+        compatibility.system_memory
+    );
+
+    return memoryGenerations(values);
+}
+
+function getRAMMemoryGenerations(ramCompatibility) {
+
+    if (!ramCompatibility) return [];
+
+    const values = [];
+
+    if (Array.isArray(ramCompatibility.memory_types)) {
+        values.push(...ramCompatibility.memory_types);
+    }
+
+    values.push(
+        ramCompatibility.memory_type,
+        ramCompatibility.memory_support,
+        ramCompatibility.speed
+    );
+
+    return memoryGenerations(values);
+}
+
+
+/* ============================================================
+   CHECK PROCESSOR ↔ MOTHERBOARD
+   ============================================================ */
+
+function checkProcessorMotherboard() {
+
+    const processor =
+        build.processor;
 
     const motherboard =
         build.motherboard;
 
-    const ram =
-        build.ram;
-
 
     if (
-        !motherboard ||
-        !ram
+        !processor ||
+        !motherboard
     ) {
 
         return null;
     }
 
 
-    const motherboardMemory =
-        normalizeText(
+    const processorSocket =
+        normalizeSocket(
             getCompatibility(
-                "motherboard"
-            ).memory_type
-        ).toUpperCase();
-
-
-    const ramCompatibility =
-        getCompatibility(
-            "ram"
+                "processor"
+            ).socket
         );
 
 
-    let ramMemory =
-        normalizeText(
-            ramCompatibility.memory_type
-        ).toUpperCase();
-
-
-    /*
-     Some RAM records may have DDR information
-     embedded in speed.
-    */
-
-    if (!ramMemory) {
-
-        const speed =
-            normalizeText(
-                ramCompatibility.speed
-            ).toUpperCase();
-
-
-        if (
-            speed.includes(
-                "DDR5"
-            )
-        ) {
-
-            ramMemory = "DDR5";
-
-        }
-        else if (
-            speed.includes(
-                "DDR4"
-            )
-        ) {
-
-            ramMemory = "DDR4";
-        }
-
-    }
+    const motherboardSocket =
+        normalizeSocket(
+            getCompatibility(
+                "motherboard"
+            ).socket
+        );
 
 
     if (
-        motherboardMemory &&
-        ramMemory
+        processorSocket &&
+        motherboardSocket
     ) {
 
         const compatible =
-            motherboardMemory ===
-            ramMemory;
+            processorSocket ===
+            motherboardSocket;
 
 
         return {
 
             title:
-                "Motherboard ↔ RAM",
+                "Processor ↔ Motherboard",
 
             level:
                 compatible
@@ -1216,9 +1309,9 @@ function checkMotherboardRAM() {
             text:
                 compatible
 
-                    ? `Motherboard uses ${motherboardMemory} and RAM is ${ramMemory}.`
+                    ? `Processor socket is ${processorSocket} and motherboard socket is ${motherboardSocket}.`
 
-                    : `Motherboard uses ${motherboardMemory}, but RAM is ${ramMemory}.`
+                    : `Processor socket is ${processorSocket}, but motherboard socket is ${motherboardSocket}.`
 
         };
 
@@ -1228,16 +1321,210 @@ function checkMotherboardRAM() {
     return {
 
         title:
-            "Motherboard ↔ RAM",
+            "Processor ↔ Motherboard",
 
         level:
             "warn",
 
         text:
-            "Memory type information is unavailable."
+            "Processor or motherboard socket information is unavailable."
 
     };
 
+}
+
+
+/* ============================================================
+   CHECK PROCESSOR ↔ RAM
+   ============================================================ */
+
+function checkProcessorRAM() {
+
+    const processor = build.processor;
+    const ram = build.ram;
+
+    if (!processor || !ram) {
+        return null;
+    }
+
+    const processorCompatibility = getCompatibility("processor");
+    const ramCompatibility = getCompatibility("ram");
+
+    const processorMemory = getMemoryGenerations(
+        processorCompatibility
+    );
+
+    const ramMemory = getRAMMemoryGenerations(
+        ramCompatibility
+    );
+
+    if (!processorMemory.length || !ramMemory.length) {
+        return {
+            title: "Processor ↔ RAM",
+            level: "warn",
+            text: "Memory compatibility information is unavailable."
+        };
+    }
+
+    const overlap = processorMemory.filter(
+        generation => ramMemory.includes(generation)
+    );
+
+    const compatible = overlap.length > 0;
+
+    return {
+        title: "Processor ↔ RAM",
+        level: compatible ? "ok" : "bad",
+        text: compatible
+            ? `Processor supports ${processorMemory.join(" / ")} and RAM is ${ramMemory.join(" / ")}.`
+            : `Processor supports ${processorMemory.join(" / ")}, but RAM is ${ramMemory.join(" / ")}.`
+    };
+}
+
+
+/* ============================================================
+   CHECK PROCESSOR ↔ COOLING
+   ============================================================ */
+
+function checkProcessorCooling() {
+
+    const processor =
+        build.processor;
+
+    const cooling =
+        build.cooling;
+
+
+    if (
+        !processor ||
+        !cooling
+    ) {
+
+        return null;
+    }
+
+
+    const processorSocket =
+        normalizeSocket(
+            getCompatibility(
+                "processor"
+            ).socket
+        );
+
+
+    const coolingCompatibility =
+        getCompatibility(
+            "cooling"
+        );
+
+
+    const sockets =
+        cleanArray(
+            coolingCompatibility
+                .socket_support
+        )
+            .map(
+                socket =>
+                    normalizeSocket(
+                        socket
+                    )
+            );
+
+
+    if (
+        processorSocket &&
+        sockets.length
+    ) {
+
+        const compatible =
+            sockets.includes(
+                processorSocket
+            );
+
+
+        return {
+
+            title:
+                "Processor ↔ Cooling",
+
+            level:
+                compatible
+                    ? "ok"
+                    : "bad",
+
+            text:
+                compatible
+
+                    ? `Cooling supports processor socket ${processorSocket}.`
+
+                    : `Cooling does not list support for processor socket ${processorSocket}.`
+
+        };
+
+    }
+
+
+    return {
+
+        title:
+            "Processor ↔ Cooling",
+
+        level:
+            "warn",
+
+        text:
+            "Processor socket or cooling socket-support information is unavailable."
+
+    };
+
+}
+
+
+/* ============================================================
+   CHECK MOTHERBOARD ↔ RAM
+   ============================================================ */
+
+function checkMotherboardRAM() {
+
+    const motherboard = build.motherboard;
+    const ram = build.ram;
+
+    if (!motherboard || !ram) {
+        return null;
+    }
+
+    const motherboardCompatibility = getCompatibility("motherboard");
+    const ramCompatibility = getCompatibility("ram");
+
+    const motherboardMemory = getMemoryGenerations(
+        motherboardCompatibility
+    );
+
+    const ramMemory = getRAMMemoryGenerations(
+        ramCompatibility
+    );
+
+    if (!motherboardMemory.length || !ramMemory.length) {
+        return {
+            title: "Motherboard ↔ RAM",
+            level: "warn",
+            text: "Memory compatibility information is unavailable."
+        };
+    }
+
+    const overlap = motherboardMemory.filter(
+        generation => ramMemory.includes(generation)
+    );
+
+    const compatible = overlap.length > 0;
+
+    return {
+        title: "Motherboard ↔ RAM",
+        level: compatible ? "ok" : "bad",
+        text: compatible
+            ? `Motherboard supports ${motherboardMemory.join(" / ")} and RAM is ${ramMemory.join(" / ")}.`
+            : `Motherboard supports ${motherboardMemory.join(" / ")}, but RAM is ${ramMemory.join(" / ")}.`
+    };
 }
 
 
@@ -1634,14 +1921,20 @@ function checkGraphicsCase() {
    ============================================================ */
 
 function checkPair(
-    relation
+    typeA,
+    typeB
 ) {
 
-    const {
-        a,
-        b,
-        title
-    } = relation;
+    const a = typeA;
+    const b = typeB;
+
+    const relation = COMPATIBILITY_RELATIONS.find(
+        item =>
+            (item.a === a && item.b === b) ||
+            (item.a === b && item.b === a)
+    );
+
+    const title = relation?.title || `${a} ↔ ${b}`;
 
 
     /*
@@ -1689,6 +1982,14 @@ function checkPair(
 
     switch (pair) {
 
+        case "motherboard|processor":
+
+            return checkProcessorMotherboard();
+
+        case "processor|ram":
+
+            return checkProcessorRAM();
+
         case "motherboard|ram":
 
             return checkMotherboardRAM();
@@ -1704,9 +2005,9 @@ function checkPair(
             return checkGraphicsPSU();
 
 
-        case "cooling|motherboard":
+        case "cooling|processor":
 
-            return checkMotherboardCooling();
+            return checkProcessorCooling();
 
 
         case "case|graphics_card":
@@ -1753,7 +2054,8 @@ function checks() {
 
                 const result =
                     checkPair(
-                        relation
+                        relation.a,
+                        relation.b
                     );
 
 
