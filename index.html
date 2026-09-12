@@ -4,23 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>GB Tech — Build Your Own PC</title>
+  <!-- Primary SEO -->
+  <title>PC Builder Pakistan | Build Your Own PC | GB Tech</title>
 
+  <meta
+    name="description"
+    content="Build your own custom PC with GB Tech Pakistan. Choose CPUs, motherboards, RAM, graphics cards, cases, cooling and power supplies with built-in compatibility checks."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large"
+  >
+
+  <meta
+    name="googlebot"
+    content="index, follow, max-image-preview:large"
+  >
+
+  <link
+    rel="canonical"
+    href="https://build-your-own-pc.gb-tech.pk/"
+  >
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    type="image/avif"
+    href="/media/favicon.avif"
+  >
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PC Builder Pakistan | Build Your Own PC | GB Tech">
+  <meta
+    property="og:description"
+    content="Build your own custom PC with GB Tech Pakistan. Choose PC components and check compatibility as you build."
+  >
+  <meta property="og:url" content="https://build-your-own-pc.gb-tech.pk/">
+  <meta property="og:site_name" content="GB Tech">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PC Builder Pakistan | Build Your Own PC | GB Tech">
+  <meta
+    name="twitter:description"
+    content="Build your own custom PC with GB Tech Pakistan. Choose PC components and check compatibility as you build."
+  >
+
+  <!-- Google Search Console verification -->
+  <meta
+    name="google-site-verification"
+    content="mJ9Db6K-12DS9-QldykMEolafgbv2uqgjU7EVGEnGo4"
+  >
+
+  <!-- Browser / mobile -->
+  <meta name="theme-color" content="#0b0d12">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+  <!-- WebApplication structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "GB Tech PC Builder",
+    "url": "https://build-your-own-pc.gb-tech.pk/",
+    "description": "Build your own custom PC with GB Tech Pakistan using processors, motherboards, RAM, graphics cards, cases, cooling and power supplies with compatibility checks.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web Browser",
+    "isAccessibleForFree": true,
+    "publisher": {
+      "@type": "Organization",
+      "name": "GB Tech",
+      "url": "https://www.gb-tech.pk/"
+    }
+  }
+  </script>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
 
   <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+  ></script>
 
   <!-- jsPDF AutoTable -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-<meta name="google-site-verification" content="mJ9Db6K-12DS9-QldykMEolafgbv2uqgjU7EVGEnGo4" />
-<title>PC Builder | Build Your Own PC - GB Tech Pakistan</title>
-
-<meta name="description" content="Build your own PC with GB Tech Pakistan. Choose processors, motherboards, RAM, graphics cards, cases, cooling and power supplies with built-in compatibility checks.">
-
-<meta name="keywords" content="PC Builder Pakistan, Build Your Own PC, custom PC builder, gaming PC builder, PC components Pakistan, GB Tech">
-
-<link rel="icon" type="image/avif" href="media/favicon.avif">
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"
+  ></script>
 </head>
 
 <body>
@@ -28,14 +102,16 @@
   <!-- =========================================================
        GB TECH — PAGE HEADER
        ========================================================= -->
-  
+
 
   <!-- =========================================================
        MAIN BUILDER
        ========================================================= -->
   <main class="container">
 
-    <!-- TOOLBAR -->
+    <!-- =======================================================
+         TOOLBAR
+         ======================================================= -->
     <div class="toolbar">
 
       <button
@@ -50,13 +126,18 @@
     </div>
 
 
-    <!-- BUILDER + SUMMARY -->
+    <!-- =======================================================
+         BUILDER + SUMMARY
+         ======================================================= -->
     <div class="build-layout">
 
       <!-- =====================================================
            BUILDER
            ===================================================== -->
-      <section class="builder-panel">
+      <section
+        class="builder-panel"
+        aria-labelledby="components-heading"
+      >
 
         <div class="panel-heading">
 
@@ -65,9 +146,9 @@
               COMPONENT SELECTION
             </span>
 
-            <h2>
+            <h1 id="components-heading">
               Your Components
-            </h2>
+            </h1>
           </div>
 
           <span class="live-badge">
@@ -94,7 +175,10 @@
       <!-- =====================================================
            BUILD SUMMARY
            ===================================================== -->
-      <aside class="summary-panel">
+      <aside
+        class="summary-panel"
+        aria-labelledby="build-summary-heading"
+      >
 
         <div class="panel-heading summary-heading">
 
@@ -103,7 +187,7 @@
               BUILD SUMMARY
             </span>
 
-            <h2>
+            <h2 id="build-summary-heading">
               Your Build
             </h2>
           </div>
@@ -193,6 +277,7 @@
 
     </div>
 
+
   </main>
 
 
@@ -205,7 +290,12 @@
     aria-hidden="true"
   >
 
-    <div class="modal-box">
+    <div
+      class="modal-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
 
       <div class="modal-header">
 
@@ -223,7 +313,7 @@
           class="close-btn"
           type="button"
           onclick="closeModal()"
-          aria-label="Close"
+          aria-label="Close product selection"
         >
           ×
         </button>
@@ -232,6 +322,13 @@
 
 
       <div class="modal-tools">
+
+        <label
+          for="search"
+          class="visually-hidden"
+        >
+          Search products
+        </label>
 
         <input
           id="search"
@@ -259,7 +356,9 @@
   </div>
 
 
-  <!-- APPLICATION -->
+  <!-- =========================================================
+       APPLICATION
+       ========================================================= -->
   <script src="app.js"></script>
 
 </body>
