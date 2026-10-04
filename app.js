@@ -7,6 +7,7 @@ const PRODUCTS = [];
 let build = {};
 let currentType = "";
 let brand = "All";
+let accessoryCategory = "All";
 
 const WHATSAPP_NUMBER = "923055183777";
 
@@ -143,30 +144,30 @@ const BUILDER_CONFIG = {
             "power supplies",
             "psu"
         ]
-    }
+    },
 
-
-    /*
-    ------------------------------------------------------------
-    EXAMPLE FUTURE COMPONENT
-    ------------------------------------------------------------
 
     storage: {
-        enabled: false,
+        enabled: true,
 
-        label: "Storage",
+        label: "Internal Storage",
 
         aliases: [
             "storage",
-            "ssd",
-            "nvme",
+            "nvme ssd",
             "sata ssd",
-            "hdd"
+            "internal storage"
         ]
-    }
+    },
 
-    ------------------------------------------------------------
-    */
+
+    accessory: {
+        enabled: true,
+
+        label: "Accessories & Extras",
+
+        aliases: []
+    }
 
 };
 
@@ -230,14 +231,21 @@ const COMPATIBILITY_RELATIONS = [
    ENABLED BUILDER CATEGORIES
    ============================================================ */
 
-const categories =
-    Object.keys(
-        BUILDER_CONFIG
-    )
-        .filter(
-            type =>
-                BUILDER_CONFIG[type].enabled
-        );
+const CATEGORY_ORDER = [
+    "processor",
+    "motherboard",
+    "ram",
+    "graphics_card",
+    "storage",
+    "case",
+    "cooling",
+    "power_supply",
+    "accessory"
+];
+
+const categories = CATEGORY_ORDER.filter(
+    type => BUILDER_CONFIG[type]?.enabled
+);
 
 
 /* ============================================================
@@ -561,14 +569,20 @@ const productsBy = (
    ============================================================ */
 
 const selectedEntries = () => {
+    const entries = [];
 
-    return Object.entries(
-        build
-    )
-        .filter(
-            ([, product]) =>
-                product
-        );
+    const multiSelectTypes = ["ram", "storage", "accessory"];
+
+    Object.entries(build).forEach(([type, value]) => {
+        if (multiSelectTypes.includes(type)) {
+            (Array.isArray(value) ? value : value ? [value] : [])
+                .forEach(product => entries.push([type, product]));
+        } else if (value) {
+            entries.push([type, value]);
+        }
+    });
+
+    return entries;
 };
 
 
@@ -694,8 +708,10 @@ function render() {
                     index
                 ) => {
 
-                    const product =
-                        build[type];
+                    const isMultiSelect = ["ram", "storage", "accessory"].includes(type);
+                    const product = isMultiSelect
+                        ? (Array.isArray(build[type]) ? build[type] : build[type] ? [build[type]] : [])
+                        : build[type];
 
 
                     return `
@@ -720,43 +736,29 @@ function render() {
 
 
                                 <div class="selected">
-
-                                    ${
-                                        product
-                                            ? "Selected"
-                                            : "Not selected"
-                                    }
-
+                                    ${isMultiSelect
+                                        ? `${product.length} item${product.length === 1 ? "" : "s"} selected`
+                                        : product ? "Selected" : "Not selected"}
                                 </div>
 
                             </div>
 
 
                             ${
-                                product
-
-                                    ? selectedProductHTML(
-                                        type,
-                                        product
-                                    )
-
-                                    : `
-
+                                isMultiSelect && product.length
+                                    ? (type === "ram"
+                                        ? selectedRAMProductsHTML(product)
+                                        : selectedMultiProductsHTML(type, product))
+                                    : !isMultiSelect && product
+                                        ? selectedProductHTML(type, product)
+                                        : `
                                         <button
                                             type="button"
                                             class="btn add-product-btn"
                                             onclick="openModal('${type}')"
                                         >
-
-                                            Add
-                                            ${
-                                                escapeHTML(
-                                                    labels[type]
-                                                )
-                                            }
-
+                                            Add ${escapeHTML(labels[type])}
                                         </button>
-
                                       `
                             }
 
@@ -906,6 +908,142 @@ function selectedProductHTML(
 
 }
 
+
+function selectedRAMProductsHTML(products) {
+    const grouped = new Map();
+    products.forEach(product => {
+        const id = String(product["Product ID"] ?? product["Product Name"]);
+        if (!grouped.has(id)) grouped.set(id, { product, quantity: 0 });
+        grouped.get(id).quantity += 1;
+    });
+
+    return `
+        <div class="ram-selected-list">
+            ${Array.from(grouped.entries()).map(([id, item]) => {
+                const product = item.product;
+                const safeId = escapeHTML(id);
+                return `
+                    <div class="product ram-selected-product">
+                        <img src="${escapeHTML(image(product))}" alt="" onerror="this.style.display='none'">
+                        <div class="product-info">
+                            <div class="pname">${escapeHTML(product["Product Name"] || "RAM")}</div>
+                            <div class="meta">${escapeHTML(product.Brand || "")} · ${item.quantity} stick${item.quantity === 1 ? "" : "s"}</div>
+                            <div class="price">PKR ${money(safePrice(product) * item.quantity)}</div>
+                            ${product["Product URL"] ? `<a class="btn view-product-btn" href="${escapeHTML(product["Product URL"])}" target="_blank" rel="noopener noreferrer">View Product</a>` : ""}
+                        </div>
+                        <div class="product-actions" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                            <button type="button" class="btn" onclick="changeRAMQuantity('${safeId}', -1)" aria-label="Remove one stick">−</button>
+                            <strong>${item.quantity}</strong>
+                            <button type="button" class="btn" onclick="changeRAMQuantity('${safeId}', 1)" aria-label="Add one stick" ${products.length >= getRAMStickLimit() ? "disabled" : ""}>+</button>
+                            <button type="button" class="btn change-product-btn" onclick="openModal('ram')">Add RAM</button>
+                            <button type="button" class="btn remove-product-btn" onclick="removeRAMProduct('${safeId}')">Remove</button>
+                        </div>
+                    </div>`;
+            }).join("")}
+        </div>
+        <button type="button" class="btn add-product-btn" onclick="openModal('ram')">Add another RAM</button>
+    `;
+}
+
+function selectedMultiProductsHTML(type, products) {
+    const grouped = new Map();
+
+    products.forEach(product => {
+        const id = String(product["Product ID"] ?? product["Product Name"]);
+        if (!grouped.has(id)) grouped.set(id, { product, quantity: 0 });
+        grouped.get(id).quantity += 1;
+    });
+
+    return `
+        <div class="multi-selected-list ${type}-selected-list">
+            ${Array.from(grouped.entries()).map(([id, item]) => {
+                const product = item.product;
+                const safeId = escapeHTML(id);
+                const name = escapeHTML(product["Product Name"] || labels[type]);
+                const productBrand = escapeHTML(product.Brand || "");
+                const productPrice = money(safePrice(product) * item.quantity);
+                const productURL = product["Product URL"] ? escapeHTML(product["Product URL"]) : "";
+                return `
+                    <div class="product multi-selected-product">
+                        <img src="${escapeHTML(image(product))}" alt="" onerror="this.style.display='none'">
+                        <div class="product-info">
+                            <div class="pname">${name}</div>
+                            <div class="meta">${productBrand}</div>
+                            <div class="price">PKR ${productPrice}</div>
+                            ${productURL ? `<a class="btn view-product-btn" href="${productURL}" target="_blank" rel="noopener noreferrer">View Product</a>` : ""}
+                        </div>
+                        <div class="product-actions multi-quantity-actions">
+                            <button type="button" class="btn" onclick="changeMultiQuantity('${type}', '${safeId}', -1)" aria-label="Remove one">−</button>
+                            <strong>${item.quantity}</strong>
+                            <button type="button" class="btn" onclick="changeMultiQuantity('${type}', '${safeId}', 1)" aria-label="Add one">+</button>
+                            <button type="button" class="btn remove-product-btn" onclick="removeMultiProduct('${type}', '${safeId}')">Remove</button>
+                        </div>
+                    </div>`;
+            }).join("")}
+        </div>
+        <button type="button" class="btn add-product-btn" onclick="openModal('${type}')">Add ${escapeHTML(labels[type])}</button>
+    `;
+}
+
+function changeMultiQuantity(type, productId, delta) {
+    if (!["storage", "accessory"].includes(type)) return;
+
+    const current = Array.isArray(build[type]) ? [...build[type]] : build[type] ? [build[type]] : [];
+    if (delta > 0) {
+        const product = current.find(item => String(item["Product ID"] ?? item["Product Name"]) === String(productId));
+        if (product) current.push(product);
+    } else {
+        const index = current.findIndex(item => String(item["Product ID"] ?? item["Product Name"]) === String(productId));
+        if (index >= 0) current.splice(index, 1);
+    }
+
+    if (current.length) build[type] = current;
+    else delete build[type];
+    render();
+}
+
+function removeMultiProduct(type, productId) {
+    if (!["storage", "accessory"].includes(type)) return;
+
+    const current = Array.isArray(build[type]) ? build[type] : build[type] ? [build[type]] : [];
+    build[type] = current.filter(item => String(item["Product ID"] ?? item["Product Name"]) !== String(productId));
+    if (!build[type].length) delete build[type];
+    render();
+}
+
+
+function getRAMStickLimit() {
+    const motherboard = build.motherboard;
+    const compatibility = motherboard?.Compatibility || {};
+    const raw = compatibility.memory_slots ?? compatibility.ram_slots ?? compatibility.dimm_slots;
+    const parsed = Number(String(raw ?? "").match(/\d+/)?.[0]);
+    return parsed > 0 ? Math.min(parsed, 8) : 4;
+}
+
+function changeRAMQuantity(productId, delta) {
+    const current = Array.isArray(build.ram) ? [...build.ram] : build.ram ? [build.ram] : [];
+    if (delta > 0) {
+        if (current.length >= getRAMStickLimit()) {
+            alert(`This build supports up to ${getRAMStickLimit()} RAM stick(s) based on the available motherboard information.`);
+            return;
+        }
+        const product = current.find(item => String(item["Product ID"] ?? item["Product Name"]) === String(productId));
+        if (product) current.push(product);
+    } else {
+        const index = current.findIndex(item => String(item["Product ID"] ?? item["Product Name"]) === String(productId));
+        if (index >= 0) current.splice(index, 1);
+    }
+    build.ram = current;
+    if (!current.length) delete build.ram;
+    render();
+}
+
+function removeRAMProduct(productId) {
+    const current = Array.isArray(build.ram) ? build.ram : build.ram ? [build.ram] : [];
+    build.ram = current.filter(item => String(item["Product ID"] ?? item["Product Name"]) !== String(productId));
+    if (!build.ram.length) delete build.ram;
+    render();
+}
 
 function removeProduct(type) {
 
@@ -1117,11 +1255,9 @@ function getCompatibility(
     type
 ) {
 
-    return (
-        build[type]
-            ?.Compatibility
-        || {}
-    );
+    const selected = build[type];
+    const product = Array.isArray(selected) ? selected[0] : selected;
+    return product?.Compatibility || {};
 }
 
 
@@ -1339,48 +1475,20 @@ function checkProcessorMotherboard() {
    ============================================================ */
 
 function checkProcessorRAM() {
-
     const processor = build.processor;
-    const ram = build.ram;
+    const ramProducts = Array.isArray(build.ram) ? build.ram : build.ram ? [build.ram] : [];
+    if (!processor || !ramProducts.length) return null;
 
-    if (!processor || !ram) {
-        return null;
-    }
+    const processorMemory = getMemoryGenerations(processor.Compatibility || {});
+    if (!processorMemory.length) return { title: "Processor ↔ RAM", level: "warn", text: "Processor memory compatibility information is unavailable." };
 
-    const processorCompatibility = getCompatibility("processor");
-    const ramCompatibility = getCompatibility("ram");
-
-    const processorMemory = getMemoryGenerations(
-        processorCompatibility
-    );
-
-    const ramMemory = getRAMMemoryGenerations(
-        ramCompatibility
-    );
-
-    if (!processorMemory.length || !ramMemory.length) {
-        return {
-            title: "Processor ↔ RAM",
-            level: "warn",
-            text: "Memory compatibility information is unavailable."
-        };
-    }
-
-    const overlap = processorMemory.filter(
-        generation => ramMemory.includes(generation)
-    );
-
-    const compatible = overlap.length > 0;
-
-    return {
-        title: "Processor ↔ RAM",
-        level: compatible ? "ok" : "bad",
-        text: compatible
-            ? `Processor supports ${processorMemory.join(" / ")} and RAM is ${ramMemory.join(" / ")}.`
-            : `Processor supports ${processorMemory.join(" / ")}, but RAM is ${ramMemory.join(" / ")}.`
-    };
+    const incompatible = ramProducts.filter(product => {
+        const generations = getRAMMemoryGenerations(product.Compatibility || {});
+        return !generations.length || !generations.some(generation => processorMemory.includes(generation));
+    });
+    if (incompatible.length) return { title: "Processor ↔ RAM", level: "bad", text: `${incompatible.length} selected RAM stick(s) may not match the processor's supported memory generation.` };
+    return { title: "Processor ↔ RAM", level: "ok", text: `All selected RAM sticks match the processor's supported memory generation (${processorMemory.join(" / ")}).` };
 }
-
 
 /* ============================================================
    CHECK PROCESSOR ↔ COOLING
@@ -1485,48 +1593,23 @@ function checkProcessorCooling() {
    ============================================================ */
 
 function checkMotherboardRAM() {
-
     const motherboard = build.motherboard;
-    const ram = build.ram;
+    const ramProducts = Array.isArray(build.ram) ? build.ram : build.ram ? [build.ram] : [];
+    if (!motherboard || !ramProducts.length) return null;
 
-    if (!motherboard || !ram) {
-        return null;
-    }
+    const motherboardCompatibility = motherboard.Compatibility || {};
+    const motherboardMemory = getMemoryGenerations(motherboardCompatibility);
+    if (!motherboardMemory.length) return { title: "Motherboard ↔ RAM", level: "warn", text: "Motherboard memory compatibility information is unavailable." };
 
-    const motherboardCompatibility = getCompatibility("motherboard");
-    const ramCompatibility = getCompatibility("ram");
-
-    const motherboardMemory = getMemoryGenerations(
-        motherboardCompatibility
-    );
-
-    const ramMemory = getRAMMemoryGenerations(
-        ramCompatibility
-    );
-
-    if (!motherboardMemory.length || !ramMemory.length) {
-        return {
-            title: "Motherboard ↔ RAM",
-            level: "warn",
-            text: "Memory compatibility information is unavailable."
-        };
-    }
-
-    const overlap = motherboardMemory.filter(
-        generation => ramMemory.includes(generation)
-    );
-
-    const compatible = overlap.length > 0;
-
-    return {
-        title: "Motherboard ↔ RAM",
-        level: compatible ? "ok" : "bad",
-        text: compatible
-            ? `Motherboard supports ${motherboardMemory.join(" / ")} and RAM is ${ramMemory.join(" / ")}.`
-            : `Motherboard supports ${motherboardMemory.join(" / ")}, but RAM is ${ramMemory.join(" / ")}.`
-    };
+    const incompatible = ramProducts.filter(product => {
+        const generations = getRAMMemoryGenerations(product.Compatibility || {});
+        return !generations.length || !generations.some(generation => motherboardMemory.includes(generation));
+    });
+    const slotLimit = getRAMStickLimit();
+    if (ramProducts.length > slotLimit) return { title: "Motherboard ↔ RAM", level: "bad", text: `You selected ${ramProducts.length} RAM sticks, but this build allows ${slotLimit} based on the available motherboard slot information.` };
+    if (incompatible.length) return { title: "Motherboard ↔ RAM", level: "bad", text: `${incompatible.length} selected RAM stick(s) do not match the motherboard's supported memory generation.` };
+    return { title: "Motherboard ↔ RAM", level: "ok", text: `All ${ramProducts.length} selected RAM stick(s) match the motherboard's supported memory generation (${motherboardMemory.join(" / ")}).` };
 }
-
 
 /* ============================================================
    CHECK MOTHERBOARD ↔ CASE
@@ -2095,6 +2178,13 @@ function openModal(
     currentType = type;
 
     brand = "All";
+    accessoryCategory = "All";
+
+    const modalTools = document.querySelector(".modal-tools");
+    if (modalTools) {
+        modalTools.classList.toggle("accessory-mode", type === "accessory");
+        modalTools.classList.remove("compatibility-mode");
+    }
 
 
     const modal =
@@ -2240,29 +2330,29 @@ function getModalCompatibilityContext() {
 }
 
 
-
 function renderCompatibilityFilterNote(message) {
+    const modalTools = document.querySelector(".modal-tools");
     const filters = document.getElementById("filters");
-    const list = document.getElementById("list");
-
-    if (!filters || !list) return;
+    if (!modalTools || !filters) return;
 
     let note = document.getElementById("compatibility-filter-note");
-
     if (!note) {
         note = document.createElement("div");
         note.id = "compatibility-filter-note";
-        note.className = "compatibility-filter-note";
         note.setAttribute("role", "status");
+        note.className = "compatibility-filter-note";
+    }
 
-        // Position the note below the search and filter controls.
-        list.parentNode.insertBefore(note, list);
+    // Keep the note inside the toolbar so CSS can place it on its own row,
+    // directly beneath the search field and above the brand filters.
+    if (note.parentElement !== modalTools) {
+        modalTools.insertBefore(note, filters);
     }
 
     note.textContent = message;
     note.hidden = !message;
+    modalTools.classList.toggle("compatibility-mode", Boolean(message) && ["processor", "motherboard"].includes(currentType));
 }
-
 
 
 /* ============================================================
@@ -2270,111 +2360,59 @@ function renderCompatibilityFilterNote(message) {
    ============================================================ */
 
 function renderFilters() {
-
-    const filters =
-        document.getElementById(
-            "filters"
-        );
-
-
-    if (!filters) {
-
-        return;
-    }
-
+    const filters = document.getElementById("filters");
+    if (!filters) return;
 
     const modalContext = getModalCompatibilityContext();
     const availableProducts = modalContext.products;
-
     renderCompatibilityFilterNote(modalContext.message);
 
-    // Only offer brand filters that have products in the compatible list.
-    const brands = [
-        "All",
-        ...new Set(
-            availableProducts
-                .map(product => String(product.Brand || "").trim())
-                .filter(Boolean)
-        )
-    ];
+    if (currentType === "accessory") {
+        const categories = ["All", ...new Set(availableProducts
+            .map(product => String(product.Category || "Other").trim())
+            .filter(Boolean)
+            .sort((a, b) => a.localeCompare(b)))];
+        if (!categories.includes(accessoryCategory)) accessoryCategory = "All";
 
-    if (!brands.includes(brand)) {
-        brand = "All";
+        const categoryProducts = accessoryCategory === "All" ? availableProducts : availableProducts.filter(product => String(product.Category || "Other").trim() === accessoryCategory);
+        const brands = ["All", ...new Set(categoryProducts.map(product => String(product.Brand || "").trim()).filter(Boolean).sort((a, b) => a.localeCompare(b)))];
+        if (!brands.includes(brand)) brand = "All";
+
+        filters.innerHTML = `
+            <div class="filter-group accessory-category-filters">
+                <div class="filter-group-label">Categories</div>
+                <div class="filter-chip-row">${categories.map(name => { const shortName = name === "All" ? "All" : name.split(">").pop().trim(); return `<button type="button" class="chip ${name === accessoryCategory ? "active" : ""}" data-filter-kind="category" data-value="${escapeHTML(name)}" title="${escapeHTML(name)}">${escapeHTML(shortName)}</button>`; }).join("")}</div>
+            </div>
+            <div class="filter-group accessory-brand-filters">
+                <div class="filter-group-label">Brands</div>
+                <div class="filter-chip-row">${brands.map(name => `<button type="button" class="chip ${name === brand ? "active" : ""}" data-filter-kind="brand" data-value="${escapeHTML(name)}">${escapeHTML(name)}</button>`).join("")}</div>
+            </div>`;
+
+        filters.querySelectorAll(".chip").forEach(button => button.addEventListener("click", () => {
+            if (button.dataset.filterKind === "category") {
+                accessoryCategory = button.dataset.value;
+                brand = "All";
+                renderFilters();
+            } else {
+                brand = button.dataset.value;
+                renderFilters();
+            }
+            renderList();
+        }));
+        return;
     }
 
-
-    filters.innerHTML =
-        brands
-            .map(
-                brandName => `
-
-                    <button
-                        type="button"
-                        class="chip ${
-                            brandName === brand
-                                ? "active"
-                                : ""
-                        }"
-                        data-brand="${escapeHTML(
-                            brandName
-                        )}"
-                    >
-
-                        ${
-                            escapeHTML(
-                                brandName
-                            )
-                        }
-
-                    </button>
-
-                `
-            )
-            .join("");
-
-
-    filters
-        .querySelectorAll(
-            ".chip"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        brand =
-                            button.dataset.brand;
-
-
-                        filters
-                            .querySelectorAll(
-                                ".chip"
-                            )
-                            .forEach(
-                                chip => {
-
-                                    chip.classList.toggle(
-                                        "active",
-                                        chip.dataset.brand ===
-                                            brand
-                                    );
-
-                                }
-                            );
-
-
-                        renderList();
-
-                    }
-                );
-
-            }
-        );
-
+    const brands = ["All", ...new Set(availableProducts.map(product => String(product.Brand || "").trim()).filter(Boolean))];
+    if (!brands.includes(brand)) brand = "All";
+    filters.innerHTML = brands.map(brandName => `
+        <button type="button" class="chip ${brandName === brand ? "active" : ""}" data-brand="${escapeHTML(brandName)}">${escapeHTML(brandName)}</button>
+    `).join("");
+    filters.querySelectorAll(".chip").forEach(button => button.addEventListener("click", () => {
+        brand = button.dataset.brand;
+        renderFilters();
+        renderList();
+    }));
 }
-
 
 /* ============================================================
    PRODUCT LIST
@@ -2419,10 +2457,8 @@ function renderList() {
 
                     const matchesBrand =
                         brand === "All" ||
-                        String(
-                            product.Brand || ""
-                        ).trim() === brand;
-
+                        String(product.Brand || "").trim() === brand;
+                    const matchesAccessoryCategory = currentType !== "accessory" || accessoryCategory === "All" || String(product.Category || "Other").trim() === accessoryCategory;
 
                     const productName =
                         String(
@@ -2442,6 +2478,7 @@ function renderList() {
 
                     return (
                         matchesBrand &&
+                        matchesAccessoryCategory &&
                         (
                             productName.includes(
                                 query
@@ -2668,9 +2705,22 @@ function selectProduct(
     }
 
 
-    build[currentType] =
-        product;
-
+    if (currentType === "ram") {
+        const selectedRAM = Array.isArray(build.ram) ? [...build.ram] : build.ram ? [build.ram] : [];
+        const limit = getRAMStickLimit();
+        if (selectedRAM.length >= limit) {
+            alert(`You can select up to ${limit} RAM stick(s) for this motherboard/build.`);
+            return;
+        }
+        selectedRAM.push(product);
+        build.ram = selectedRAM;
+    } else if (["storage", "accessory"].includes(currentType)) {
+        const selected = Array.isArray(build[currentType]) ? [...build[currentType]] : build[currentType] ? [build[currentType]] : [];
+        selected.push(product);
+        build[currentType] = selected;
+    } else {
+        build[currentType] = product;
+    }
 
     closeModal();
 
@@ -2709,15 +2759,20 @@ function buildWhatsAppMessage(
             : "Hi GB Tech! I would like to share my PC build quotation.";
 
 
+    const ramGroups = new Map();
+    selected.filter(([type]) => type === "ram").forEach(([, product]) => {
+        const id = String(product["Product ID"] ?? product["Product Name"]);
+        if (!ramGroups.has(id)) ramGroups.set(id, { product, quantity: 0 });
+        ramGroups.get(id).quantity += 1;
+    });
+
+    const nonRAM = selected.filter(([type]) => type !== "ram");
     const componentLines =
-        selected
-            .map(
-                (
-                    [
-                        componentType,
-                        product
-                    ]
-                ) => {
+        [
+            ...nonRAM.map(([componentType, product]) => ({ componentType, product, quantity: 1 })),
+            ...Array.from(ramGroups.values()).map(({ product, quantity }) => ({ componentType: "ram", product, quantity }))
+        ]
+            .map(({ componentType, product, quantity }) => {
 
                     const category =
                         String(
@@ -2743,10 +2798,10 @@ function buildWhatsAppMessage(
                         )}`;
 
 
-                    return `• ${category}: ${name} — ${price}`;
-
-                }
-            )
+                    const quantityText = quantity > 1 ? ` × ${quantity} sticks` : "";
+                    const lineTotal = `PKR ${money(safePrice(product) * quantity)}`;
+                    return `• ${category}: ${name}${quantityText} — ${lineTotal}`;
+            })
             .join("\n");
 
 

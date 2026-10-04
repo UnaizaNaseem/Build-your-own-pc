@@ -1,46 +1,35 @@
 /* ============================================================
    GB TECH — BUILD YOUR OWN PC
    MASTER STYLESHEET
-   ============================================================ */
-
+   \============================================================ */
 :root {
   --page-bg: #02060b;
   --card: #111317;
   --card-soft: #0d1117;
   --card-hover: #151a21;
-
   --gold: #ffd86d;
   --gold-soft: rgba(255, 210, 100, .55);
   --gold-faint: rgba(255, 210, 100, .14);
-
   --blue: #3d7bff;
   --blue-soft: rgba(61, 123, 255, .13);
-
   --white: #ffffff;
   --text: #f1f3f7;
   --muted: #a5adba;
   --line: rgba(255, 255, 255, .09);
-
   --green: #55d68b;
   --red: #ff647c;
   --whatsapp: #25d366;
-
   --shadow: 0 10px 30px rgba(0, 0, 0, .42);
 }
-
-
 /* ============================================================
    GLOBAL RESET
-   ============================================================ */
-
+   \============================================================ */
 *, *::before, *::after {
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
 }
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -56,55 +45,44 @@ body {
     sans-serif;
   position: relative;
 }
-
 button,
 input {
   font: inherit;
 }
-
 button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
-
-
 /* ============================================================
    BACKGROUNDS & AMBIENT EFFECTS
-   ============================================================ */
-
+   \============================================================ */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-
   background-image:
     linear-gradient(
       rgba(2, 6, 11, .35),
       rgba(2, 6, 11, .72)
     ),
     url("media/GB TECH | tech lines.png");
-
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
   opacity: .62;
-
   filter:
     brightness(1.2)
     contrast(1.12)
     saturate(1.05);
 }
-
 body::after {
   content: "";
   position: fixed;
   inset: -20%;
   z-index: -1;
   pointer-events: none;
-
   background:
     radial-gradient(
       circle at 18% 28%,
@@ -116,32 +94,25 @@ body::after {
       rgba(255, 216, 109, .055),
       transparent 20%
     );
-
   animation: gbAmbient 12s ease-in-out infinite alternate;
 }
-
 @keyframes gbAmbient {
   0% {
     transform: translate3d(-1%, -1%, 0) scale(1);
     opacity: .65;
   }
-
   100% {
     transform: translate3d(1%, 1%, 0) scale(1.04);
     opacity: 1;
   }
 }
-
-
 /* ============================================================
    CONTAINER & HEADER
-   ============================================================ */
-
+   \============================================================ */
 .container {
   width: min(1450px, 94%);
   margin: 0 auto;
 }
-
 .top {
   width: 100%;
   background: #111317;
@@ -149,394 +120,289 @@ body::after {
   position: relative;
   overflow: hidden;
 }
-
 .header-container {
   width: min(1250px, 92%);
   min-height: 220px;
   margin: 0 auto;
-
   display: flex;
   align-items: center;
-
   gap: 55px;
   padding: 35px 0;
 }
-
 .header-logo {
   flex: 0 0 230px;
   width: 230px;
   max-width: 230px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .gb-tech-logo {
   display: block;
   width: 100%;
   max-width: 230px;
   height: auto;
-
   object-fit: contain;
   flex-shrink: 0;
 }
-
 .header-content {
   flex: 1 1 auto;
   min-width: 0;
   text-align: left;
 }
-
 .brand {
   margin: 0 0 9px;
-
   color: var(--gold);
-
   font-size: 12px;
   font-weight: 750;
   letter-spacing: 2.5px;
 }
-
 .title {
   margin: 0 0 14px;
-
   color: var(--white);
-
   font-size: clamp(36px, 4vw, 56px);
   line-height: 1.05;
   font-weight: 750;
   letter-spacing: -.8px;
-
   text-shadow: 0 2px 8px rgba(0, 0, 0, .9);
-
   animation:
     gbTitleIn .8s cubic-bezier(.2, .75, .25, 1) both;
 }
-
 .subtitle {
   max-width: 760px;
   margin: 0;
-
   color: #c3cad5;
-
   font-size: 16px;
   line-height: 1.6;
-
   text-shadow: 0 1px 4px rgba(0, 0, 0, .9);
-
   animation:
     gbSubtitleIn .9s .08s cubic-bezier(.2, .75, .25, 1) both;
 }
-
 @keyframes gbTitleIn {
   from {
     opacity: 0;
     transform: translateY(10px);
     filter: blur(4px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
   }
 }
-
 @keyframes gbSubtitleIn {
   from {
     opacity: 0;
     transform: translateY(8px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-
 /* ============================================================
    LAYOUT & PANELS
-   ============================================================ */
-
+   \============================================================ */
 .toolbar {
   padding: 28px 0 0;
 }
-
 .build-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 390px;
-
   gap: 24px;
   align-items: start;
-
   padding: 24px 0 70px;
 }
-
 .builder-panel,
 .summary-panel {
   position: relative;
   overflow: hidden;
-
   background: rgba(17, 19, 24, .94);
-
   border: 1px solid var(--line);
   border-radius: 14px;
-
   box-shadow: var(--shadow);
-
   transition:
     border-color .35s ease,
     box-shadow .35s ease,
     transform .35s ease;
 }
-
 .builder-panel:hover,
 .summary-panel:hover {
   border-color: rgba(61, 123, 255, .20);
-
   box-shadow:
     0 18px 55px rgba(0, 0, 0, .48),
     0 0 0 1px rgba(61, 123, 255, .035),
     0 0 35px rgba(61, 123, 255, .045);
 }
-
 .builder-panel::before,
 .summary-panel::before {
   content: "";
   position: absolute;
   inset: 0;
-
   z-index: 0;
   pointer-events: none;
-
   background-image:
     linear-gradient(
       rgba(17, 19, 24, .88),
       rgba(17, 19, 24, .96)
     ),
     url("media/GB TECH | tech lines.png");
-
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
   opacity: .35;
 }
-
 .builder-panel > *,
 .summary-panel > * {
   position: relative;
   z-index: 1;
 }
-
 .builder-panel {
   padding: 24px;
 }
-
 .summary-panel {
   padding: 0 0 24px;
   position: sticky;
   top: 20px;
 }
-
-
 /* ============================================================
    PANEL HEADINGS
-   ============================================================ */
-
+   \============================================================ */
 .panel-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 15px;
-
   padding: 22px 24px;
-
   border-bottom: 1px solid var(--line);
 }
-
 .summary-heading {
   padding-left: 24px;
   padding-right: 24px;
 }
-
 .panel-heading h2 {
   margin: 4px 0 0;
-
   color: var(--white);
-
   font-size: 22px;
   line-height: 1.2;
 }
-
 .panel-kicker {
   display: block;
-
   color: var(--gold);
-
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
 }
-
 .live-badge {
   flex-shrink: 0;
-
   padding: 6px 10px;
-
   border: 1px solid rgba(85, 214, 139, .35);
   border-radius: 5px;
-
   background: rgba(85, 214, 139, .08);
-
   color: var(--green);
-
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1px;
 }
-
 .summary-label {
   color: var(--muted);
-
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
 }
-
-
 /* ============================================================
    BUILDER LIST
-   ============================================================ */
-
+   \============================================================ */
 .builder-list {
   padding: 0 24px 20px;
 }
-
 .step {
   padding: 20px 4px;
-
   border-bottom: 1px solid var(--line);
-
   animation:
     gbStepIn .55s cubic-bezier(.2, .75, .25, 1) both;
 }
-
 .step:last-child {
   border-bottom: 0;
 }
-
 .step:nth-child(2) {
   animation-delay: .04s;
 }
-
 .step:nth-child(3) {
   animation-delay: .08s;
 }
-
 .step:nth-child(4) {
   animation-delay: .12s;
 }
-
 .step:nth-child(5) {
   animation-delay: .16s;
 }
-
 .step:nth-child(6) {
   animation-delay: .20s;
 }
-
 .step:nth-child(7) {
   animation-delay: .24s;
 }
-
 @keyframes gbStepIn {
   from {
     opacity: 0;
     transform: translateY(8px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 .stephead {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 12px;
   margin-bottom: 13px;
 }
-
 .stepname {
   color: var(--white);
-
   font-size: 17px;
   font-weight: 750;
 }
-
 .selected {
   color: var(--blue);
-
   font-size: 11px;
   font-weight: 700;
 }
-
-
 /* ============================================================
    PRODUCT CARDS
-   ============================================================ */
-
+   \============================================================ */
 .product,
 .choice {
   position: relative;
   overflow: hidden;
-
   display: grid;
-
   grid-template-columns:
     70px
     minmax(0, 1fr)
     auto;
-
   align-items: center;
-
   gap: 15px;
-
   padding: 12px;
-
   border-radius: 9px;
 }
-
 .product {
   isolation: isolate;
-
   background: rgba(13, 17, 23, .82);
-
   border: 1px solid rgba(255, 255, 255, .07);
-
   transition:
     transform .28s cubic-bezier(.2, .75, .25, 1),
     border-color .28s ease,
-    background .28s ease,
+*background* .28s ease,
     box-shadow .28s ease;
 }
-
 .product::before {
   content: "";
-
   position: absolute;
   inset: 0;
-
   z-index: -1;
   pointer-events: none;
-
   background:
     linear-gradient(
       115deg,
@@ -545,517 +411,339 @@ body::after {
       rgba(255, 216, 109, .055) 52%,
       transparent 78%
     );
-
   transform: translateX(-110%);
-
   transition: transform .65s ease;
 }
-
 .product:hover {
   background: rgba(21, 26, 33, .95);
-
   border-color: rgba(61, 123, 255, .35);
-
   transform: translateY(-2px);
-
   box-shadow:
     0 10px 28px rgba(0, 0, 0, .28),
     0 0 22px rgba(61, 123, 255, .06);
 }
-
 .product:hover::before {
   transform: translateX(110%);
 }
-
 .product img,
 .choice img {
   display: block;
-
   width: 70px;
   height: 70px;
-
   object-fit: contain;
-
   border-radius: 6px;
-
   background: #fff;
 }
-
 .product img {
   transition:
     transform .35s ease,
     filter .35s ease;
 }
-
 .product:hover img {
   transform: scale(1.035);
-
   filter:
     drop-shadow(0 0 8px rgba(61, 123, 255, .12));
 }
-
 .product-info {
   min-width: 0;
 }
-
 .pname {
   color: var(--white);
-
   font-size: 15px;
   font-weight: 650;
   line-height: 1.4;
 }
-
 .meta {
   margin-top: 3px;
-
   color: var(--muted);
-
   font-size: 12px;
   line-height: 1.4;
 }
-
 .price {
   margin-top: 4px;
-
   color: var(--gold);
-
   font-size: 14px;
   font-weight: 750;
 }
-
 .product-actions {
   display: flex;
-
   align-items: center;
   justify-content: flex-end;
-
   gap: 10px;
-
   flex-wrap: nowrap;
 }
-
 .product-actions > strong {
   color: var(--gold);
-
   font-size: 13px;
-
   white-space: nowrap;
 }
-
-
 /* ============================================================
    BUTTONS
-   ============================================================ */
-
+   \============================================================ */
 .btn,
 .learn-more-btn,
 .pdf-download-btn,
 .whatsapp-action-btn,
 .whatsapp-help-btn {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
-
   font-weight: 750;
   text-decoration: none;
-
   transition:
-    background .2s ease,
+*background* .2s ease,
     border-color .2s ease,
     transform .2s ease,
     box-shadow .25s ease;
 }
-
 .btn,
 .learn-more-btn {
   min-height: 40px;
-
   padding: 9px 14px;
-
   border: 1px solid var(--gold-soft);
   border-radius: 7px;
-
   background: rgba(17, 19, 24, .9);
-
   color: var(--white);
-
   font-size: 12px;
-
   white-space: nowrap;
 }
-
 .btn:hover,
 .learn-more-btn:hover {
   background: rgba(255, 216, 109, .09);
-
   border-color: var(--gold);
-
   color: var(--white);
-
   transform: translateY(-1px);
 }
-
 .pdf-download-btn {
   width: 100%;
-
   min-height: 50px;
-
   padding: 12px 18px;
-
   gap: 9px;
-
   border: 1px solid var(--gold-soft);
   border-radius: 8px;
-
   background: rgba(17, 19, 24, .88);
-
   color: var(--white);
 }
-
 .pdf-download-btn:hover {
   background: rgba(255, 216, 109, .09);
-
   border-color: var(--gold);
-
   transform: translateY(-1px);
-
   box-shadow:
     0 8px 25px rgba(0, 0, 0, .25),
     0 0 18px rgba(255, 216, 109, .05);
 }
-
 .download-icon {
   font-size: 18px;
   line-height: 1;
 }
-
 .add-product-btn {
   border-color: rgba(61, 123, 255, .65);
   background: rgba(61, 123, 255, .08);
 }
-
 .add-product-btn:hover {
   border-color: var(--blue);
-
   background: rgba(61, 123, 255, .16);
-
   box-shadow:
     0 0 22px rgba(61, 123, 255, .10);
 }
-
-
 /* ============================================================
    REMOVE PRODUCT — SUBTLE INLINE CROSS
-   ============================================================ */
-
+   \============================================================ */
 .remove-product-btn {
   position: relative;
-
   width: 22px;
   height: 22px;
-
   min-width: 22px;
   min-height: 22px;
-
   flex: 0 0 22px;
-
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
   padding: 0;
   margin: 0;
-
   border: 1px solid rgba(255, 255, 255, .16);
   border-radius: 50%;
-
   background: rgba(17, 19, 23, .45);
-
   color: rgba(255, 255, 255, .48);
-
   cursor: pointer;
-
   font-size: 0;
   line-height: 1;
-
   box-shadow: none;
-
   transform: none;
-
   transition:
     color .18s ease,
     border-color .18s ease,
-    background .18s ease,
+*background* .18s ease,
     transform .18s ease;
 }
-
 .remove-product-btn::before {
   content: "×";
-
   position: absolute;
-
   left: 50%;
   top: 50%;
-
   display: block;
-
   transform:
     translate(-50%, -52%);
-
   color: currentColor;
-
   font-size: 14px;
   font-weight: 400;
-
   line-height: 1;
-
   pointer-events: none;
 }
-
 .remove-product-btn:hover {
   color: rgba(255, 255, 255, .85);
-
   border-color: rgba(255, 216, 109, .45);
-
   background: rgba(255, 216, 109, .06);
-
   transform: scale(1.06);
 }
-
 .remove-product-btn:active {
   transform: scale(.92);
 }
-
-
 /* ============================================================
    BUILD STATUS
-   ============================================================ */
-
+   \============================================================ */
 /* Status wrapper / actual status box */
 #status,
 #status.status {
   position: relative;
-
   display: flex;
-
   width: auto;
-
   min-height: 40px;
-
   margin: 18px 24px 18px;
-
   padding: 9px 15px;
-
   align-items: center;
   justify-content: flex-start;
-
   gap: 8px;
-
   border-radius: 8px;
-
   font-size: 13px;
   font-weight: 650;
-
   line-height: 1.25;
-
   text-align: left;
-
   overflow: hidden;
-
   box-sizing: border-box;
-
   transition:
-    background .25s ease,
+*background* .25s ease,
     border-color .25s ease,
     color .25s ease,
     box-shadow .25s ease;
 }
-
-
 /* ------------------------------------------------------------
    STATUS ICON
    ------------------------------------------------------------ */
-
 #status.status.ok::before,
 #status .status.ok::before {
   content: "✓";
-
   position: relative;
-
   display: inline-flex;
-
   width: 17px;
   height: 17px;
-
   flex: 0 0 17px;
-
   align-items: center;
   justify-content: center;
-
   border: 1px solid rgba(85, 214, 139, .38);
-
   border-radius: 50%;
-
   background: rgba(85, 214, 139, .10);
-
   color: #55d68b;
-
   font-size: 10px;
   font-weight: 800;
-
   line-height: 1;
 }
-
-
 /* ------------------------------------------------------------
    PASS / OK
    ------------------------------------------------------------ */
-
 #status.status.ok,
 #status .status.ok {
   color: #55d68b;
-
   background:
     rgba(85, 214, 139, .065);
-
   border:
     1px solid rgba(85, 214, 139, .25);
-
   box-shadow:
     0 0 0 1px rgba(85, 214, 139, .015),
     0 0 18px rgba(85, 214, 139, .025);
 }
-
 #status.status.idle,
 #status .status.idle {
   color: var(--muted);
-
   background:
     rgba(165, 173, 186, .055);
-
   border:
     1px solid rgba(165, 173, 186, .18);
-
   box-shadow: none;
 }
 /* ------------------------------------------------------------
    WARNING
    ------------------------------------------------------------ */
-
 #status.status.warn,
 #status .status.warn {
   color: var(--gold);
-
   background:
     rgba(255, 216, 109, .065);
-
   border:
     1px solid rgba(255, 216, 109, .25);
-
   box-shadow:
     0 0 18px rgba(255, 216, 109, .025);
 }
-
 #status.status.warn::before,
 #status .status.warn::before {
   content: "!";
-
   position: relative;
-
   display: inline-flex;
-
   width: 17px;
   height: 17px;
-
   flex: 0 0 17px;
-
   align-items: center;
   justify-content: center;
-
   border: 1px solid rgba(255, 216, 109, .35);
-
   border-radius: 50%;
-
   background: rgba(255, 216, 109, .08);
-
   color: var(--gold);
-
   font-size: 10px;
   font-weight: 800;
 }
-
-
 /* ------------------------------------------------------------
    ERROR / BAD
    ------------------------------------------------------------ */
-
 #status.status.bad,
 #status .status.bad {
   color: var(--red);
-
   background:
     rgba(255, 100, 124, .065);
-
   border:
     1px solid rgba(255, 100, 124, .25);
-
   box-shadow:
     0 0 18px rgba(255, 100, 124, .025);
 }
-
 #status.status.bad::before,
 #status .status.bad::before {
   content: "×";
-
   position: relative;
-
   display: inline-flex;
-
   width: 17px;
   height: 17px;
-
   flex: 0 0 17px;
-
   align-items: center;
   justify-content: center;
-
   border: 1px solid rgba(255, 100, 124, .35);
-
   border-radius: 50%;
-
   background: rgba(255, 100, 124, .08);
-
   color: var(--red);
-
   font-size: 11px;
   font-weight: 700;
 }
-
-
 /* ------------------------------------------------------------
    STATUS SWEEP
    ------------------------------------------------------------ */
-
 #status.status::after,
 #status .status::after {
   content: "";
-
   position: absolute;
-
   top: 0;
   bottom: 0;
-
   left: -120%;
-
   width: 60%;
-
   pointer-events: none;
-
   background:
     linear-gradient(
       90deg,
@@ -1063,30 +751,23 @@ body::after {
       rgba(255, 255, 255, .035),
       transparent
     );
-
   transform: skewX(-20deg);
-
   animation:
     gbStatusSweep 5s ease-in-out infinite;
 }
-
 @keyframes gbStatusSweep {
   0%,
   68% {
     left: -120%;
   }
-
   85%,
   100% {
     left: 140%;
   }
 }
-
-
 /* ============================================================
    LIGHT SWEEP EFFECT
-   ============================================================ */
-
+   \============================================================ */
 .btn,
 .pdf-download-btn,
 .whatsapp-help-btn,
@@ -1095,22 +776,16 @@ body::after {
   position: relative;
   overflow: hidden;
 }
-
 .btn::after,
 .pdf-download-btn::after,
 .whatsapp-help-btn::after {
   content: "";
-
   position: absolute;
-
   top: 0;
   left: -120%;
-
   width: 70%;
   height: 100%;
-
   transform: skewX(-20deg);
-
   background:
     linear-gradient(
       90deg,
@@ -1118,653 +793,438 @@ body::after {
       rgba(255, 255, 255, .08),
       transparent
     );
-
   transition: left .55s ease;
-
   pointer-events: none;
 }
-
 .btn:hover::after,
 .pdf-download-btn:hover::after,
 .whatsapp-help-btn:hover::after {
   left: 140%;
 }
-
-
 /* ============================================================
    SUMMARY & TOTAL
-   ============================================================ */
-
+   \============================================================ */
 .total {
   padding: 28px 24px 18px;
-
   color: var(--gold);
-
   font-size: 34px;
   font-weight: 800;
   line-height: 1;
-
   text-shadow:
     0 0 22px rgba(255, 216, 109, .08);
-
   transition: transform .3s ease;
 }
-
 .total.gb-total-updated {
   animation:
     gbTotalPulse .45s cubic-bezier(.2, .75, .25, 1);
 }
-
 @keyframes gbTotalPulse {
   0% {
     transform: scale(1);
     text-shadow: 0 0 0 rgba(255, 216, 109, 0);
   }
-
   45% {
     transform: scale(1.035);
     text-shadow: 0 0 24px rgba(255, 216, 109, .24);
   }
-
   100% {
     transform: scale(1);
     text-shadow: 0 0 22px rgba(255, 216, 109, .08);
   }
 }
-
-
 /* ============================================================
    COMPATIBILITY
-   ============================================================ */
-
+   \============================================================ */
 #compat {
   padding: 0 24px;
-
   display: flex;
   flex-direction: column;
 }
-
 .compat {
   display: flex;
-
   align-items: flex-start;
-
   gap: 10px;
-
   padding: 12px 0;
-
   border-bottom: 1px solid var(--line);
-
   color: var(--muted);
-
   font-size: 12px;
   line-height: 1.5;
 }
-
 .compat:last-child {
   border-bottom: 0;
 }
-
 .compat b {
   color: var(--text);
   font-weight: 700;
 }
-
 .dot {
   width: 8px;
   height: 8px;
-
   min-width: 8px;
-
   margin-top: 5px;
-
   border-radius: 50%;
 }
-
 .compat.ok .dot {
   background: var(--green);
-
   animation:
     gbDotPulse 2.4s ease-in-out infinite;
 }
-
 .compat.bad .dot {
   background: var(--red);
 }
-
 .compat.warn .dot {
   background: var(--gold);
 }
-
 @keyframes gbDotPulse {
   0%,
   100% {
     box-shadow:
       0 0 0 0 rgba(85, 214, 139, .18);
   }
-
   50% {
     box-shadow:
       0 0 0 5px rgba(85, 214, 139, 0);
   }
 }
-
-
 /* ============================================================
    WHATSAPP
-   ============================================================ */
-
+   \============================================================ */
 .whatsapp-action-btn {
   width: calc(100% - 48px);
-
   margin: 20px 24px 0;
-
   min-height: 50px;
-
   padding: 12px 16px;
-
   gap: 10px;
-
   border:
     1px solid rgba(37, 211, 102, .48);
-
   border-radius: 9px;
-
   background:
     rgba(37, 211, 102, .08);
-
   color: #eafff1;
-
   font-size: 13px;
 }
-
 .whatsapp-action-btn:hover {
   background:
     rgba(37, 211, 102, .15);
-
   border-color:
     rgba(37, 211, 102, .8);
-
   transform: translateY(-1px);
 }
-
 .whatsapp-icon {
   width: 21px;
   height: 21px;
-
   flex: 0 0 auto;
-
   fill: currentColor;
 }
-
-
 /* ============================================================
    DISCLAIMER
-   ============================================================ */
-
+   \============================================================ */
 .compatibility-disclaimer {
   margin: 0 24px;
-
   padding: 16px 17px;
-
   background:
     rgba(2, 6, 11, .72);
-
   border:
     1px solid rgba(255, 216, 109, .18);
-
   border-radius: 9px;
-
   color: var(--muted);
-
   font-size: 11px;
   line-height: 1.6;
 }
-
 .compatibility-disclaimer strong {
   display: block;
-
   margin-bottom: 7px;
-
   color: var(--gold);
-
   font-size: 12px;
 }
-
 .compatibility-disclaimer p {
   margin: 0;
 }
-
-
 /* ============================================================
    HELP CARD
-   ============================================================ */
-
+   \============================================================ */
 .help-card {
   margin: 20px 24px 0;
-
   padding: 18px;
-
   background:
     linear-gradient(
       145deg,
       rgba(61, 123, 255, .08),
       rgba(17, 19, 24, .75)
     );
-
   border:
     1px solid rgba(61, 123, 255, .22);
-
   border-radius: 10px;
 }
-
 .help-kicker {
   display: block;
-
   margin-bottom: 7px;
-
   color: var(--blue);
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 1.6px;
 }
-
 .help-card h3 {
   margin: 0 0 7px;
-
   color: var(--white);
-
   font-size: 16px;
 }
-
 .help-card p {
   margin: 0 0 16px;
-
   color: var(--muted);
-
   font-size: 12px;
   line-height: 1.55;
 }
-
 .whatsapp-help-btn {
   width: 100%;
-
   min-height: 46px;
-
   padding: 10px 14px;
-
   gap: 9px;
-
   border:
     1px solid rgba(37, 211, 102, .45);
-
   border-radius: 8px;
-
   background:
     rgba(37, 211, 102, .07);
-
   color: #eafff1;
-
   font-size: 12px;
 }
-
 .whatsapp-help-btn:hover {
   background:
     rgba(37, 211, 102, .14);
-
   border-color:
     rgba(37, 211, 102, .75);
 }
-
-
 /* ============================================================
    LOADING / EMPTY STATES
-   ============================================================ */
-
+   \============================================================ */
 .loading {
   padding: 35px 10px;
-
   color: var(--muted);
-
   text-align: center;
-
   font-size: 13px;
 }
-
 .empty {
   padding: 40px 20px;
-
   color: var(--muted);
-
   text-align: center;
 }
-
-
 /* ============================================================
    MODAL
-   ============================================================ */
-
+   \============================================================ */
 .modal {
   position: fixed;
   inset: 0;
-
   z-index: 1000;
-
   display: none;
-
   align-items: center;
   justify-content: center;
-
   padding: 4vh 4%;
-
   background:
     rgba(0, 0, 0, .78);
-
   backdrop-filter: blur(6px);
 }
-
 .modal.open {
   display: flex;
-
   animation:
     gbModalFade .22s ease both;
 }
-
 .modal-box {
   width: min(1050px, 100%);
   height: 90vh;
-
   display: flex;
   flex-direction: column;
-
   overflow: hidden;
-
   background: #111317;
-
   border:
     1px solid var(--gold-soft);
-
   border-radius: 12px;
-
   box-shadow:
     0 20px 70px rgba(0, 0, 0, .7);
-
   animation:
     gbModalBox .32s cubic-bezier(.2, .75, .25, 1) both;
 }
-
 @keyframes gbModalFade {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
-
 @keyframes gbModalBox {
   from {
     opacity: 0;
     transform: translateY(12px) scale(.985);
   }
-
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
-
 .modal-header {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
-
   gap: 20px;
-
   padding: 20px 24px;
-
   border-bottom: 1px solid var(--line);
 }
-
 .modal-header h2 {
   margin: 4px 0 0;
-
   color: var(--white);
-
   font-size: 22px;
 }
-
 .close-btn {
   width: 38px;
   height: 38px;
-
   border:
     1px solid var(--line);
-
   border-radius: 7px;
-
   background: transparent;
-
   color: var(--white);
-
   cursor: pointer;
-
   font-size: 24px;
   line-height: 1;
-
   transition:
     border-color .2s ease,
     color .2s ease,
-    background .2s ease,
+*background* .2s ease,
     transform .2s ease;
 }
-
 .close-btn:hover {
   border-color: var(--gold-soft);
-
   background:
     rgba(255, 216, 109, .05);
-
   color: var(--gold);
-
   transform: rotate(90deg);
 }
-
 .modal-tools {
   display: flex;
-
   align-items: center;
-
   gap: 12px;
-
   padding: 16px 24px;
-
   border-bottom: 1px solid var(--line);
 }
-
 .search-input {
   flex: 1;
-
   width: 100%;
-
   min-height: 42px;
-
   padding: 10px 13px;
-
   background: #0d1117;
-
   border:
     1px solid rgba(255, 255, 255, .1);
-
   border-radius: 7px;
-
   color: var(--white);
-
   outline: none;
-
   transition:
     border-color .2s ease,
     box-shadow .2s ease;
 }
-
 .search-input:focus {
   border-color: var(--gold-soft);
-
   box-shadow:
     0 0 0 3px rgba(61, 123, 255, .08),
     0 0 20px rgba(61, 123, 255, .06);
 }
-
 .filters {
   display: flex;
-
   align-items: center;
-
   gap: 8px;
-
   flex-wrap: nowrap;
-
   overflow-x: auto;
-
   max-width: 45%;
-
   padding-bottom: 2px;
 }
-
 .chip {
   flex: 0 0 auto;
-
   min-height: 36px;
-
   padding: 8px 13px;
-
   border:
     1px solid rgba(255, 255, 255, .12);
-
   border-radius: 999px;
-
   background: transparent;
-
   color: var(--muted);
-
   cursor: pointer;
-
   font-size: 11px;
   font-weight: 700;
-
   white-space: nowrap;
-
   transition:
-    background .2s ease,
+*background* .2s ease,
     border-color .2s ease,
     color .2s ease;
 }
-
 .chip:hover {
   border-color:
     rgba(61, 123, 255, .55);
-
   color: var(--white);
 }
-
 .chip.active {
   border-color: var(--blue);
-
   background:
     rgba(61, 123, 255, .12);
-
   color: var(--white);
 }
-
 .product-list {
   flex: 1;
-
   overflow-y: auto;
-
   padding: 10px 24px 20px;
 }
-
 .choice {
   margin-bottom: 10px;
-
   background: #0d1117;
-
   border:
     1px solid rgba(255, 255, 255, .07);
-
   transition:
     transform .22s ease,
-    background .22s ease,
+*background* .22s ease,
     border-color .22s ease,
     box-shadow .22s ease;
-
   animation:
     gbChoiceIn .3s cubic-bezier(.2, .75, .25, 1) both;
 }
-
 .choice:hover {
   background: #151a21;
-
   border-color:
     rgba(255, 216, 109, .25);
-
   transform: translateX(2px);
-
   box-shadow:
     0 7px 20px rgba(0, 0, 0, .18);
 }
-
 @keyframes gbChoiceIn {
   from {
     opacity: 0;
     transform: translateY(5px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 .choice .pname {
   font-size: 14px;
 }
-
 .choice .meta {
   text-transform: uppercase;
 }
-
-
 /* ============================================================
    SCROLLBAR
-   ============================================================ */
-
+   \============================================================ */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: #080b0f;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #2b3038;
-
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #414852;
 }
-
 /* ============================================================
    RESPONSIVE OVERRIDES — PRODUCT / POPUP ACTION BUTTONS
-   ============================================================ */
-
+   \============================================================ */
 /* Prevent long product names, prices and action controls from
    forcing cards wider than their container. */
 .product,
@@ -1773,75 +1233,59 @@ body::after {
 .product-actions {
   min-width: 0;
 }
-
 .pname,
 .meta {
   overflow-wrap: anywhere;
 }
-
 /* Desktop/tablet: actions stay compact and on one line. */
 .product-actions {
   min-width: 0;
 }
-
 .product-actions .btn,
 .product-actions .learn-more-btn,
 .product-actions .add-product-btn {
   min-width: 0;
 }
-
 /* ============================================================
    TABLET
-   ============================================================ */
-
+   \============================================================ */
 @media (max-width: 1000px) {
   .build-layout {
     grid-template-columns: 1fr;
   }
-
   .summary-panel {
     position: relative;
     top: auto;
   }
-
   .modal-box {
     width: min(96vw, 1050px);
     height: 92vh;
   }
-
   .choice {
     grid-template-columns: 64px minmax(0, 1fr) auto;
   }
-
   .choice img {
     width: 64px;
     height: 64px;
   }
-
   .choice .product-actions {
     flex-wrap: wrap;
     max-width: 230px;
   }
-
   .choice .product-actions .btn,
   .choice .product-actions .learn-more-btn {
     white-space: normal;
     text-align: center;
   }
 }
-
 /* ============================================================
    MOBILE — 650PX AND BELOW
-   ============================================================ */
-
+   \============================================================ */
 @media (max-width: 650px) {
-
   /* ---------- Global ---------- */
-
   .container {
     width: 94%;
   }
-
   .header-container {
     width: 92%;
     min-height: auto;
@@ -1850,81 +1294,64 @@ body::after {
     gap: 20px;
     text-align: center;
   }
-
   .header-logo,
   .gb-tech-logo {
     flex: 0 0 auto;
     width: 150px;
     max-width: 150px;
   }
-
   .header-content {
     width: 100%;
     text-align: center;
   }
-
   .title {
     font-size: 32px;
     line-height: 1.08;
   }
-
   .subtitle {
     max-width: 100%;
     font-size: 14px;
   }
-
   .toolbar {
     padding-top: 18px;
   }
-
   .pdf-download-btn {
     min-height: 48px;
     padding: 11px 14px;
     font-size: 12px;
   }
-
   .build-layout {
     grid-template-columns: 1fr;
     gap: 18px;
     padding: 18px 0 45px;
   }
-
   .builder-panel,
   .summary-panel {
     border-radius: 11px;
   }
-
   .builder-panel {
     padding: 0;
   }
-
   .summary-panel {
     position: relative;
     top: auto;
   }
-
   /* ---------- Panel headings ---------- */
-
   .panel-heading {
     padding: 18px;
     gap: 10px;
   }
-
   .panel-heading h2 {
     font-size: 19px;
   }
-
   .summary-heading {
     padding-left: 18px;
     padding-right: 18px;
   }
-
   .builder-list {
     padding: 0 18px 15px;
   }
-
   /* ---------- Builder cards ---------- */
-
   .product {
     display: grid;
     grid-template-columns: 52px minmax(0, 1fr);
@@ -1932,17 +1359,14 @@ body::after {
     padding: 9px;
     align-items: center;
   }
-
   .product img {
     width: 52px;
     height: 52px;
   }
-
   .product .product-info {
     grid-column: 2;
     min-width: 0;
   }
-
   /* Put ALL action controls below the product information.
      This is the important fix for mobile responsiveness. */
   .product .product-actions {
@@ -1955,7 +1379,6 @@ body::after {
     gap: 7px;
     flex-wrap: wrap;
   }
-
   .product .product-actions .btn,
   .product .product-actions .learn-more-btn,
   .product .product-actions .add-product-btn {
@@ -1968,19 +1391,15 @@ body::after {
     text-align: center;
     line-height: 1.2;
   }
-
   .product .product-actions > strong {
     flex: 0 1 auto;
     align-self: center;
     min-width: max-content;
   }
-
   /* ---------- Popup product cards ---------- */
-
   .modal {
     padding: 2vh 2.5%;
   }
-
   .modal-box {
     width: 100%;
     max-width: none;
@@ -1988,36 +1407,29 @@ body::after {
     max-height: 96vh;
     border-radius: 10px;
   }
-
   .modal-header {
     padding: 17px;
     gap: 12px;
   }
-
   .modal-header > div {
     min-width: 0;
   }
-
   .modal-header h2 {
     font-size: 20px;
     overflow-wrap: anywhere;
   }
-
   .close-btn {
     flex: 0 0 38px;
   }
-
   .modal-tools {
     padding: 13px 17px;
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
-
   .search-input {
     min-height: 44px;
   }
-
   .filters {
     width: 100%;
     max-width: 100%;
@@ -2025,11 +1437,9 @@ body::after {
     scrollbar-width: thin;
     padding-bottom: 3px;
   }
-
   .product-list {
     padding: 15px 17px;
   }
-
   /* Popup choices use the same two-row layout:
      image + details on row one,
      Add/View controls on row two. */
@@ -2040,17 +1450,14 @@ body::after {
     padding: 10px;
     align-items: center;
   }
-
   .choice img {
     width: 52px;
     height: 52px;
   }
-
   .choice .product-info {
     grid-column: 2;
     min-width: 0;
   }
-
   .choice .product-actions {
     grid-column: 1 / -1;
     width: 100%;
@@ -2060,7 +1467,6 @@ body::after {
     gap: 7px;
     align-items: stretch;
   }
-
   /* Add Product + View Product become equal-width,
      touch-friendly buttons instead of overflowing. */
   .choice .product-actions .add-product-btn,
@@ -2076,7 +1482,6 @@ body::after {
     text-align: center;
     line-height: 1.2;
   }
-
   .choice .product-actions > strong {
     grid-column: 1 / -1;
     justify-self: start;
@@ -2084,24 +1489,19 @@ body::after {
     white-space: normal;
     overflow-wrap: anywhere;
   }
-
   /* ---------- Summary ---------- */
-
   .total {
     padding: 24px 18px 15px;
     font-size: 29px;
     overflow-wrap: anywhere;
   }
-
   #compat {
     padding-left: 18px;
     padding-right: 18px;
   }
-
   #status {
     margin: 16px 18px 18px;
   }
-
   #status.status,
   #status .status {
     min-height: 39px;
@@ -2110,23 +1510,19 @@ body::after {
     text-align: left;
     font-size: 12.5px;
   }
-
   .whatsapp-action-btn {
     width: calc(100% - 36px);
     margin-left: 18px;
     margin-right: 18px;
   }
-
   .compatibility-disclaimer,
   .help-card {
     margin-left: 18px;
     margin-right: 18px;
   }
-
   .help-card {
     padding: 16px;
   }
-
   .whatsapp-help-btn {
     min-height: 46px;
     padding: 10px 12px;
@@ -2134,86 +1530,67 @@ body::after {
     text-align: center;
   }
 }
-
 /* ============================================================
    SMALL MOBILE — 480PX AND BELOW
-   ============================================================ */
-
+   \============================================================ */
 @media (max-width: 480px) {
-
   .header-container {
     padding-top: 26px;
     padding-bottom: 28px;
   }
-
   .title {
     font-size: clamp(27px, 8vw, 31px);
   }
-
   .subtitle {
     font-size: 13px;
   }
-
   .panel-heading {
     padding: 15px;
   }
-
   .builder-list {
     padding-left: 15px;
     padding-right: 15px;
   }
-
   .step {
     padding: 17px 2px;
   }
-
   .stephead {
     align-items: flex-start;
   }
-
   .stepname {
     font-size: 15px;
   }
-
   .selected {
     font-size: 10px;
     text-align: right;
   }
-
   .product,
   .choice {
     grid-template-columns: 48px minmax(0, 1fr);
     gap: 9px;
   }
-
   .product img,
   .choice img {
     width: 48px;
     height: 48px;
   }
-
   .pname {
     font-size: 13px;
     line-height: 1.35;
   }
-
   .choice .pname {
     font-size: 13px;
   }
-
   .meta {
     font-size: 11px;
   }
-
   .price {
     font-size: 13px;
   }
-
   .product .product-actions,
   .choice .product-actions {
     gap: 6px;
   }
-
   .product .product-actions .btn,
   .product .product-actions .learn-more-btn,
   .product .product-actions .add-product-btn,
@@ -2224,11 +1601,9 @@ body::after {
     padding: 8px 7px;
     font-size: 11px;
   }
-
   .choice .product-actions {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-
   .remove-product-btn {
     width: 20px;
     height: 20px;
@@ -2236,119 +1611,94 @@ body::after {
     min-height: 20px;
     flex-basis: 20px;
   }
-
   .remove-product-btn::before {
     font-size: 13px;
   }
-
   .modal {
     padding: 1vh 1.5%;
   }
-
   .modal-box {
     height: 98vh;
     max-height: 98vh;
     border-radius: 9px;
   }
-
   .modal-header {
     padding: 14px;
   }
-
   .modal-header h2 {
     font-size: 18px;
   }
-
   .modal-tools {
     padding: 11px 14px;
   }
-
   .product-list {
     padding: 12px 14px;
   }
-
   .chip {
     min-height: 34px;
     padding: 7px 11px;
     font-size: 10px;
   }
-
   .close-btn {
     width: 36px;
     height: 36px;
     flex-basis: 36px;
     font-size: 22px;
   }
-
   .total {
     font-size: 27px;
   }
 }
-
 /* ============================================================
    VERY SMALL PHONES — 360PX AND BELOW
-   ============================================================ */
-
+   \============================================================ */
 @media (max-width: 360px) {
-
   .container {
     width: 95%;
   }
-
   .header-logo,
   .gb-tech-logo {
     width: 115px;
     max-width: 115px;
   }
-
   .title {
     font-size: 26px;
   }
-
   .subtitle {
     font-size: 12px;
   }
-
   .panel-heading {
     padding: 14px;
   }
-
   .builder-list {
     padding-left: 12px;
     padding-right: 12px;
   }
-
   .product,
   .choice {
     grid-template-columns: 44px minmax(0, 1fr);
     gap: 8px;
     padding: 8px;
   }
-
   .product img,
   .choice img {
     width: 44px;
     height: 44px;
   }
-
   .pname,
   .choice .pname {
     font-size: 12px;
   }
-
   .meta {
     font-size: 10px;
   }
-
   .price {
     font-size: 12px;
   }
-
   .product .product-actions,
   .choice .product-actions {
     gap: 5px;
   }
-
   .product .product-actions .btn,
   .product .product-actions .learn-more-btn,
   .product .product-actions .add-product-btn,
@@ -2359,34 +1709,27 @@ body::after {
     padding: 7px 5px;
     font-size: 10px;
   }
-
   .choice .product-actions {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-
   .modal-header {
     padding: 12px;
   }
-
   .modal-tools {
     padding: 10px 12px;
   }
-
   .product-list {
     padding: 10px 12px;
   }
 }
-
 /* ============================================================
    TOUCH DEVICES
-   ============================================================ */
-
+   \============================================================ */
 @media (hover: none) and (pointer: coarse) {
   .product:hover,
   .choice:hover {
     transform: none;
   }
-
   .btn,
   .learn-more-btn,
   .add-product-btn,
@@ -2395,39 +1738,29 @@ body::after {
   .close-btn {
     -webkit-tap-highlight-color: transparent;
   }
-
   .btn:active,
   .learn-more-btn:active,
   .add-product-btn:active {
     transform: scale(.98);
   }
 }
-
 /* ============================================================
    REDUCED MOTION
-   ============================================================ */
-
+   \============================================================ */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
     animation-duration: .01ms !important;
-
     animation-iteration-count: 1 !important;
-
     transition-duration: .01ms !important;
-
     scroll-behavior: auto !important;
   }
 }
-
 /* ============================================================
    MOBILE — KEEP CHANGE / VIEW / REMOVE ON ONE ROW
-   ============================================================ */
-
+   \============================================================ */
 @media (max-width: 650px) {
-
   .product .product-actions {
     display: flex !important;
     flex-wrap: nowrap !important;
@@ -2435,7 +1768,6 @@ body::after {
     gap: 8px !important;
     width: 100% !important;
   }
-
   /* Change + View Product share the available space */
   .product .product-actions .btn:not(.remove-product-btn),
   .product .product-actions .learn-more-btn:not(.remove-product-btn) {
@@ -2445,7 +1777,6 @@ body::after {
     max-width: none !important;
     white-space: nowrap !important;
   }
-
   /* Remove stays small and sits on the SAME ROW */
   .product .product-actions .remove-product-btn {
     flex: 0 0 28px !important;
@@ -2455,43 +1786,33 @@ body::after {
     max-width: 28px !important;
     min-height: 28px !important;
     max-height: 28px !important;
-
     padding: 0 !important;
     margin: 0 !important;
-
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-
     border-radius: 50% !important;
     font-size: 0 !important;
     line-height: 1 !important;
   }
-
   .product .product-actions .remove-product-btn::before {
     font-size: 15px !important;
     line-height: 1 !important;
   }
 }
-
-
 /* ============================================================
    VERY SMALL PHONES
-   ============================================================ */
-
+   \============================================================ */
 @media (max-width: 400px) {
-
   .product .product-actions {
     gap: 6px !important;
   }
-
   .product .product-actions .btn:not(.remove-product-btn),
   .product .product-actions .learn-more-btn:not(.remove-product-btn) {
     font-size: 11px !important;
     padding-left: 5px !important;
     padding-right: 5px !important;
   }
-
   .product .product-actions .remove-product-btn {
     flex-basis: 24px !important;
     width: 24px !important;
@@ -2501,15 +1822,10 @@ body::after {
     min-height: 24px !important;
     max-height: 24px !important;
   }
-
   .product .product-actions .remove-product-btn::before {
     font-size: 13px !important;
   }
 }
-
-
-
-
 .compatibility-filter-note {
     box-sizing: border-box;
     width: 100%;
@@ -2521,14 +1837,192 @@ body::after {
     color: var(--text);
     font-size: 13px;
     line-height: 1.5;
-
     /* Align with the search row's left and right edges */
     width: calc(100% - 48px);
     margin-left: 24px;
     margin-right: 24px;
     margin-top:10px;
 }
-
 .compatibility-filter-note[hidden] {
     display: none;
+}
+/* Add spacing above the Add RAM button */
+.add-product-btn[onclick="openModal('ram')"] {
+    margin-top: 10px;
+}
+/* GB Tech PC Builder: Internal Storage and Accessories UI additions.
+   Append this to the END of your existing styles.css. */
+.storage-selected-list,
+.accessory-selected-list {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.multi-selected-product {
+    grid-template-columns: 70px minmax(0, 1fr) auto;
+}
+.multi-selected-product .product-info {
+    min-width: 0;
+}
+.multi-selected-product .view-product-btn {
+    margin-top: 8px;
+    min-height: 32px;
+    padding: 6px 10px;
+    font-size: 11px;
+}
+.multi-quantity-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+.multi-quantity-actions > strong {
+    min-width: 20px;
+    text-align: center;
+    color: var(--gold);
+}
+.multi-quantity-actions .btn {
+    min-height: 34px;
+    padding: 6px 10px;
+}
+/* Accessories is intentionally the final, optional builder section. */
+.step:has(.accessory-selected-list) {
+    border-bottom: 0;
+}
+@media (max-width: 760px) {
+    .multi-selected-product {
+        grid-template-columns: 56px minmax(0, 1fr);
+        gap: 10px;
+    }
+    .multi-selected-product img {
+        width: 56px;
+        height: 56px;
+    }
+    .multi-selected-product .multi-quantity-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .multi-selected-product .product-info .pname {
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+}
+/* ==========================================================
+   RESPONSIVE MODAL + ACCESSORY FILTERS
+   One consolidated override replaces the previously appended patches.
+   ========================================================== */
+/* Keep quantity/remove controls from shrinking or losing their round shape. */
+.multi-quantity-actions { display: flex; align-items: center; justify-content: flex-end; gap: 7px; flex-wrap: nowrap; min-width: 0; }
+.multi-quantity-actions .remove-product-btn,
+.product-actions .remove-product-btn { flex: 0 0 34px; width: 34px; min-width: 34px; max-width: 34px; height: 34px; min-height: 34px; padding: 0; aspect-ratio: 1; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
+/* Accessory modal: inline search label, then compact horizontal filter rows. */
+.modal-tools.accessory-mode { display: grid !important; grid-template-columns: max-content minmax(0, 1fr); grid-template-areas: "search-label search-input" "filters filters"; align-items: center; gap: 12px 14px; }
+.modal-tools.accessory-mode > label[for="search"] { grid-area: search-label; position: static; width: auto; height: auto; margin: 0; padding: 0; overflow: visible; clip: auto; clip-path: none; white-space: nowrap; font-size: 16px; line-height: 1.3; }
+.modal-tools.accessory-mode > #search.search-input { grid-area: search-input; width: 100%; min-width: 0; margin: 0; }
+.modal-tools.accessory-mode > #filters { grid-area: filters; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; width: 100%; min-width: 0; max-width: 100%; }
+.modal-tools.accessory-mode .filter-group { min-width: 0; margin: 0; }
+.modal-tools.accessory-mode .filter-group-label { display: block; margin: 0 0 6px; color: var(--gold); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.modal-tools.accessory-mode .filter-chip-row,
+.modal-tools.accessory-mode .accessory-brand-filters .filter-chip-row { display: flex; flex-wrap: nowrap; gap: 7px; max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 0 0 4px; scrollbar-width: thin; }
+.modal-tools.accessory-mode .chip { flex: 0 0 auto; max-width: 100%; }
+.modal-tools.accessory-mode .filter-chip-row::-webkit-scrollbar { height: 5px; }
+.modal-tools.accessory-mode .filter-chip-row::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); border-radius: 99px; }
+.modal-box:has(.modal-tools.accessory-mode) .product-list { min-height: 0; max-height: min(52vh, 560px); overflow-y: auto; overscroll-behavior: contain; }
+.modal-box:has(.modal-tools.accessory-mode) .product-card,
+.modal-box:has(.modal-tools.accessory-mode) .product-item { min-width: 0; }
+/* Product cards and selected multi-products adapt to smaller screens. */
+.storage-selected-list, .accessory-selected-list { display: grid; gap: 12px; margin-bottom: 12px; }
+.multi-selected-product { grid-template-columns: 70px minmax(0, 1fr) auto; min-width: 0; }
+.multi-selected-product .product-info { min-width: 0; overflow-wrap: anywhere; }
+.multi-selected-product .view-product-btn { margin-top: 8px; min-height: 32px; padding: 6px 10px; font-size: 11px; }
+.multi-quantity-actions > strong { min-width: 20px; text-align: center; color: var(--gold); }
+.multi-quantity-actions .btn { min-height: 34px; padding: 6px 10px; }
+.step:has(.accessory-selected-list) { border-bottom: 0; }
+@media (max-width: 760px) {
+  .modal-box { width: calc(100vw - 24px); max-width: none; max-height: calc(100dvh - 24px); }
+  .modal-tools { padding: 14px 16px; }
+  .modal-tools.accessory-mode { grid-template-columns: minmax(0, 1fr); grid-template-areas: "search-label" "search-input" "filters"; gap: 8px; }
+  .modal-tools.accessory-mode > label[for="search"] { white-space: normal; }
+  .modal-box:has(.modal-tools.accessory-mode) .product-list { max-height: 48dvh; }
+  .multi-selected-product { grid-template-columns: 56px minmax(0, 1fr); gap: 10px; }
+  .multi-selected-product img { width: 56px; height: 56px; object-fit: contain; }
+  .multi-selected-product .multi-quantity-actions { grid-column: 1 / -1; justify-content: flex-start; width: 100%; flex-wrap: wrap; }
+  .multi-selected-product .product-info .pname { font-size: 13px; overflow-wrap: anywhere; }
+}
+@media (max-width: 480px) {
+  .modal-box { width: calc(100vw - 12px); max-height: calc(100dvh - 12px); border-radius: 12px; }
+  .modal-header { padding: 14px 16px; }
+  .modal-header h2 { font-size: 19px; }
+  .modal-tools { padding: 12px; gap: 8px; }
+  .modal-tools.accessory-mode .chip { padding: 7px 10px; font-size: 11px; }
+  .product-card, .product-item { gap: 10px; }
+  .product-card img, .product-item img { max-width: 64px; }
+  .multi-selected-product { grid-template-columns: 48px minmax(0, 1fr); }
+  .multi-selected-product img { width: 48px; height: 48px; }
+  .multi-quantity-actions .remove-product-btn, .product-actions .remove-product-btn { flex-basis: 32px; width: 32px; min-width: 32px; max-width: 32px; height: 32px; min-height: 32px; }
+}
+@media (max-width: 360px) {
+  .modal-tools.accessory-mode > label[for="search"] { font-size: 14px; }
+  .modal-box:has(.modal-tools.accessory-mode) .product-list { max-height: 44dvh; }
+}
+
+
+/* Processor/motherboard popup: search + brand chips on row one, note below. */
+.modal-tools.compatibility-mode {
+  display: grid;
+  grid-template-columns: max-content minmax(180px, 1fr) minmax(110px, 32%);
+  grid-template-areas: "search-label search-input filters" "compat-note compat-note compat-note";
+  align-items: center;
+  gap: 10px 14px;
+}
+.modal-tools.compatibility-mode > label[for="search"] {
+  grid-area: search-label; position: static; width: auto; height: auto;
+  margin: 0; padding: 0; overflow: visible; clip: auto; clip-path: none;
+  white-space: nowrap;
+}
+.modal-tools.compatibility-mode > #search.search-input {
+  grid-area: search-input; width: 100%; min-width: 0; margin: 0;
+}
+.modal-tools.compatibility-mode > #filters {
+  grid-area: filters; display: flex; align-items: center; flex-wrap: nowrap;
+  gap: 8px; width: 100%; min-width: 0; max-width: 100%;
+  overflow-x: auto; overflow-y: hidden; padding-bottom: 3px;
+}
+.modal-tools.compatibility-mode > #filters .chip { flex: 0 0 auto; }
+.modal-tools.compatibility-mode > #compatibility-filter-note {
+  grid-area: compat-note; box-sizing: border-box; width: 100%; min-width: 0;
+  margin: 0; padding: 10px 12px;
+  border: 1px solid rgba(61, 123, 255, .28); border-radius: 8px;
+  background: rgba(61, 123, 255, .08); color: var(--text);
+  font-size: 13px; line-height: 1.5;
+}
+.modal-tools.compatibility-mode > #compatibility-filter-note[hidden] { display: none; }
+
+/* Consistent View Product placement and sizing for RAM, storage and accessories. */
+.ram-selected-product .product-info,
+.multi-selected-product .product-info { min-width: 0; align-self: center; }
+.ram-selected-product .view-product-btn,
+.multi-selected-product .view-product-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: fit-content; min-height: 32px; margin: 8px 0 0;
+  padding: 6px 10px; line-height: 1.2; font-size: 11px; white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .modal-tools.compatibility-mode {
+    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-areas: "search-label search-input" "filters filters" "compat-note compat-note";
+    gap: 9px 12px;
+  }
+}
+@media (max-width: 480px) {
+  .modal-tools.compatibility-mode {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "search-label" "search-input" "filters" "compat-note";
+    gap: 8px;
+  }
+  .modal-tools.compatibility-mode > label[for="search"] { white-space: normal; }
+  .ram-selected-product .view-product-btn,
+  .multi-selected-product .view-product-btn { min-height: 30px; margin-top: 6px; }
 }
