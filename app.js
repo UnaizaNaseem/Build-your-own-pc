@@ -2186,6 +2186,86 @@ function closeModal() {
 
 
 /* ============================================================
+   PROCESSOR ↔ MOTHERBOARD SMART FILTERING
+   ============================================================ */
+
+function getModalCompatibilityContext() {
+
+    let counterpartType = "";
+
+    if (currentType === "motherboard" && build.processor) {
+        counterpartType = "processor";
+    } else if (currentType === "processor" && build.motherboard) {
+        counterpartType = "motherboard";
+    }
+
+    if (!counterpartType) {
+        return {
+            products: productsBy(currentType),
+            message: ""
+        };
+    }
+
+    const counterpart = build[counterpartType];
+    const counterpartSocket = normalizeSocket(
+        counterpart?.Compatibility?.socket
+    );
+    const counterpartName = counterpart?.["Product Name"] || labels[counterpartType];
+    const targetLabel = labels[currentType].toLowerCase() + "s";
+
+    if (!counterpartSocket) {
+        return {
+            products: productsBy(currentType),
+            message: `Socket details for ${counterpartName} are unavailable, so all ${targetLabel} are shown. Compatibility will still be checked in the build summary.`
+        };
+    }
+
+    const compatibleProducts = productsBy(currentType).filter(product => {
+        const productSocket = normalizeSocket(
+            product?.Compatibility?.socket
+        );
+
+        return productSocket && productSocket === counterpartSocket;
+    });
+
+    const socketLabel = counterpartSocket;
+    const message = currentType === "motherboard"
+        ? `Showing motherboards compatible with ${counterpartName} (${socketLabel} socket).`
+        : `Showing processors compatible with ${counterpartName} (${socketLabel} socket).`;
+
+    return {
+        products: compatibleProducts,
+        message
+    };
+}
+
+
+
+function renderCompatibilityFilterNote(message) {
+    const filters = document.getElementById("filters");
+    const list = document.getElementById("list");
+
+    if (!filters || !list) return;
+
+    let note = document.getElementById("compatibility-filter-note");
+
+    if (!note) {
+        note = document.createElement("div");
+        note.id = "compatibility-filter-note";
+        note.className = "compatibility-filter-note";
+        note.setAttribute("role", "status");
+
+        // Position the note below the search and filter controls.
+        list.parentNode.insertBefore(note, list);
+    }
+
+    note.textContent = message;
+    note.hidden = !message;
+}
+
+
+
+/* ============================================================
    FILTERS
    ============================================================ */
 
@@ -2203,26 +2283,24 @@ function renderFilters() {
     }
 
 
+    const modalContext = getModalCompatibilityContext();
+    const availableProducts = modalContext.products;
+
+    renderCompatibilityFilterNote(modalContext.message);
+
+    // Only offer brand filters that have products in the compatible list.
     const brands = [
-
         "All",
-
         ...new Set(
-
-            productsBy(
-                currentType
-            )
-                .map(
-                    product =>
-                        String(
-                            product.Brand || ""
-                        ).trim()
-                )
+            availableProducts
+                .map(product => String(product.Brand || "").trim())
                 .filter(Boolean)
-
         )
-
     ];
+
+    if (!brands.includes(brand)) {
+        brand = "All";
+    }
 
 
     filters.innerHTML =
@@ -2331,10 +2409,11 @@ function renderList() {
             .toLowerCase();
 
 
+    const modalContext = getModalCompatibilityContext();
+    renderCompatibilityFilterNote(modalContext.message);
+
     const filtered =
-        productsBy(
-            currentType
-        )
+        modalContext.products
             .filter(
                 product => {
 
@@ -2392,7 +2471,9 @@ function renderList() {
             : `
 
                 <div class="empty">
-                    No products found.
+                    ${modalContext.message && (currentType === "processor" || currentType === "motherboard")
+                        ? "No products match the selected component's socket. Remove or change the other component to see more options."
+                        : "No products found."}
                 </div>
 
               `;
