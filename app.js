@@ -150,13 +150,13 @@ const BUILDER_CONFIG = {
     storage: {
         enabled: true,
 
-        label: "Internal Storage",
+        label: "Storage",
 
         aliases: [
             "storage",
             "nvme ssd",
             "sata ssd",
-            "internal storage"
+            "storage"
         ]
     },
 
@@ -929,13 +929,12 @@ function selectedRAMProductsHTML(products) {
                             <div class="pname">${escapeHTML(product["Product Name"] || "RAM")}</div>
                             <div class="meta">${escapeHTML(product.Brand || "")} · ${item.quantity} stick${item.quantity === 1 ? "" : "s"}</div>
                             <div class="price">PKR ${money(safePrice(product) * item.quantity)}</div>
-                            ${product["Product URL"] ? `<a class="btn view-product-btn" href="${escapeHTML(product["Product URL"])}" target="_blank" rel="noopener noreferrer">View Product</a>` : ""}
                         </div>
                         <div class="product-actions" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
                             <button type="button" class="btn" onclick="changeRAMQuantity('${safeId}', -1)" aria-label="Remove one stick">−</button>
                             <strong>${item.quantity}</strong>
                             <button type="button" class="btn" onclick="changeRAMQuantity('${safeId}', 1)" aria-label="Add one stick" ${products.length >= getRAMStickLimit() ? "disabled" : ""}>+</button>
-                            <button type="button" class="btn change-product-btn" onclick="openModal('ram')">Add RAM</button>
+                            ${product["Product URL"] ? `<a class="btn view-product-btn" href="${escapeHTML(product["Product URL"])}" target="_blank" rel="noopener noreferrer">View Product</a>` : ""}
                             <button type="button" class="btn remove-product-btn" onclick="removeRAMProduct('${safeId}')">Remove</button>
                         </div>
                     </div>`;
@@ -968,14 +967,14 @@ function selectedMultiProductsHTML(type, products) {
                         <img src="${escapeHTML(image(product))}" alt="" onerror="this.style.display='none'">
                         <div class="product-info">
                             <div class="pname">${name}</div>
-                            <div class="meta">${productBrand}</div>
+                            <div class="meta">${productBrand}${productBrand ? " · " : ""}${item.quantity} selected</div>
                             <div class="price">PKR ${productPrice}</div>
-                            ${productURL ? `<a class="btn view-product-btn" href="${productURL}" target="_blank" rel="noopener noreferrer">View Product</a>` : ""}
                         </div>
                         <div class="product-actions multi-quantity-actions">
                             <button type="button" class="btn" onclick="changeMultiQuantity('${type}', '${safeId}', -1)" aria-label="Remove one">−</button>
                             <strong>${item.quantity}</strong>
                             <button type="button" class="btn" onclick="changeMultiQuantity('${type}', '${safeId}', 1)" aria-label="Add one">+</button>
+                            ${productURL ? `<a class="btn view-product-btn" href="${productURL}" target="_blank" rel="noopener noreferrer">View Product</a>` : ""}
                             <button type="button" class="btn remove-product-btn" onclick="removeMultiProduct('${type}', '${safeId}')">Remove</button>
                         </div>
                     </div>`;
@@ -2281,6 +2280,37 @@ function closeModal() {
 
 function getModalCompatibilityContext() {
 
+    // RAM picker: restore compatibility guidance/filtering based on the
+    // selected motherboard first, then the processor if no board is selected.
+    if (currentType === "ram") {
+        const counterpart = build.motherboard || build.processor;
+        const counterpartType = build.motherboard ? "motherboard" : (build.processor ? "processor" : "");
+
+        if (!counterpartType || !counterpart) {
+            return { products: productsBy(currentType), message: "" };
+        }
+
+        const supportedMemory = getMemoryGenerations(counterpart.Compatibility || {});
+        const counterpartName = counterpart["Product Name"] || labels[counterpartType];
+
+        if (!supportedMemory.length) {
+            return {
+                products: productsBy(currentType),
+                message: `Memory compatibility details for ${counterpartName} are unavailable, so all RAM is shown. Compatibility will still be checked in the build summary.`
+            };
+        }
+
+        const compatibleProducts = productsBy(currentType).filter(product => {
+            const ramMemory = getRAMMemoryGenerations(product.Compatibility || {});
+            return ramMemory.length > 0 && ramMemory.some(generation => supportedMemory.includes(generation));
+        });
+
+        return {
+            products: compatibleProducts,
+            message: `Showing RAM matching ${counterpartType === "motherboard" ? "motherboard" : "processor"} memory support: ${supportedMemory.join(" / ")}.`
+        };
+    }
+
     let counterpartType = "";
 
     if (currentType === "motherboard" && build.processor) {
@@ -2351,7 +2381,7 @@ function renderCompatibilityFilterNote(message) {
 
     note.textContent = message;
     note.hidden = !message;
-    modalTools.classList.toggle("compatibility-mode", Boolean(message) && ["processor", "motherboard"].includes(currentType));
+    modalTools.classList.toggle("compatibility-mode", Boolean(message) && ["processor", "motherboard", "ram"].includes(currentType));
 }
 
 

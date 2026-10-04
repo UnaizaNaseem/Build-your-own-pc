@@ -1,365 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <!-- Primary SEO -->
-  <title>PC Builder Pakistan | Build Your Own PC | GB Tech</title>
-
-  <meta
-    name="description"
-    content="Build your own custom PC with GB Tech Pakistan. Choose CPUs, motherboards, RAM, graphics cards, cases, cooling and power supplies with built-in compatibility checks."
-  >
-
-  <meta
-    name="robots"
-    content="index, follow, max-image-preview:large"
-  >
-
-  <meta
-    name="googlebot"
-    content="index, follow, max-image-preview:large"
-  >
-
-  <link
-    rel="canonical"
-    href="https://build-your-own-pc.gb-tech.pk/"
-  >
-
+  <title>
+   PC Builder Pakistan | Build Your Own PC | GB Tech
+  </title>
+  <meta content="Build your own custom PC with GB Tech Pakistan. Choose CPUs, motherboards, RAM, graphics cards, cases, cooling and power supplies with built-in compatibility checks." name="description"/>
+  <meta content="index, follow, max-image-preview:large" name="robots"/>
+  <meta content="index, follow, max-image-preview:large" name="googlebot"/>
+  <link href="https://build-your-own-pc.gb-tech.pk/" rel="canonical"/>
   <!-- Favicon -->
-  <link
-    rel="icon"
-    type="image/avif"
-    href="/media/favicon.avif"
-  >
-
+  <link href="/media/favicon.avif" rel="icon" type="image/avif"/>
   <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="PC Builder Pakistan | Build Your Own PC | GB Tech">
-  <meta
-    property="og:description"
-    content="Build your own custom PC with GB Tech Pakistan. Choose PC components and check compatibility as you build."
-  >
-  <meta property="og:url" content="https://build-your-own-pc.gb-tech.pk/">
-  <meta property="og:site_name" content="GB Tech">
-
+  <meta content="website" property="og:type"/>
+  <meta content="PC Builder Pakistan | Build Your Own PC | GB Tech" property="og:title"/>
+  <meta content="Build your own custom PC with GB Tech Pakistan. Choose PC components and check compatibility as you build." property="og:description"/>
+  <meta content="https://build-your-own-pc.gb-tech.pk/" property="og:url"/>
+  <meta content="GB Tech" property="og:site_name"/>
   <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="PC Builder Pakistan | Build Your Own PC | GB Tech">
-  <meta
-    name="twitter:description"
-    content="Build your own custom PC with GB Tech Pakistan. Choose PC components and check compatibility as you build."
-  >
-
+  <meta content="summary" name="twitter:card"/>
+  <meta content="PC Builder Pakistan | Build Your Own PC | GB Tech" name="twitter:title"/>
+  <meta content="Build your own custom PC with GB Tech Pakistan. Choose PC components and check compatibility as you build." name="twitter:description"/>
   <!-- Google Search Console verification -->
-  <meta
-    name="google-site-verification"
-    content="mJ9Db6K-12DS9-QldykMEolafgbv2uqgjU7EVGEnGo4"
-  >
-
+  <meta content="mJ9Db6K-12DS9-QldykMEolafgbv2uqgjU7EVGEnGo4" name="google-site-verification"/>
   <!-- Browser / mobile -->
-  <meta name="theme-color" content="#0b0d12">
-
+  <meta content="#0b0d12" name="theme-color"/>
   <!-- Performance -->
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-
+  <link crossorigin="" href="https://cdnjs.cloudflare.com" rel="preconnect"/>
   <!-- WebApplication structured data -->
   <script type="application/ld+json">
-  {
+   {
+
     "@context": "https://schema.org",
+
     "@type": "WebApplication",
+
     "name": "GB Tech PC Builder",
+
     "url": "https://build-your-own-pc.gb-tech.pk/",
+
     "description": "Build your own custom PC with GB Tech Pakistan using processors, motherboards, RAM, graphics cards, cases, cooling and power supplies with compatibility checks.",
+
     "applicationCategory": "UtilitiesApplication",
+
     "operatingSystem": "Web Browser",
+
     "isAccessibleForFree": true,
+
     "publisher": {
+
       "@type": "Organization",
+
       "name": "GB Tech",
+
       "url": "https://www.gb-tech.pk/"
+
     }
+
   }
   </script>
-
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css">
-
+  <link href="styles.css" rel="stylesheet"/>
   <!-- jsPDF -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-  ></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+  </script>
   <!-- jsPDF AutoTable -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"
-  ></script>
-</head>
-
-<body>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js">
+  </script>
+ </head>
+ <body>
   <!-- =========================================================
+
        GB TECH — PAGE HEADER
-       ========================================================= -->
 
-
+       \========================================================= -->
   <!-- =========================================================
+
        MAIN BUILDER
-       ========================================================= -->
+
+       \========================================================= -->
   <main class="container">
+   <!-- =======================================================
 
-    <!-- =======================================================
          TOOLBAR
-         ======================================================= -->
-    <div class="toolbar">
 
-      <button
-        type="button"
-        class="pdf-download-btn"
-        onclick="downloadSelectedPDF()"
-      >
-        <span class="download-icon">↓</span>
-        Download Selected Items as PDF
-      </button>
+         \======================================================= -->
+   <div class="toolbar">
+    <button class="pdf-download-btn" onclick="downloadSelectedPDF()" type="button">
+     <span class="download-icon">
+      &darr;
+     </span>
+     Download Selected Items as PDF
+    </button>
+   </div>
+   <!-- =======================================================
 
-    </div>
-
-
-    <!-- =======================================================
          BUILDER + SUMMARY
-         ======================================================= -->
-    <div class="build-layout">
 
-      <!-- =====================================================
+         \======================================================= -->
+   <div class="build-layout">
+    <!-- =====================================================
+
            BUILDER
-           ===================================================== -->
-      <section
-        class="builder-panel"
-        aria-labelledby="components-heading"
-      >
 
-        <div class="panel-heading">
+           \===================================================== -->
+    <section aria-labelledby="components-heading" class="builder-panel">
+     <div class="panel-heading">
+      <div>
+       <span class="panel-kicker">
+        COMPONENT SELECTION
+       </span>
+       <h1 id="components-heading">
+        Your Components
+       </h1>
+      </div>
+      <span class="live-badge">
+       LIVE
+      </span>
+     </div>
+     <div class="builder-list" id="builder">
+      <div class="loading">
+       Loading GB Tech products...
+      </div>
+     </div>
+    </section>
+    <!-- =====================================================
 
-          <div>
-            <span class="panel-kicker">
-              COMPONENT SELECTION
-            </span>
-
-            <h1 id="components-heading">
-              Your Components
-            </h1>
-          </div>
-
-          <span class="live-badge">
-            LIVE
-          </span>
-
-        </div>
-
-
-        <div
-          id="builder"
-          class="builder-list"
-        >
-
-          <div class="loading">
-            Loading GB Tech products...
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
            BUILD SUMMARY
-           ===================================================== -->
-      <aside
-        class="summary-panel"
-        aria-labelledby="build-summary-heading"
-      >
 
-        <div class="panel-heading summary-heading">
+           \===================================================== -->
+    <aside aria-labelledby="build-summary-heading" class="summary-panel">
+     <div class="panel-heading summary-heading">
+      <div>
+       <span class="panel-kicker">
+        BUILD SUMMARY
+       </span>
+       <h2 id="build-summary-heading">
+        Your Build
+       </h2>
+      </div>
+      <span class="summary-label">
+       LIVE TOTAL
+      </span>
+     </div>
+     <!-- TOTAL -->
+     <div class="total" id="total">
+      PKR 0
+     </div>
+     <!-- COMPATIBILITY -->
+     <div id="compat">
+     </div>
+     <!-- STATUS -->
+     <div id="status">
+     </div>
+     <!-- DISCLAIMER -->
+     <div class="compatibility-disclaimer">
+      <strong>
+       Compatibility disclaimer
+      </strong>
+      <p>
+       This builder performs basic compatibility checks using the
 
-          <div>
-            <span class="panel-kicker">
-              BUILD SUMMARY
-            </span>
-
-            <h2 id="build-summary-heading">
-              Your Build
-            </h2>
-          </div>
-
-          <span class="summary-label">
-            LIVE TOTAL
-          </span>
-
-        </div>
-
-
-        <!-- TOTAL -->
-        <div
-          class="total"
-          id="total"
-        >
-          PKR 0
-        </div>
-
-
-        <!-- COMPATIBILITY -->
-        <div id="compat"></div>
-
-
-        <!-- STATUS -->
-        <div id="status"></div>
-
-
-        <!-- DISCLAIMER -->
-        <div class="compatibility-disclaimer">
-
-          <strong>
-            Compatibility disclaimer
-          </strong>
-
-          <p>
-            This builder performs basic compatibility checks using the
             product specifications available in the GB Tech product data.
+
             It does not guarantee complete system compatibility.
+
             Always verify detailed specifications with the manufacturer
+
             before purchasing.
-          </p>
-
-        </div>
-
-
-        <!-- ASK GB TECH -->
-        <div class="help-card">
-
-          <span class="help-kicker">
-            NEED HELP?
-          </span>
-
-          <h3>
-            Not sure what to choose?
-          </h3>
-
-          <p>
-            Talk to GB Tech directly and we'll help you with your build.
-          </p>
-
-          <button
-            type="button"
-            class="whatsapp-help-btn"
-            onclick="askGBTechAboutBuild()"
-          >
-
-            <svg
-              class="whatsapp-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                d="M20.52 3.48A11.78 11.78 0 0 0 12.1 0C5.6 0 .32 5.28.32 11.78c0 2.08.54 4.11 1.57 5.9L.22 24l6.46-1.64a11.77 11.77 0 0 0 5.42 1.3h.01c6.5 0 11.78-5.28 11.78-11.78 0-3.15-1.23-6.11-3.37-8.4ZM12.1 21.66h-.01a9.82 9.82 0 0 1-5.01-1.37l-.36-.21-3.83.97 1.02-3.73-.23-.38a9.82 9.82 0 0 1-1.5-5.16c0-5.42 4.41-9.83 9.83-9.83 2.63 0 5.1 1.03 6.96 2.89a9.77 9.77 0 0 1 2.87 6.96c0 5.42-4.41 9.83-9.82 9.83Zm5.39-7.36c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.75.95-.92 1.14-.17.19-.34.22-.63.07-.29-.15-1.21-.45-2.3-1.43-.85-.76-1.43-1.69-1.6-1.98-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.19.05-.37-.02-.52-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.43s1.04 2.82 1.19 3.02c.15.19 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.69.22 1.31.19 1.81.12.55-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.19-.56-.34Z"
-              />
-            </svg>
-
-            <span>
-              Ask GB Tech About This Build
-            </span>
-
-          </button>
-
-        </div>
-
-      </aside>
-
-    </div>
-
-
+      </p>
+     </div>
+     <!-- ASK GB TECH -->
+     <div class="help-card">
+      <span class="help-kicker">
+       NEED HELP?
+      </span>
+      <h3>
+       Not sure what to choose?
+      </h3>
+      <p>
+       Talk to GB Tech directly and we'll help you with your build.
+      </p>
+      <button class="whatsapp-help-btn" onclick="askGBTechAboutBuild()" type="button">
+       <svg aria-hidden="true" class="whatsapp-icon" viewbox="0 0 24 24">
+        <path d="M20.52 3.48A11.78 11.78 0 0 0 12.1 0C5.6 0 .32 5.28.32 11.78c0 2.08.54 4.11 1.57 5.9L.22 24l6.46-1.64a11.77 11.77 0 0 0 5.42 1.3h.01c6.5 0 11.78-5.28 11.78-11.78 0-3.15-1.23-6.11-3.37-8.4ZM12.1 21.66h-.01a9.82 9.82 0 0 1-5.01-1.37l-.36-.21-3.83.97 1.02-3.73-.23-.38a9.82 9.82 0 0 1-1.5-5.16c0-5.42 4.41-9.83 9.83-9.83 2.63 0 5.1 1.03 6.96 2.89a9.77 9.77 0 0 1 2.87 6.96c0 5.42-4.41 9.83-9.82 9.83Zm5.39-7.36c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.19.29-.75.95-.92 1.14-.17.19-.34.22-.63.07-.29-.15-1.21-.45-2.3-1.43-.85-.76-1.43-1.69-1.6-1.98-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.19.05-.37-.02-.52-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.49-.66-.5h-.56c-.19 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.43s1.04 2.82 1.19 3.02c.15.19 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.69.22 1.31.19 1.81.12.55-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.19-.56-.34Z">
+        </path>
+       </svg>
+       <span>
+        Ask GB Tech About This Build
+       </span>
+      </button>
+     </div>
+    </aside>
+   </div>
   </main>
-
-
   <!-- =========================================================
+
        PRODUCT SELECTION MODAL
-       ========================================================= -->
-  <div
-    class="modal"
-    id="modal"
-    aria-hidden="true"
-  >
 
-    <div
-      class="modal-box"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
-
-      <div class="modal-header">
-
-        <div>
-          <span class="panel-kicker">
-            GB TECH CATALOG
-          </span>
-
-          <h2 id="modal-title">
-            Choose a product
-          </h2>
-        </div>
-
-        <button
-          class="close-btn"
-          type="button"
-          onclick="closeModal()"
-          aria-label="Close product selection"
-        >
-          ×
-        </button>
-
-      </div>
-
-
-      <div class="modal-tools">
-
-        <label
-          for="search"
-          class="visually-hidden"
-        >
-          Search products
-        </label>
-
-        <input
-          id="search"
-          class="search-input"
-          type="search"
-          placeholder="Search products..."
-          autocomplete="off"
-        >
-
-        <div
-          class="filters"
-          id="filters"
-        ></div>
-
-      </div>
-
-
-      <div
-        class="product-list"
-        id="list"
-      ></div>
-
+       \========================================================= -->
+  <div aria-hidden="true" class="modal" id="modal">
+   <div aria-labelledby="modal-title" aria-modal="true" class="modal-box" role="dialog">
+    <div class="modal-header">
+     <div>
+      <span class="panel-kicker">
+       GB TECH CATALOG
+      </span>
+      <h2 id="modal-title">
+       Choose a product
+      </h2>
+     </div>
+     <button aria-label="Close product selection" class="close-btn" onclick="closeModal()" type="button">
+      &times;
+     </button>
     </div>
-
+    <div class="modal-tools">
+     <label class="visually-hidden" for="search">
+      Search products
+     </label>
+     <input autocomplete="off" class="search-input" id="search" placeholder="Search products..." type="search"/>
+     <div class="filters" id="filters">
+     </div>
+    </div>
+    <div class="product-list" id="list">
+    </div>
+   </div>
   </div>
-
-
   <!-- =========================================================
-       APPLICATION
-       ========================================================= -->
-  <script src="app.js"></script>
 
-</body>
+       APPLICATION
+
+       \========================================================= -->
+  <script src="app.js">
+  </script>
+ </body>
 </html>
